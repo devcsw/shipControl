@@ -7,7 +7,6 @@
 
 <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=0e70be96a08733981d994c3517a10a37&libraries=services,clusterer,drawing"></script>
 
-
 <script>
 	var container = document.getElementById('map');
 	var options = {
@@ -61,8 +60,6 @@
 	    // 지도 중심좌표에 마커를 생성합니다 
 	    position: map.getCenter() 
 	}); 
-	
-	
 	
 	// 지도에 마커를 표시합니다
 	marker.setMap(map);
