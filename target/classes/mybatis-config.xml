@@ -7,8 +7,7 @@
 	
 	<typeAliases>
 		<!-- 클래스 단위 -->
-		<!-- com.kh.sample01.MemberVo -->
-<!-- 		<typeAlias type="com.kh.sample01.MemberVo" alias="MemberVo"/> -->
+<!-- 		<typeAlias type="com.kh.shipcontrol.MemberVo" alias="MemberVo"/> -->
 		<!-- 패키지 단위 -->
 		<package name="com.kh.shipcontrol.vo"/>
 	</typeAliases>
