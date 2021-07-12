@@ -17,6 +17,7 @@
 	<input type="button" id="sendBtn" value="submit"/>
 	<div id="messageArea"></div>
 </body>
+
 <script type="text/javascript">
 	//메세지 전송시에 데이터처리
 	$("#sendBtn").click(function() {
