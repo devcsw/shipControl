@@ -60,6 +60,15 @@
     <version>11.2.0.4</version>
 </dependency>
 
+<!-- spring-websocket -->
+
+
+<dependency>
+	<groupId>org.springframework</groupId>
+	<artifactId>spring-websocket</artifactId>
+	<version>${org.springframework-version}</version>
+</dependency>
+
 		
 		<!-- Spring -->
 		<dependency>
