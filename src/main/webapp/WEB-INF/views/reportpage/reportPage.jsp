@@ -1,6 +1,13 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+
 <%@ include file="../include/header.jsp"%>
+<script type="text/javascript">
+	$("tr").hover(function name() {
+		$(this).focus();
+	});
+</script>
+
 
 <!-- 페이지 설명 -->
 <div class="container-fluid">
@@ -64,14 +71,16 @@
 					</tr>
 				</thead>
 				<tbody>
-					<tr>
-						<td>1</td>
+					<tr onclick="location.href='/reportContent'">
+						<td><a href="/reportContent">1</a></td>
 						<td>1202</td>
 						<td>위도,경도</td>
 						<td>2021.07.09 12:46</td>
 						<td>106547</td>
 						<td>신고 접수</td>
+
 					</tr>
+
 				</tbody>
 			</table>
 
@@ -92,5 +101,8 @@
 		</div>
 	</div>
 </div>
+
+
+
 
 <%@ include file="../include/footer.jsp"%>
