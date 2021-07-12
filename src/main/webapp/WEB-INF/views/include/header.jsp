@@ -134,7 +134,7 @@
 
 											</div>
 											<div class="modal-footer">
-
+												<a type="button" class="btn btn-success" href="/registerPage">회원가입</a>
 												<button type="button" class="btn btn-primary">로그인</button>
 												<button type="button" class="btn btn-secondary"
 													data-dismiss="modal">취소</button>
