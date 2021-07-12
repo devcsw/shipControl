@@ -33,7 +33,7 @@ public class ManagementController {
 		
 		model.addAttribute("serverTime", formattedDate );
 		
-		return "shipManagement";
+		return "ship_management";
 	}
 	
 	
