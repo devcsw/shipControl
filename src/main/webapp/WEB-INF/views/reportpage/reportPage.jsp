@@ -86,7 +86,7 @@
 
 			<!-- 테이블 끝 -->
 
-			<button type="button" class="btn btn-primary justify-content-end">등록하기</button>
+			<a type="button" class="btn btn-primary justify-content-end" href="/manuallyRegistReport">등록하기</a>
 
 			<!-- pagination -->
 			<nav>

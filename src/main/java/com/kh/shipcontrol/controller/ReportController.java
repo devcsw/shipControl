@@ -18,5 +18,11 @@ public class ReportController {
 
 		return "/reportpage/reportContent";
 	}
+	
+	@RequestMapping(value="/manuallyRegistReport")
+	public String manuallyRegistReport() throws Exception{
+		
+		return"/reportpage/manuallyRegistReport";
+	}
 
 }
