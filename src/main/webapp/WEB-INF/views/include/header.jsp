@@ -27,13 +27,7 @@
 	src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/js/all.min.js"
 	crossorigin="anonymous"></script>
 <style type="text/css">
-#footer {
-	position: absolute;
-	bottom: 0;
-	width: 100%;
-	height: 70px;
-	background: #ccc;
-}
+
 </style>
 </head>
 <script

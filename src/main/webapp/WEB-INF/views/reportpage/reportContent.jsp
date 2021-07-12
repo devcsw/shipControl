@@ -1,6 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ include file="../include/header.jsp"%>
+<script type="text/javascript"
+	src="//dapi.kakao.com/v2/maps/sdk.js?appkey=0f71a92fecd7b42434cde225a0893ff1"></script>
 <!-- 상새내역 title -->
 <div class="container-fluid">
 
@@ -17,11 +19,24 @@
 <!-- 상새내역 title 끝 -->
 <div class="container-fluid">
 	<div class="row">
+		<div class="col-md-6">
+			<!-- 지도데이터 div -->
+			<div class="d-flex justify-content-center">
+				<div id="map" style="width: 500px; height: 500px;"></div>
+			</div>
+			<script>
+				var container = document.getElementById('map'); //지도를 담을 영역의 DOM 레퍼런스
+				var options = { //지도를 생성할 때 필요한 기본 옵션
+					center : new kakao.maps.LatLng(35.44294727060267,
+							129.36937385789298), //지도의 중심좌표.
+					level : 7
+				//지도의 레벨(확대, 축소 정도)
+				};
 
-		<!-- 지도데이터 div -->
-		<div class="col-md-6">지도데이터 DIV</div>
-		<!-- 지도데이터 div 끝 -->
-
+				var map = new kakao.maps.Map(container, options); //지도 생성 및 객체 리턴
+			</script>
+			<!-- 지도데이터 div 끝 -->
+		</div>
 		<!-- 상세내역 테이블 -->
 		<div class="col-md-6">
 			<table class="table">
