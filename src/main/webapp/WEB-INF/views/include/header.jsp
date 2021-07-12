@@ -71,9 +71,14 @@
 			<div class="collapse navbar-collapse" id="navbarColor01">
 				<ul class="navbar-nav me-auto">
 					<li class="nav-item"><a class="nav-link" href="/">전체상황 </a></li>
+<<<<<<< HEAD
 					<li class="nav-item"><a class="nav-link" href="/management">선박관리</a></li>
 					<li class="nav-item"><a class="nav-link" href="#">조난내역</a></li>
 					<li class="nav-item"><a class="nav-link" href="#">처리현황</a></li>
+=======
+					<li class="nav-item"><a class="nav-link" href="#">선박관리</a></li>
+					<li class="nav-item"><a class="nav-link" href="/reportPage">조난내역</a></li>
+>>>>>>> branch 'main' of https://github.com/devcsw/shipControl
 					<li class="nav-item dropdown"><a
 						class="nav-link dropdown-toggle" data-bs-toggle="dropdown"
 						href="#" role="button" aria-haspopup="true" aria-expanded="false">통계</a>
