@@ -11,6 +11,8 @@ import org.springframework.web.socket.TextMessage;
 import org.springframework.web.socket.WebSocketSession;
 import org.springframework.web.socket.handler.TextWebSocketHandler;
 
+//소켓통신 핸들러
+
 @RequestMapping("/echo")
 public class EchoHandler extends TextWebSocketHandler{
     //세션 리스트

@@ -36,12 +36,5 @@ public class ManagementController {
 		return "shipManagement";
 	}
 	
-	@RequestMapping(value = "/chat", method = RequestMethod.GET)
-	public String chat(Locale locale, Model model) {
-		logger.info("Welcome chat! The client locale is {}.", locale);
-		
-		
-		return "chat";
-	}
 	
 }
