@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -27,7 +28,6 @@
 	src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/js/all.min.js"
 	crossorigin="anonymous"></script>
 <style type="text/css">
-
 </style>
 </head>
 <script
@@ -47,7 +47,11 @@
 <link href="/resources/css/bootstrap.min.css" rel="stylesheet">
 
 <script type="text/javascript">
-	
+	$(function name() {
+		$("#loginButton").click(function name() {
+			$("#loginForm").submit();
+		});
+	});
 </script>
 <body class="sb-nav-fixed">
 
@@ -88,55 +92,83 @@
 						<div class="row">
 							<div class="col-md-12">
 
-								<a id="modal-109186" href="#modal-container-109186"
-									class="btn btn-light" data-toggle="modal">로그인</a>
+								<c:choose>
+									<c:when test="${loginVo==null }">
 
-								<div class="modal fade" id="modal-container-109186"
-									role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-									<div class="modal-dialog" role="document">
-										<div class="modal-content">
-											<div class="modal-header">
-												<h5 class="modal-title" id="myModalLabel">로그인 하기</h5>
-												<button type="button" class="close" data-dismiss="modal">
-													<span aria-hidden="true">×</span>
-												</button>
-											</div>
-											<div class="modal-body">
+										<a id="modal-109186" href="#modal-container-109186"
+											class="btn btn-light" data-toggle="modal">로그인</a>
 
-												<div class="container-fluid">
-													<div class="row">
-														<div class="col-md-12">
-															<form role="form">
-																<div class="form-group">
+										<div class="modal fade" id="modal-container-109186"
+											role="dialog" aria-labelledby="myModalLabel"
+											aria-hidden="true">
+											<div class="modal-dialog" role="document">
+												<div class="modal-content">
+													<div class="modal-header">
+														<h5 class="modal-title" id="myModalLabel">로그인 하기</h5>
+														<button type="button" class="close" data-dismiss="modal">
+															<span aria-hidden="true">×</span>
+														</button>
+													</div>
+													<div class="modal-body">
 
-																	<label for="user_id"> 아이디 </label> <input type="text"
-																		class="form-control" id="user_id" name="user_id" />
+														<div class="container-fluid">
+															<div class="row">
+																<div class="col-md-12">
+																	<form role="form" action="/loginRun" method="post"
+																		id="loginForm">
+																		<div class="form-group">
+
+																			<label for="user_id"> 아이디 </label> <input type="text"
+																				class="form-control" id="login_user_id"
+																				name="user_id" />
+																		</div>
+																		<div class="form-group">
+
+																			<label for="user_pw"> 패스워드 </label> <input
+																				type="password" class="form-control"
+																				id="login_user_pw" name="user_pw" />
+																		</div>
+																	</form>
 																</div>
-																<div class="form-group">
-
-																	<label for="user_pw"> 패스워드 </label> <input
-																		type="password" class="form-control" id="user_pw"
-																		name="user_pw" />
-																</div>
-
-															</form>
+															</div>
 														</div>
+
+													</div>
+													<div class="modal-footer">
+														<a type="button" class="btn btn-success"
+															href="/registerPage">회원가입</a>
+														<button type="button" class="btn btn-primary"
+															id="loginButton">로그인</button>
+														<button type="button" class="btn btn-secondary"
+															data-dismiss="modal">취소</button>
 													</div>
 												</div>
-
-											</div>
-											<div class="modal-footer">
-												<a type="button" class="btn btn-success"
-													href="/registerPage">회원가입</a>
-												<button type="button" class="btn btn-primary">로그인</button>
-												<button type="button" class="btn btn-secondary"
-													data-dismiss="modal">취소</button>
 											</div>
 										</div>
 
-									</div>
+									</c:when>
+									<c:otherwise>
 
-								</div>
+
+										<div class="dropdown">
+
+											<button class="btn btn-success dropdown-toggle" type="button"
+												id="dropdownMenuButton" data-toggle="dropdown">
+												<div style="color: white;">${loginVo.user_name}님반갑습니다</div>
+											</button>
+											<div class="dropdown-menu"
+												aria-labelledby="dropdownMenuButton">
+												<a class="dropdown-item" href="#">내 정보</a> <a
+													class="dropdown-item" href="/logout">로그아웃</a> <a
+													class="dropdown-item" href="#">Something else here</a>
+											</div>
+										</div>
+
+
+
+									</c:otherwise>
+								</c:choose>
+
 
 							</div>
 						</div>
