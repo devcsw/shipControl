@@ -3,7 +3,15 @@
 <%@ include file="../include/header.jsp"%>
 <script type="text/javascript"
 	src="//dapi.kakao.com/v2/maps/sdk.js?appkey=0f71a92fecd7b42434cde225a0893ff1"></script>
+<script type="text/javascript">
 
+$(function name() {
+	$("#buttonAcdRegister").click(function name() {
+		$("#acdReportForm").submit();
+	});
+});
+
+</script>
 
 <!-- 등록 페이지 title -->
 <div class="container-fluid">
@@ -74,7 +82,7 @@
 			<div class="container-fluid">
 				<div class="row">
 					<div class="col-md-12">
-						<form role="form">
+						<form role="form" action="/registReportRun" method="post" id="acdReportForm">
 							<div class="form-group">
 								<label for="acd_code_id"> 사고 코드 </label> <input type="text"
 									class="form-control" id="acd_code_id" name="acd_code_id" />
@@ -91,8 +99,11 @@
 							</div>
 
 							<div class="form-group">
-								<label for="acd_date "> 사고 발생시간 </label> <input type="text"
-									class="form-control " id="acd_date" name="acd_date" />
+								<label for="acd_timestamp "> 사고 발생시간 </label>
+								<input type="date"
+									class="form-control " id="acd_day" name="acd_day" /> 
+								<input type="time"
+									class="form-control " id="acd_hour" name="acd_hour" />
 							</div>
 
 							<div class="form-group">
@@ -104,7 +115,6 @@
 								<label for="acd_take "> 진행상태 </label> <input type="text"
 									class="form-control" id="acd_take" name="acd_take" />
 							</div>
-
 						</form>
 					</div>
 				</div>
@@ -122,7 +132,7 @@
 	<div class="row">
 		<div class="col-md-12">
 			<div class="d-flex justify-content-end">
-				<button type="button" class="btn btn-primary">등록하기</button>
+				<button type="button" class="btn btn-primary" id="buttonAcdRegister">등록하기</button>
 			</div>
 		</div>
 	</div>

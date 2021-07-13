@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.kh.shipcontrol.report">
+
+	<!-- 회원등록 -->
+	<insert id="registReport">
+		insert into acd_tb(acd_id, acd_code_id, 
+		acd_latitude, acd_longitude, acd_date, acd_remark, acd_take)
+		values(SEQ_ACD_ID.nextval, #{acd_code_id}, #{acd_latitude},#{acd_longitude},#{acd_date}, null, '신고접수')
+	</insert>
+
+
+
+
+</mapper>
