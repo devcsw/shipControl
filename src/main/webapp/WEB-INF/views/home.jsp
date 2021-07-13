@@ -71,7 +71,13 @@
 		var message = '클릭한 위치의 위도는 ' + latlng.getLat() + ' 이고, ';
 		message += '경도는 ' + latlng.getLng() + ' 입니다';
 		getInfo();
-
+	});
+	
+	$(function name() {
+		let registerMessage = "${registermsg}";
+		if (registerMessage == "success") {
+			alert("회원가입에 성공하였습니다");
+		}
 	});
 </script>	
 

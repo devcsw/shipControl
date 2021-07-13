@@ -34,6 +34,26 @@
 				};
 
 				var map = new kakao.maps.Map(container, options); //지도 생성 및 객체 리턴
+
+				let xLocation = 35.44294727060267;
+				let yLocation = 129.36937385789298;
+
+				$(function name() {
+
+					xLocation = $("#acd_latitude").text();
+					yLocation = $("#acd_longitude").text();
+
+					let marker = new kakao.maps.Marker({
+						// 지도 중심좌표에 마커를 생성합니다 
+						position : map.getCenter()
+					});
+
+					marker.setMap(map);
+
+					marker.setPosition(new kakao.maps.LatLng(xLocation,
+							yLocation));
+
+				});
 			</script>
 			<!-- 지도데이터 div 끝 -->
 		</div>
@@ -51,8 +71,12 @@
 						<td>1202</td>
 					</tr>
 					<tr>
-						<th>사고위치</th>
-						<td>위도, 경도</td>
+						<th>사고위도</th>
+						<td id="acd_latitude">35.44294727060267</td>
+					</tr>
+					<tr>
+						<th>사고경도</th>
+						<td id="acd_longitude">129.36937385789298</td>
 					</tr>
 					<tr>
 						<th>사고발생시간</th>
