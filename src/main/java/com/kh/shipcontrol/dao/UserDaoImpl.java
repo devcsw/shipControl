@@ -21,4 +21,16 @@ public class UserDaoImpl implements UserDao {
 
 	}
 
+	@Override
+	public int loginRun(UserVo userVo) {
+		int count = sqlsession.selectOne(NAMESPACE + "loginRun", userVo);
+		return count;
+	}
+
+	@Override
+	public UserVo getUserVo(String user_no) {
+		UserVo userVo = sqlsession.selectOne(NAMESPACE + "getUserVo", user_no);
+		return userVo;
+	}
+
 }

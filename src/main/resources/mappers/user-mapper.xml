@@ -11,8 +11,15 @@
 		user_name, user_rank, user_phone, user_auth_level)
 		values (SEQ_TB_USER_USER_NO.nextval,
 		#{user_id},#{user_pw}, #{user_name}, #{user_rank}, #{user_phone}, 0)
-
 	</insert>
+	
+	<select id="loginRun" resultType="int">
+		select count(*) from user_tb where user_id = #{user_id} and user_pw = #{user_pw}
+	</select>
+	
+	<select id="getUserVo" resultType="UserVo">
+	select * from user_tb where user_id = #{user_id}
+	</select>
 
 
 </mapper>
