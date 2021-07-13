@@ -49,7 +49,6 @@ public class ShipServiceImpl implements ShipService {
 	}
 	
 	public void listAllShip() {
-		
 	}
 	
 }
