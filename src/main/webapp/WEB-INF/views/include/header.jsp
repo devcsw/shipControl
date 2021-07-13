@@ -45,6 +45,10 @@
 
 <link href="/resources/css/bootstrap.css" rel="stylesheet" />
 <link href="/resources/css/bootstrap.min.css" rel="stylesheet">
+<!-- socket통신 -->
+<script type="text/javascript"
+	src="https://cdnjs.cloudflare.com/ajax/libs/sockjs-client/1.1.5/sockjs.min.js"></script>
+	
 
 
 <script type="text/javascript">
