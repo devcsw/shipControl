@@ -46,6 +46,7 @@
 <link href="/resources/css/bootstrap.css" rel="stylesheet" />
 <link href="/resources/css/bootstrap.min.css" rel="stylesheet">
 
+
 <script type="text/javascript">
 	$(function name() {
 		$("#loginButton").click(function name() {
@@ -54,7 +55,6 @@
 	});
 </script>
 <body class="sb-nav-fixed">
-
 
 	<nav class="navbar navbar-expand-lg navbar-dark bg-primary">
 		<div class="container-fluid">

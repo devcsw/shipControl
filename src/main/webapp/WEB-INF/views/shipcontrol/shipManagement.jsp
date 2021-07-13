@@ -7,12 +7,21 @@
 $(document).ready(function() {
 //sh_id, sh_name, sh_board_code, sh_owner, sh_owner_tel, 
 //sh_cap_name, sh_cap_tel, sh_type, sh_mmsi, sh_call_sign, sh_date
-	$('#btnShipInsert').click(function() {	
-		
-		$("#insertForm").submit();
 
-	});
+	
+
 });
+// 계속 데이터를 쏴주는 코드 작성
+// 생성되는 데이터 기준으로 화면 변경 및 데이터 베이스 입력
+//playAlert = setInterval(function() {
+	// 리스트에 선박데이터 배열 100개 생성 코드
+	//생성 될 때마다 테이블 변경
+	// 추후 생성 될 때마다 지도 api에 위치 마크업
+	// 서버에서 데이터 받는 방법 짜기
+	//	   alert('http://webisfree.com');
+
+//	}, 3000);
+
 </script>
 <!--  선박등록 모달창 -->
 <!--  <a id="modal-200855" href="#modal-container-200855" role="button" class="btn" data-toggle="modal">Launch demo modal</a>-->
