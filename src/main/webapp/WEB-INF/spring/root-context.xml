@@ -30,4 +30,14 @@
 		<constructor-arg name="sqlSessionFactory" ref="sqlSessionFactory"/>
 	</bean>	
 	
+	
+	<!-- @Transactional 가능(~able) -->
+	<tx:annotation-driven/>
+	
+	<!-- setAutoCommit, commit, rollback -->
+	<bean id="transactionManager"
+		class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+		<property name="dataSource" ref="dataSource"/>
+	</bean>
+	
 </beans>

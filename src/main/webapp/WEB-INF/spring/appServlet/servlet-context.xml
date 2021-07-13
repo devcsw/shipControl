@@ -26,7 +26,10 @@
 	</beans:bean>
 	
 	<context:component-scan base-package="com.kh.shipcontrol" />
+		<!-- 트랜잭션 -->
+	<aop:aspectj-autoproxy></aop:aspectj-autoproxy>
 	
+	<!--  웹소켓 핸들러 -->
 	  <websocket:handlers>
 		<websocket:mapping handler="echoHandler" path="/echo" />
 		<websocket:sockjs />

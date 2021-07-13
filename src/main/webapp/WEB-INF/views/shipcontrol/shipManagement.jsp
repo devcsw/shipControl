@@ -64,17 +64,17 @@ $(document).ready(function() {
 					
 						<div class="checkbox">					 
 							<label>
-								<input type="checkbox" name="fire" /> 화재 센서
+								<input type="checkbox" name=fire id="fire" value="1"/> 화재 센서
 							</label>
 						</div> 
 						<div class="checkbox">					 
 							<label>
-								<input type="checkbox" name="windSpeed"  /> 풍속 센서
+								<input type="checkbox" name="windSpeed" id="windSpeed"  value="3"/> 풍속 센서
 							</label>
 						</div> 
 						<div class="checkbox">					 
 							<label>
-								<input type="checkbox" name="gyroscope"  /> 기울기 센서
+								<input type="checkbox" name="gyroscope" id="gyroscope" value="5" /> 기울기 센서
 							</label>
 						</div> 
 				
@@ -110,17 +110,17 @@ $(document).ready(function() {
 						
 						<div class="checkbox">					 
 							<label>
-								<input type="checkbox" name="temperature"/> 온도 센서
+								<input type="checkbox" name="temperature" id="temperature" value="2"/> 온도 센서
 							</label>
 						</div>
 						<div class="checkbox">					 
 							<label>
-								<input type="checkbox" name="smoke" /> 연기 센서
+								<input type="checkbox" name="smoke" id="smoke" value="4"/> 연기 센서
 							</label>
 						</div>  
 						<div class="checkbox">					 
 							<label>
-								<input type="checkbox" name="windDirection" /> 풍향 센서
+								<input type="checkbox" name="windDirection" id="windDirection" value="6"/> 풍향 센서
 							</label>
 						</div> 
 				
@@ -188,11 +188,12 @@ $(document).ready(function() {
 						<th>선박번호</th>
 						<th>선박명</th>
 						<th>센서코드</th>
-						<th>센서1</th>
-						<th>센서2</th>
-						<th>센서3</th>
-						<th>센서4</th>
-						<th>센서5</th>
+						<th>화재</th>
+						<th>온도</th>
+						<th>연기</th>
+						<th>풍속</th>
+						<th>풍향</th>
+						<th>기울기</th>
 						<th>보고일시</th>
 						<th>긴급여부</th>
 						<th><a>상세보기</a></th>
