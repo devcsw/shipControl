@@ -150,13 +150,10 @@
 
 									</c:when>
 									<c:otherwise>
-
-
 										<div class="dropdown">
-
 											<button class="btn btn-success dropdown-toggle" type="button"
 												id="dropdownMenuButton" data-toggle="dropdown">
-												<div style="color: white;">${loginVo.user_name}님반갑습니다</div>
+												<div style="color: white;">${loginVo.user_name}</div>
 											</button>
 											<div class="dropdown-menu"
 												aria-labelledby="dropdownMenuButton">
@@ -165,9 +162,6 @@
 													class="dropdown-item" href="#">Something else here</a>
 											</div>
 										</div>
-
-
-
 									</c:otherwise>
 								</c:choose>
 

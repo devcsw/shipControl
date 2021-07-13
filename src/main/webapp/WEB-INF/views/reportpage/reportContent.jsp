@@ -107,18 +107,18 @@
 			<table class="table">
 				<thead>
 					<tr>
-						<th>#</th>
-						<th>Product</th>
-						<th>Payment Taken</th>
-						<th>Status</th>
+						<th>ACD_HND_ID</th>
+						<th>ACD_ID</th>
+						<th>ACD_HND_CONTENT</th>
+						<th>ACD_HND_TAKE</th>
 					</tr>
 				</thead>
 				<tbody>
 					<tr>
 						<td>1</td>
-						<td>TB - Monthly</td>
-						<td>01/04/2012</td>
-						<td>Default</td>
+						<td>1080</td>
+						<td>해상에서 사고남</td>
+						<td>신고접수</td>
 					</tr>
 				</tbody>
 			</table>
