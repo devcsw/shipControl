@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+<mapper namespace="com.kh.shipcontrol.sensor">
+
+	
+	<!-- 센서 등록 -->
+	<!-- 화재,온도,연기,풍속,풍향,기울기 (고정값) -->
+	<insert id="insertSensor">
+		insert into ship_sensor_tb  
+			(sh_id, se_id)
+		values 
+			(#{sh_id}, #{se_id}) 
+	</insert>
+</mapper>

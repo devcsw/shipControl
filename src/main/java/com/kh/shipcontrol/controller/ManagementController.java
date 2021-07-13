@@ -4,7 +4,7 @@ import java.text.DateFormat;
 import java.util.Date;
 import java.util.Locale;
 
-import javax.servlet.http.HttpSession;
+import javax.inject.Inject;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -14,6 +14,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.kh.shipcontrol.service.ShipService;
+import com.kh.shipcontrol.vo.SensorDto;
 import com.kh.shipcontrol.vo.ShipVo;
 
 /**
@@ -24,10 +26,10 @@ import com.kh.shipcontrol.vo.ShipVo;
 public class ManagementController {
 	
 	private static final Logger logger = LoggerFactory.getLogger(ManagementController.class);
-	//slack 깃헙 앱 추가
-	/**
-	 * Simply selects the home view to render by returning its name.
-	 */
+	
+	@Inject
+	private ShipService shipService;
+
 	@RequestMapping(value = "/management", method = RequestMethod.GET)
 	public String home(Locale locale, Model model) {
 		logger.info("management입니다.! The client locale is {}.", locale);
@@ -43,10 +45,12 @@ public class ManagementController {
 	}
 	
 	@RequestMapping(value = "/insertShip", method = RequestMethod.POST)
-	public String insertShip(ShipVo shipVo, RedirectAttributes rttr) throws Exception {
+	public String insertShip(ShipVo shipVo, SensorDto sensorDto, RedirectAttributes rttr) throws Exception {
+		//체크된 데이터 기준
 		System.out.println(shipVo);
-		
+		System.out.println(sensorDto);
 		rttr.addFlashAttribute("msg", "success");
+		shipService.registShip(shipVo, sensorDto);
 		
 		return "redirect:/shipcontrol/management";
 	}
