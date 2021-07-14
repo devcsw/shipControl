@@ -29,4 +29,16 @@ public class ReportDaoImpl implements ReportDao {
 		return list;
 	}
 
+	@Override
+	public List<AcdVo> getWholeAcd() {
+		List<AcdVo> list = sqlsession.selectList(NAMESPACE + "getWholeAcd");
+		return list;
+	}
+
+	@Override
+	public AcdVo getAcdById(int Acd_id) {
+		AcdVo acdVo = sqlsession.selectOne(NAMESPACE + "getAcdById", Acd_id);
+		return acdVo;
+	}
+
 }

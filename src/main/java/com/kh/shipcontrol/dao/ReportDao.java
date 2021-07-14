@@ -9,4 +9,6 @@ public interface ReportDao {
 
 	public void registReport(AcdVo acdVo);
 	public List<AcdCodeVo> getAcdCode();
+	public List<AcdVo> getWholeAcd();
+	public AcdVo getAcdById(int Acd_id);
 }

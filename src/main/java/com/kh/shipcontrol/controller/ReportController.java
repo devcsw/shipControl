@@ -7,11 +7,14 @@ import java.util.List;
 
 import javax.inject.Inject;
 
+import org.springframework.http.HttpRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.kh.shipcontrol.service.ReportService;
@@ -25,13 +28,19 @@ public class ReportController {
 	ReportService reportService;
 
 	@RequestMapping(value = "/reportPage")
-	public String reportPage() throws Exception {
+	public String reportPage(Model model) throws Exception {
+
+		List<AcdVo> list = reportService.getWholeAcd();
+		model.addAttribute("list", list);
 
 		return "/reportpage/reportPage";
 	}
 
 	@RequestMapping(value = "/reportContent", method = RequestMethod.GET)
-	public String reportContent() throws Exception {
+	public String reportContent(@RequestParam("acd_id") String acd_id , Model model) throws Exception {
+//		System.out.println("@ReportController acd_id :" + acd_id);
+		AcdVo acdVo = reportService.getAcdById(Integer.parseInt(acd_id));
+		model.addAttribute("acdVo", acdVo);
 
 		return "/reportpage/reportContent";
 	}

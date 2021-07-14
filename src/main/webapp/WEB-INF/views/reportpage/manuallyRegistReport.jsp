@@ -21,7 +21,6 @@
 					str += "<th>" + rData[v].acd_code_id + "</th>";
 					str += "<td>" + rData[v].acd_code_name + "</td>";
 					str += "</tr>";
-
 					$("#acdCodeTable").append(str);
 				}
 

@@ -15,17 +15,29 @@ public class ReportServiceImpl implements ReportService {
 
 	@Inject
 	ReportDao reportDao;
-	
+
 	@Override
 	public void registReport(AcdVo acdVo) {
 		reportDao.registReport(acdVo);
-		
+
 	}
 
 	@Override
 	public List<AcdCodeVo> getAcdCode() {
 		List<AcdCodeVo> list = reportDao.getAcdCode();
 		return list;
+	}
+
+	@Override
+	public List<AcdVo> getWholeAcd() {
+		List<AcdVo> list = reportDao.getWholeAcd();
+		return list;
+	}
+
+	@Override
+	public AcdVo getAcdById(int Acd_id) {
+		AcdVo acdVo = reportDao.getAcdById(Acd_id);
+		return acdVo;
 	}
 
 }
