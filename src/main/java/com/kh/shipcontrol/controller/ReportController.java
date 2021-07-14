@@ -9,6 +9,7 @@ import javax.inject.Inject;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.kh.shipcontrol.service.ReportService;
 import com.kh.shipcontrol.vo.AcdVo;
@@ -46,9 +47,19 @@ public class ReportController {
 		acdVo.setAcd_date(timestamp);
 		System.out.println("@ReportController acdVo : " + acdVo);
 		
-//		reportService.registReport(acdVo);
+		reportService.registReport(acdVo);
 
 		return "redirect:/";
+	}
+	
+	@RequestMapping(value="/getAcdCode", method=RequestMethod.GET)
+	@ResponseBody
+	public String getAcdCode() throws Exception{
+		
+		
+		
+		
+		return "data";
 	}
 
 }

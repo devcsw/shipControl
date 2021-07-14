@@ -7,13 +7,33 @@
 $(document).ready(function() {
 //sh_id, sh_name, sh_board_code, sh_owner, sh_owner_tel, 
 //sh_cap_name, sh_cap_tel, sh_type, sh_mmsi, sh_call_sign, sh_date
-	$('#btnShipInsert').click(function() {	
-		
-		$("#insertForm").submit();
+connect();
 
-	});
 });
+
+console.log('함수시작점')
+function connect() {
+	console.log('함수안')
+	let ws = new SockJS("http://localhost:80/echo/");
+	socket = ws;
+	ws.onopen = function(){
+		console.log('Info : connection opend');
+	}
+	ws.onmessage = function(event){
+		console.log("ReceiveMessage : ", event.data + '\n');
+	}
+	ws.onclose = function(event){
+		console.log('Info : connection closed');
+		/*
+		setTimeout(() => {
+			connect();
+		}, 1000);
+		*/
+	}	
+	ws.onerror = function(err) {console.log('Error : ', err);}
+}
 </script>
+
 <!--  선박등록 모달창 -->
 <!--  <a id="modal-200855" href="#modal-container-200855" role="button" class="btn" data-toggle="modal">Launch demo modal</a>-->
 			
@@ -257,7 +277,6 @@ $(document).ready(function() {
 
 	</div>
 </div>
-
 
 
 
