@@ -23,7 +23,8 @@ function connect() {
 	}
 	//메세지 받았을때
 	ws.onmessage = function(event){
-		console.log("ReceiveMessage : ", event.data + '\n');
+		//console.log("ReceiveMessage : ", event.data + '\n');
+		tableCreate(event.data);
 		//여기서 테이블 변경
 	}
 	//끝날때 보여줌
@@ -37,6 +38,64 @@ function connect() {
 	}	
 	//에러가 생겼을때
 	ws.onerror = function(err) {console.log('Error : ', err);}
+}
+
+function tableCreate(array){
+	var target = $("#tbody");
+	var tc = array;
+	var html = '';
+	
+	
+	var jsonArr  = JSON.parse(array);
+	var html = '';
+	for(var v=0; v < jsonArr.size();v++){
+		html += '<tr>';
+	
+		html += '<td>';
+		html += jsonArr.sh_id;
+		html += '</td>';
+		
+		html += '<td>선박명';
+		html += '</td>';
+	
+		html += '<td>센서코드';
+		html += '</td>';
+		
+		
+		html += '<td>';
+		html += jsonArr.fire;
+		html += '</td>';
+		html += '<td>';
+		html += jsonArr.temperature;
+		html += '</td>';
+		html += '<td>';
+		html += jsonArr.smoke;
+		html += '</td>';
+		html += '<td>';
+		html += jsonArr.windSpeed;
+		html += '</td>';
+		html += '<td>';
+		html += jsonArr.windDirection;
+		html += '</td>';
+		html += '<td>';
+		html += jsonArr.gyroscope;
+		html += '</td>';
+		
+		html += '<td>보고일시';
+		html += '</td>';
+		
+		html += '<td>긴급여부';
+		html += '</td>';
+		
+		html += '<td>상세보기';
+		html += '</td>';
+	
+		html += '</tr>';
+	}
+	target.empty();
+	target.append(html);
+	
+				
 }
 
 </script>
@@ -227,7 +286,7 @@ function connect() {
 					</tr>
 				</thead>
 				
-				<tbody>
+				<tbody id="tbody">
 					<c:forEach var="list" items="${list}">
 						<tr >
 	    					<td>${list.sh_id }</td>

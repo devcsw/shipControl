@@ -43,18 +43,26 @@ playAlert = setInterval(function() {
 	//생성 될 때마다 테이블 변경
 	// 추후 생성 될 때마다 지도 api에 위치 마크업
 	// 서버에서 데이터 받는 방법 짜기
-		sendData = {
-				"sh_id" : $("#sh_id").val(),
-				"sh_status_latitude" : $("#sh_status_latitude").val(),
-				"sh_status_longitude" : $("#sh_status_longitude").val(),
-				"fire" : $("#fire").val(),
-				"temperature" : $("#temperature").val(),
-				"smoke" : $("#smoke").val(),
-				"windSpeed" : $("#windSpeed").val(),
-				"windDirection" : $("#windDirection").val(),
-				"gyroscope" : $("#gyroscope").val()
+		var dataArray = new Array();
+		console.log("시작");
+		for (var v = 0; v < 3; v++) {
+			sendData = {
+					"sh_id" :Math.floor(Math.random() * 10),
+					"sh_status_latitude" : Math.floor(Math.random() * 10),
+					"sh_status_longitude" : Math.floor(Math.random() * 10),
+					"fire" : Math.floor(Math.random() * 10),
+					"temperature" :Math.floor(Math.random() * 10),
+					"smoke" : Math.floor(Math.random() * 10),
+					"windSpeed" : Math.floor(Math.random() * 10),
+					"windDirection" : Math.floor(Math.random() * 10),
+					"gyroscope" : Math.floor(Math.random() * 10)
+				}
+			 	dataArray.push(sendData);
+				
 			}
-		sendMessage(sendData);
+		var sJson = JSON.stringify(dataArray);
+		sendTest("test");
+		sendMessage(dataArray);
 	}, 5000);
 });
 
@@ -71,7 +79,6 @@ playAlert = setInterval(function() {
 				"windDirection" : $("#windDirection").val(),
 				"gyroscope" : $("#gyroscope").val()
 			}
-		sendMessage(sendData);
 		$('#message').val('')
 	});
 	
@@ -83,6 +90,12 @@ playAlert = setInterval(function() {
 	// 메시지 전송
 	function sendMessage(sendData) {
 		sock.send(JSON.stringify(sendData));
+		console.log("실행됨?:" );
+	}
+	// 메시지 전송
+	function sendTest(msg) {
+		sock.send(msg);
+		
 	}
 	// 서버로부터 메시지를 받았을 때 -- 본인 페이지에 적용
 	function onMessage(msg) {
