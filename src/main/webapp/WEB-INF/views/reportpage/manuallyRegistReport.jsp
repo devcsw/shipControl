@@ -8,18 +8,27 @@
 		$("#buttonAcdRegister").click(function name() {
 			$("#acdReportForm").submit();
 		});
-		
+
 		$("#buttonConfirmAcdCode").click(function name() {
-			
+
 			let url = "/getAcdCode";
-			
+
 			$.get(url, function name(rData) {
-				console.log(rData);
+
+				for (var v = 0; v < rData.length; v++) {
+					let str = "";
+					str += "<tr>";
+					str += "<th>" + rData[v].acd_code_id + "</th>";
+					str += "<td>" + rData[v].acd_code_name + "</td>";
+					str += "</tr>";
+
+					$("#acdCodeTable").append(str);
+				}
+
 			});
-			
+
 		});
-		
-		
+
 	});
 </script>
 
@@ -102,9 +111,10 @@
 									<label for="acd_code_id"> 사고 코드 </label>
 
 									<!-- Button trigger modal -->
-									<button type="button" class="btn btn-success" id="buttonConfirmAcdCode"
-										style="margin-left: 100px;" data-toggle="modal"
-										data-target="#exampleModal">사고 코드 확인하기</button>
+									<button type="button" class="btn btn-success"
+										id="buttonConfirmAcdCode" style="margin-left: 100px;"
+										data-toggle="modal" data-target="#exampleModal">사고 코드
+										확인하기</button>
 
 									<!-- Modal -->
 									<div class="modal fade" id="exampleModal" tabindex="-1"
@@ -124,20 +134,16 @@
 													<div class="container-fluid">
 														<div class="row">
 															<div class="col-md-12">
+
 																<table class="table">
-																	<tbody>
+																	<tbody id="acdCodeTable">
 																		<tr>
 																			<th>사고 코드</th>
 																			<td>사고 내용</td>
 																		</tr>
-																		<tr>
-																			<th>1</th>
-																			<td>화재</td>
-																		</tr>
-																		<tr>
-																			<th>2</th>
-																			<td>누수</td>
-																		</tr>
+
+
+
 																	</tbody>
 																</table>
 															</div>
