@@ -8,12 +8,12 @@ $(document).ready(function() {
 //sh_id, sh_name, sh_board_code, sh_owner, sh_owner_tel, 
 //sh_cap_name, sh_cap_tel, sh_type, sh_mmsi, sh_call_sign, sh_date
 	connect();
+
+	console.log("아이디 값:" + $('#1').text());
 });
 
-console.log('함수시작점')
 //소켓 데이터 수신
 function connect() {
-	console.log('함수안')
 	let ws = new SockJS("http://localhost:80/echo/");
 	socket = ws;
 	
@@ -32,23 +32,40 @@ function connect() {
 		console.log('Info : connection closed');
 		/*
 		setTimeout(() => {
-			connect();
-		}, 1000);
-		*/
+			ws.onopen;
+		}, 100);*/
+		setTimeout(socketInit, 300);
+	
 	}	
 	//에러가 생겼을때
 	ws.onerror = function(err) {console.log('Error : ', err);}
 }
 
-function tableCreate(array){
-	var target = $("#tbody");
-	var tc = array;
+function tableCreate(receivedData){
+	var target = $('#'+ id );
 	var html = '';
 	
+	var result = JSON.parse(receivedData);
+	//var test = document.getElementById(result.sh_id).innerHTML;
+	var id = result.sh_id;
+	var fire = result.fire;
+	var temperature= result.temperature;
+	var smoke = result.smoke;
+	var windSpeed = result.windSpeed;
+	var windDirection = result.windDirection;
+	var gyroscope = result.gyroscope;
+
+	//$('#'+ id ).text('이건왜됨');
+	$('#'+ id ).next().text('선박명');
+	$('#'+ id ).next().next().text('센서코드');
+	$('#'+ id ).next().next().next().text(fire);
+	$('#'+ id ).next().next().next().next().text(temperature);
+	$('#'+ id ).next().next().next().next().next().text(smoke);
+	$('#'+ id ).next().next().next().next().next().next().text(windSpeed);
+	$('#'+ id ).next().next().next().next().next().next().next().text(windDirection);
+	$('#'+ id ).next().next().next().next().next().next().next().next().text(gyroscope);
 	
-	var jsonArr  = JSON.parse(array);
-	var html = '';
-	for(var v=0; v < jsonArr.size();v++){
+	/*for(var v=0; v < jsonArr.size();v++){
 		html += '<tr>';
 	
 		html += '<td>';
@@ -91,11 +108,10 @@ function tableCreate(array){
 		html += '</td>';
 	
 		html += '</tr>';
-	}
-	target.empty();
-	target.append(html);
+	//}
+	//target.empty();
+	target.append(html);*/
 	
-				
 }
 
 </script>
@@ -289,7 +305,7 @@ function tableCreate(array){
 				<tbody id="tbody">
 					<c:forEach var="list" items="${list}">
 						<tr >
-	    					<td>${list.sh_id }</td>
+	    					<td id="${list.sh_id }">${list.sh_id }</td>
 	    					<td>${list.sh_name }</td>
 	    					<td>${list.sh_board_code }</td>
 	    					<td>${list.fire }</td>
