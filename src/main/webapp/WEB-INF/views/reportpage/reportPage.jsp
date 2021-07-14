@@ -3,9 +3,35 @@
 
 <%@ include file="../include/header.jsp"%>
 <script type="text/javascript">
-	$("tr").hover(function name() {
-		$(this).focus();
-	});
+	$(document).ready(function name() {
+		$(".modalAcdTake").on("click", function name(e) {
+			let acd = $(this).parent().parent().find("td:first-child").text();
+			// console.log(acd); //확인완료
+
+			let url = "/getAcdHnd";
+			let sendData = {
+				"acd_id" : acd
+			};
+
+			$.get(url, sendData, function name(rData) {
+				console.log(rData);
+
+				for (var v = 0; v < rData.length; v++) {
+					let str = "";
+					str += "<tr>";
+					str += "<td>" + rData[v].acd_hnd_id + "</th>";
+					str += "<td>" + rData[v].acd_hnd_content + "</td>";
+					str += "<td>" + rData[v].acd_hnd_date + "</td>";
+					str += "<td>" + rData[v].acd_hnd_take + "</td>";
+					str += "</tr>";
+					
+					$("#tableAcdHnd").append(str);
+				}
+
+			});
+
+		});
+	})
 </script>
 
 
@@ -79,11 +105,50 @@
 							<td>(${list.acd_latitude } , ${list.acd_longitude })</td>
 							<td>${list.acd_date }</td>
 							<td>${list.sh_id }</td>
-							<td>${list.acd_take }</td>
+							<td><a id="modalAcdTake" href="#modal-container-120818"
+								role="button" class="btn btn-success modalAcdTake"
+								data-toggle="modal">확인하기</a></td>
 						</tr>
 					</c:forEach>
 				</tbody>
 			</table>
+
+
+
+			<div class="modal fade" id="modal-container-120818" role="dialog"
+				aria-labelledby="myModalLabel" aria-hidden="true">
+				<div class="modal-dialog" role="document">
+					<div class="modal-content">
+						<div class="modal-header">
+							<h5 class="modal-title" id="myModalLabel">진행상태</h5>
+							<button type="button" class="close" data-dismiss="modal">
+								<span aria-hidden="true">×</span>
+							</button>
+						</div>
+						<div class="modal-body">
+										<table class="table" id="tableAcdHnd">
+											<thead>
+												<tr>
+													<th>처리번호</th>
+													<th>처리내용</th>
+													<th>처리시간</th>
+													<th>처리상태</th>
+												</tr>
+											</thead>
+											
+										</table>
+						</div>
+						<div class="modal-footer">
+
+							<button type="button" class="btn btn-primary"
+								data-dismiss="modal">돌아가기</button>
+						</div>
+					</div>
+
+				</div>
+
+			</div>
+
 
 			<!-- 테이블 끝 -->
 

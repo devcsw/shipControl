@@ -18,7 +18,7 @@
 	</select>
 
 	<select id="getWholeAcd" resultType="AcdVo">
-		select * from acd_tb
+		select * from acd_tb order by acd_id desc
 	</select>
 
 	<select id="getAcdById" resultType="AcdVo">

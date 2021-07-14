@@ -9,7 +9,7 @@
 			$("#acdReportForm").submit();
 		});
 
-		$("#buttonConfirmAcdCode").click(function name() {
+		$("#buttonConfirmAcdCode").one('click', function() {
 
 			let url = "/getAcdCode";
 
@@ -25,7 +25,6 @@
 				}
 
 			});
-
 		});
 
 	});

@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ include file="../include/header.jsp"%>
+
 <script type="text/javascript"
 	src="//dapi.kakao.com/v2/maps/sdk.js?appkey=0f71a92fecd7b42434cde225a0893ff1"></script>
 <script type="text/javascript">
@@ -19,6 +20,7 @@
 				console.log(rData);
 				if (rData == "success") {
 					$("#closeModalButton").trigger("click");
+					location.reload();
 				}
 				
 			});
@@ -140,9 +142,9 @@
 					</tr>
 				</thead>
 				<tbody>
-					<c:forEach items="${acdHndList}" var="list">
+					<c:forEach items="${acdHndList}" var="list" varStatus="vs">
 						<tr>
-							<td>${list.acd_hnd_id }</td>
+							<td>${list.acd_hnd_id}</td>
 							<td>${list.acd_id }</td>
 							<td>${list.acd_hnd_content }</td>
 							<td>${list.acd_hnd_take }</td>

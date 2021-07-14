@@ -39,7 +39,7 @@ public class ReportController {
 		List<AcdHndVo> acdHndList = reportService.getAcdHnd(acd_id);
 		model.addAttribute("acdVo", acdVo);
 		model.addAttribute("acdHndList", acdHndList);
-		
+
 		return "/reportpage/reportContent";
 	}
 
@@ -76,9 +76,18 @@ public class ReportController {
 	@RequestMapping(value = "/addAcdHnd", method = RequestMethod.POST)
 	@ResponseBody
 	public String addAcdHnd(AcdHndVo acdHndVo) throws Exception {
-		System.out.println("@ReportController acdHndVo :" + acdHndVo);
+//		System.out.println("@ReportController acdHndVo :" + acdHndVo);
 		reportService.addAcdHnd(acdHndVo);
 		return "success";
+	}
+
+	@RequestMapping(value = "/getAcdHnd", method = RequestMethod.GET)
+	@ResponseBody
+	public List<AcdHndVo> getAcdHnd(String acd_id) throws Exception {
+		System.out.println("@ReportController acd_id :" + acd_id);
+		List<AcdHndVo> list = reportService.getAcdHnd(acd_id);
+		System.out.println("@ReportController list :" + list);
+		return list;
 	}
 
 }

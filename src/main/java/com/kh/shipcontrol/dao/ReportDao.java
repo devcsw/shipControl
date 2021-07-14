@@ -14,4 +14,5 @@ public interface ReportDao {
 	public AcdVo getAcdById(int Acd_id);
 	public void addAcdHnd(AcdHndVo acdHndVo);
 	public List<AcdHndVo> getAcdHnd(String acd_id);
+	
 }
