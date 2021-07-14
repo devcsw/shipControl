@@ -3,6 +3,31 @@
 <%@ include file="../include/header.jsp"%>
 <script type="text/javascript"
 	src="//dapi.kakao.com/v2/maps/sdk.js?appkey=0f71a92fecd7b42434cde225a0893ff1"></script>
+<script type="text/javascript">
+	$(function name() {
+		$("#buttonRegisterAcdHnd").click(function name() {
+
+			let url = "/addAcdHnd";
+			let sendData = {
+				"acd_id" : ${acdVo.acd_id},
+				"acd_hnd_content" : $("#ACD_HND_CONTENT").val(),
+				"acd_hnd_take" : $("#ACD_HND_TAKE").val()
+			};
+			
+			$.post(url, sendData, function name(rData) {
+				console.log(sendData);
+				console.log(rData);
+				if (rData == "success") {
+					$("#closeModalButton").trigger("click");
+				}
+				
+			});
+
+		});
+	});
+</script>
+
+
 <!-- 상새내역 title -->
 <div class="container-fluid">
 
@@ -10,7 +35,7 @@
 	<div class="row">
 		<div class="col-md-12">
 			<h3>조난 상세내역 페이지</h3>
-			
+
 			<dl>
 				<dt>사고번호 ${acdVo.acd_id}번 상세내역입니다</dt>
 			</dl>
@@ -115,12 +140,14 @@
 					</tr>
 				</thead>
 				<tbody>
-					<tr>
-						<td>1</td>
-						<td>1080</td>
-						<td>해상에서 사고남</td>
-						<td>신고접수</td>
-					</tr>
+					<c:forEach items="${acdHndList}" var="list">
+						<tr>
+							<td>${list.acd_hnd_id }</td>
+							<td>${list.acd_id }</td>
+							<td>${list.acd_hnd_content }</td>
+							<td>${list.acd_hnd_take }</td>
+						</tr>
+					</c:forEach>
 				</tbody>
 			</table>
 
@@ -141,18 +168,17 @@
 						</div>
 						<div class="modal-body">
 
-							<form role="form">
+							<form role="form" action="/addAcdHnd" method="post"
+								id="acdHndForm">
+
 								<div class="form-group">
-									<label for="ACD_HND_ID"> ACD_HND_ID </label> <input type="text"
-										class="form-control" id="ACD_HND_ID" name="ACD_HND_ID" />
+									<label for="ACD_HND_CONTENT"> 사고 처리 내용 </label>
+									<textarea class="form-control" id="ACD_HND_CONTENT"
+										name="ACD_HND_CONTENT" rows="5"></textarea>
+
 								</div>
 								<div class="form-group">
-									<label for="ACD_HND_CONTENT"> ACD_HND_CONTENT </label> <input
-										type="text" class="form-control" id="ACD_HND_CONTENT"
-										name="ACD_HND_CONTENT" />
-								</div>
-								<div class="form-group">
-									<label for="ACD_HND_TAKE"> ACD_HND_TAKE </label> <input
+									<label for="ACD_HND_TAKE"> 사고처리 진행상태 </label> <input
 										type="text" class="form-control" id="ACD_HND_TAKE"
 										name="ACD_HND_TAKE" />
 								</div>
@@ -161,9 +187,10 @@
 						</div>
 						<div class="modal-footer">
 
-							<button type="button" class="btn btn-primary">처리내역 등록하기</button>
+							<button type="button" class="btn btn-primary"
+								id="buttonRegisterAcdHnd">처리내역 등록하기</button>
 							<button type="button" class="btn btn-secondary"
-								data-dismiss="modal">취소</button>
+								id="closeModalButton" data-dismiss="modal">취소</button>
 						</div>
 					</div>
 

@@ -8,6 +8,7 @@ import org.apache.ibatis.session.SqlSession;
 import org.springframework.stereotype.Repository;
 
 import com.kh.shipcontrol.vo.AcdCodeVo;
+import com.kh.shipcontrol.vo.AcdHndVo;
 import com.kh.shipcontrol.vo.AcdVo;
 
 @Repository
@@ -39,6 +40,18 @@ public class ReportDaoImpl implements ReportDao {
 	public AcdVo getAcdById(int Acd_id) {
 		AcdVo acdVo = sqlsession.selectOne(NAMESPACE + "getAcdById", Acd_id);
 		return acdVo;
+	}
+
+	@Override
+	public void addAcdHnd(AcdHndVo acdHndVo) {
+		sqlsession.insert(NAMESPACE + "addAcdHnd", acdHndVo);
+
+	}
+
+	@Override
+	public List<AcdHndVo> getAcdHnd(String acd_id) {
+		List<AcdHndVo> list = sqlsession.selectList(NAMESPACE + "getAcdHnd", acd_id);
+		return list;
 	}
 
 }

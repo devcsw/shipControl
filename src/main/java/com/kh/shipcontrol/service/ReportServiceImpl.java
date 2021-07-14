@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import com.kh.shipcontrol.dao.ReportDao;
 import com.kh.shipcontrol.vo.AcdCodeVo;
+import com.kh.shipcontrol.vo.AcdHndVo;
 import com.kh.shipcontrol.vo.AcdVo;
 
 @Service
@@ -38,6 +39,18 @@ public class ReportServiceImpl implements ReportService {
 	public AcdVo getAcdById(int Acd_id) {
 		AcdVo acdVo = reportDao.getAcdById(Acd_id);
 		return acdVo;
+	}
+
+	@Override
+	public void addAcdHnd(AcdHndVo acdHndVo) {
+		reportDao.addAcdHnd(acdHndVo);
+		
+	}
+
+	@Override
+	public List<AcdHndVo> getAcdHnd(String acd_id) {
+		List<AcdHndVo> list = reportDao.getAcdHnd(acd_id);
+		return list;
 	}
 
 }

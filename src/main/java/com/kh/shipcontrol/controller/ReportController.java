@@ -1,17 +1,12 @@
 package com.kh.shipcontrol.controller;
 
-import java.sql.Time;
 import java.sql.Timestamp;
-import java.text.SimpleDateFormat;
 import java.util.List;
 
 import javax.inject.Inject;
 
-import org.springframework.http.HttpRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -19,6 +14,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.kh.shipcontrol.service.ReportService;
 import com.kh.shipcontrol.vo.AcdCodeVo;
+import com.kh.shipcontrol.vo.AcdHndVo;
 import com.kh.shipcontrol.vo.AcdVo;
 
 @Controller
@@ -37,11 +33,13 @@ public class ReportController {
 	}
 
 	@RequestMapping(value = "/reportContent", method = RequestMethod.GET)
-	public String reportContent(@RequestParam("acd_id") String acd_id , Model model) throws Exception {
+	public String reportContent(@RequestParam("acd_id") String acd_id, Model model) throws Exception {
 //		System.out.println("@ReportController acd_id :" + acd_id);
 		AcdVo acdVo = reportService.getAcdById(Integer.parseInt(acd_id));
+		List<AcdHndVo> acdHndList = reportService.getAcdHnd(acd_id);
 		model.addAttribute("acdVo", acdVo);
-
+		model.addAttribute("acdHndList", acdHndList);
+		
 		return "/reportpage/reportContent";
 	}
 
@@ -73,6 +71,14 @@ public class ReportController {
 //		System.out.println("@ReportController list : " + list);
 
 		return list;
+	}
+
+	@RequestMapping(value = "/addAcdHnd", method = RequestMethod.POST)
+	@ResponseBody
+	public String addAcdHnd(AcdHndVo acdHndVo) throws Exception {
+		System.out.println("@ReportController acdHndVo :" + acdHndVo);
+		reportService.addAcdHnd(acdHndVo);
+		return "success";
 	}
 
 }

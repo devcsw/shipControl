@@ -35,12 +35,12 @@ public class UserController {
 
 		return "redirect:/";
 	}
-	
-	@RequestMapping(value="/logout")
-	public String logout(HttpSession session) throws Exception{
+
+	@RequestMapping(value = "/logout")
+	public String logout(HttpSession session) throws Exception {
 		session.invalidate();
 		return "redirect:/";
-	} 
+	}
 
 	@RequestMapping(value = "/registerRun", method = RequestMethod.POST)
 	public String registerRun(UserVo userVo, String user_pw_confirm, RedirectAttributes rttr) throws Exception {
