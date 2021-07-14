@@ -12,5 +12,38 @@
 		values 
 			(#{sh_id}, #{sh_name}, #{sh_board_code}, #{sh_owner}, #{sh_owner}, #{sh_cap_name}, #{sh_cap_tel}, #{sh_type}, #{sh_mmsi}, #{sh_call_sign}) 
 	</insert>
-
+	<!-- 데이터 받지않고있을때 초기 화면 리스트업 -->
+	<resultMap type="HashMap" id="ListMap">
+		<id column="sh_id" property="sh_id"/>
+		<id column="sh_name" property="sh_name"/>
+		<id column="sh_board_code" property="sh_board_code"/>
+		<id column="fire" property="fire"/>
+		<id column="temperature" property="temperature"/>
+		<id column="smoke" property="smoke"/>
+		<id column="windspeed" property="windspeed"/>
+		<id column="winddirection" property="winddirection"/>
+		<id column="gyroscope" property="gyroscope"/>
+	</resultMap>
+	<select id="listAllShip" resultMap="ListMap">
+		SELECT sh.sh_id, sh.sh_name, sh.sh_board_code, se.*
+		FROM ship_tb sh, (   
+		SELECT 
+		    *
+		    FROM
+		    (
+		     SELECT ss.sh_id, ss.se_id, se.se_name
+		    FROM ship_sensor_tb ss, sensor_tb se
+		    WHERE ss.se_id=se.se_id )
+		    PIVOT
+		    (
+		        SUM(se_id) 
+		        FOR
+		        se_name IN ( 'fire' AS fire,'temperature' AS temperature, 
+		        'smoke' AS smoke,'windspeed' AS windspeed, 
+		        'winddirection' AS winddirection, 'gyroscope' AS gyroscope
+		         ) --행으로 올릴 열
+		    )
+		)  se
+		WHERE sh.sh_id=se.sh_id
+	</select>
 </mapper>

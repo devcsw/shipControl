@@ -2,6 +2,7 @@ package com.kh.shipcontrol.service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import javax.inject.Inject;
 
@@ -38,7 +39,7 @@ public class ShipServiceImpl implements ShipService {
 		list.add(sensorDto.getWindSpeed());
 		list.add(sensorDto.getWindDirection());
 		list.add(sensorDto.getGyroscope());
-		
+		//센서 데이터 입력 부분
 		for(int i =0; i < list.size();i++) {
 			if (!(String.valueOf(list.get(i))).equals("null")) {
 			System.out.println(String.valueOf(list.get(i)));
@@ -48,7 +49,9 @@ public class ShipServiceImpl implements ShipService {
 		}
 	}
 	
-	public void listAllShip() {
+	public List<Map<String, Object>> listAllShip() {
+		List<Map<String, Object>> list = shipDao.listAllShip();
+		 return list;
 	}
 	
 }

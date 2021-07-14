@@ -2,7 +2,9 @@ package com.kh.shipcontrol.controller;
 
 import java.text.DateFormat;
 import java.util.Date;
+import java.util.List;
 import java.util.Locale;
+import java.util.Map;
 
 import javax.inject.Inject;
 
@@ -38,8 +40,9 @@ public class ManagementController {
 		DateFormat dateFormat = DateFormat.getDateTimeInstance(DateFormat.LONG, DateFormat.LONG, locale);
 		
 		String formattedDate = dateFormat.format(date);
-		
-		model.addAttribute("serverTime", formattedDate );
+		List<Map<String, Object>> list = shipService.listAllShip();
+		System.out.println(list);
+		model.addAttribute("list", list );
 		
 		return "shipcontrol/shipManagement";
 	}
@@ -55,17 +58,6 @@ public class ManagementController {
 		return "redirect:/shipcontrol/management";
 	}
 	
-	//비동기
-	//5초에 한번씩 가장 최근 데이터를 보여리스트업 한다.
-	@RequestMapping(value = "/listShip", method = RequestMethod.POST)
-	public String listShip(ShipVo shipVo, SensorDto sensorDto, RedirectAttributes rttr) throws Exception {
-		//체크된 데이터 기준
-		System.out.println(shipVo);
-		System.out.println(sensorDto);
-		rttr.addFlashAttribute("msg", "success");
-		shipService.registShip(shipVo, sensorDto);
-		
-		return "redirect:/shipcontrol/management";
-	}
+
 	
 }

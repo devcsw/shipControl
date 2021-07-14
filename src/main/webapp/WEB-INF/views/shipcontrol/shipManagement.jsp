@@ -7,21 +7,26 @@
 $(document).ready(function() {
 //sh_id, sh_name, sh_board_code, sh_owner, sh_owner_tel, 
 //sh_cap_name, sh_cap_tel, sh_type, sh_mmsi, sh_call_sign, sh_date
-connect();
-
+	connect();
 });
 
 console.log('함수시작점')
+//소켓 데이터 수신
 function connect() {
 	console.log('함수안')
 	let ws = new SockJS("http://localhost:80/echo/");
 	socket = ws;
+	
+	//한번 오픈하는듯?
 	ws.onopen = function(){
 		console.log('Info : connection opend');
 	}
+	//메세지 받았을때
 	ws.onmessage = function(event){
 		console.log("ReceiveMessage : ", event.data + '\n');
+		//여기서 테이블 변경
 	}
+	//끝날때 보여줌
 	ws.onclose = function(event){
 		console.log('Info : connection closed');
 		/*
@@ -30,13 +35,15 @@ function connect() {
 		}, 1000);
 		*/
 	}	
+	//에러가 생겼을때
 	ws.onerror = function(err) {console.log('Error : ', err);}
 }
+
 </script>
 
 <!--  선박등록 모달창 -->
 <!--  <a id="modal-200855" href="#modal-container-200855" role="button" class="btn" data-toggle="modal">Launch demo modal</a>-->
-			
+
 <div class="modal fade" id="modal-container-200855" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
 	<div class="modal-dialog" role="document">
 		<div class="modal-content">
@@ -150,7 +157,7 @@ function connect() {
 		</div>
 		
 			<div class="modal-footer">
-				<button type="button" class="btn btn-primary" id="btnShipInsert">
+				<button type="submit" class="btn btn-primary" id="btnShipInsert">
 					저장하기
 				</button> 
 				
@@ -202,7 +209,7 @@ function connect() {
 	<!--  테이블 -->
 	<div class="row">
 		<div class="col-md-12">
-			<table class="table">
+			<table class="table" id="tb" >
 				<thead>
 					<tr>
 						<th>선박번호</th>
@@ -219,37 +226,30 @@ function connect() {
 						<th><a>상세보기</a></th>
 					</tr>
 				</thead>
+				
 				<tbody>
-					<tr>
-						<td>1</td>
-						<td>TB - Monthly</td>
-						<td>01/04/2012</td>
-						<td>Default</td>
-						<td>Default</td>
-						<td>Default</td>
-						<td>Default</td>
-						<td>Default</td>
-						<td>Default</td>
-						<td>Default</td>
-					</tr>
-					<tr>
-						<td>2</td>
-						<td>TB - Monthly</td>
-						<td>01/04/2012</td>
-						<td>Default</td>
-						<td>Default</td>
-						<td>Default</td>
-						<td>Default</td>
-						<td>Default</td>
-						<td>Default</td>
-						<td>Default</td>
-					</tr>
-
+					<c:forEach var="list" items="${list}">
+						<tr >
+	    					<td>${list.sh_id }</td>
+	    					<td>${list.sh_name }</td>
+	    					<td>${list.sh_board_code }</td>
+	    					<td>${list.fire }</td>
+	    					<td>${list.temperature }</td>
+	    					<td>${list.smoke }</td>
+	    					<td>${list.windspeed }</td>
+	    					<td>${list.widdirection }</td>
+	    					<td>${list.gyroscope }</td>
+	    					<td></td>
+	    					<td></td>
+	    					<td></td>
+	   					</tr>
+					</c:forEach>
 				</tbody>
+				
 			</table>
 			<!-- //테이블  -->
 			
-			<!-- 페이징  -->
+			<!-- 
 			<div class="row">
 				<div class="col-md-2">
 					<div>
@@ -272,7 +272,7 @@ function connect() {
 				<div class="col-md-2"></div>
 				<div class="col-md-2"></div>
 			</div>
-			<!-- //페이징  -->
+		  -->
 		</div>
 
 	</div>

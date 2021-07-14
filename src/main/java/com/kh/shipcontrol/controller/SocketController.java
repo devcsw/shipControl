@@ -15,11 +15,11 @@ import org.springframework.web.bind.annotation.RequestMethod;
 public class SocketController {
 	private static final Logger logger = LoggerFactory.getLogger(ManagementController.class);
 	
-	@RequestMapping(value = "/chat", method = RequestMethod.GET)
+	@RequestMapping(value = "/client_test", method = RequestMethod.GET)
 	public String chat(Locale locale, Model model) {
 		logger.info("Welcome chat! The client locale is {}.", locale);
 		
-		return "chat";
+		return "client_test";
 	}
 	
 }

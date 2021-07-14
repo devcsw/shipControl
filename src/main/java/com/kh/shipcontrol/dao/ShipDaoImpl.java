@@ -1,6 +1,7 @@
 package com.kh.shipcontrol.dao;
 
 import java.util.List;
+import java.util.Map;
 
 import javax.inject.Inject;
 
@@ -22,9 +23,9 @@ public class ShipDaoImpl implements ShipDao {
 	}
 	
 	@Override
-	public List<ShipVo> listShip() {
-		List<ShipVo> list = 
-				sqlSession.selectList(NAMESPACE + "listShip");
+	public List<Map<String, Object>> listAllShip() {
+		List<Map<String, Object>> list = 
+				sqlSession.selectList(NAMESPACE + "listAllShip");
 		return list;
 	}
 }
