@@ -71,22 +71,24 @@
 					</tr>
 				</thead>
 				<tbody>
-					<tr onclick="location.href='/reportContent'">
-						<td><a href="/reportContent">1</a></td>
-						<td>1202</td>
-						<td>위도,경도</td>
-						<td>2021.07.09 12:46</td>
-						<td>106547</td>
-						<td>신고 접수</td>
 
-					</tr>
-
+					<c:forEach items="${list}" var="list">
+						<tr>
+							<td><a href="/reportContent?acd_id=${list.acd_id }">${list.acd_id }</a></td>
+							<td>${list.acd_code_id }</td>
+							<td>(${list.acd_latitude } , ${list.acd_longitude })</td>
+							<td>${list.acd_date }</td>
+							<td>${list.sh_id }</td>
+							<td>${list.acd_take }</td>
+						</tr>
+					</c:forEach>
 				</tbody>
 			</table>
 
 			<!-- 테이블 끝 -->
 
-			<a type="button" class="btn btn-primary justify-content-end" href="/manuallyRegistReport">등록하기</a>
+			<a type="button" class="btn btn-primary justify-content-end"
+				href="/manuallyRegistReport">등록하기</a>
 
 			<!-- pagination -->
 			<nav>

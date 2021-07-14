@@ -4,13 +4,31 @@
 <script type="text/javascript"
 	src="//dapi.kakao.com/v2/maps/sdk.js?appkey=0f71a92fecd7b42434cde225a0893ff1"></script>
 <script type="text/javascript">
+	$(function name() {
+		$("#buttonAcdRegister").click(function name() {
+			$("#acdReportForm").submit();
+		});
 
-$(function name() {
-	$("#buttonAcdRegister").click(function name() {
-		$("#acdReportForm").submit();
+		$("#buttonConfirmAcdCode").click(function name() {
+
+			let url = "/getAcdCode";
+
+			$.get(url, function name(rData) {
+
+				for (var v = 0; v < rData.length; v++) {
+					let str = "";
+					str += "<tr>";
+					str += "<th>" + rData[v].acd_code_id + "</th>";
+					str += "<td>" + rData[v].acd_code_name + "</td>";
+					str += "</tr>";
+					$("#acdCodeTable").append(str);
+				}
+
+			});
+
+		});
+
 	});
-});
-
 </script>
 
 <!-- 등록 페이지 title -->
@@ -55,22 +73,25 @@ $(function name() {
 
 			// 지도에 마커를 표시합니다
 			marker.setMap(map);
-			
+
 			let xLocation = 35.44294727060267;
 			let yLocation = 129.36937385789298;
-			
+
 			$(function name() {
-				$("#acd_latitude").change(function name() {
-					xLocation = $(this).val();
-					marker.setPosition(new kakao.maps.LatLng(xLocation, yLocation));
-				});
-				
-				$("#acd_longitude").change(function name() {
-					yLocation = $(this).val();
-					marker.setPosition(new kakao.maps.LatLng(xLocation, yLocation));
-				});
+				$("#acd_latitude").change(
+						function name() {
+							xLocation = $(this).val();
+							marker.setPosition(new kakao.maps.LatLng(xLocation,
+									yLocation));
+						});
+
+				$("#acd_longitude").change(
+						function name() {
+							yLocation = $(this).val();
+							marker.setPosition(new kakao.maps.LatLng(xLocation,
+									yLocation));
+						});
 			});
-			
 		</script>
 		<!-- 지도데이터 div 끝 -->
 
@@ -82,10 +103,66 @@ $(function name() {
 			<div class="container-fluid">
 				<div class="row">
 					<div class="col-md-12">
-						<form role="form" action="/registReportRun" method="post" id="acdReportForm">
+						<form role="form" action="/registReportRun" method="post"
+							id="acdReportForm">
 							<div class="form-group">
-								<label for="acd_code_id"> 사고 코드 </label> <input type="text"
-									class="form-control" id="acd_code_id" name="acd_code_id" />
+								<div>
+									<label for="acd_code_id"> 사고 코드 </label>
+
+									<!-- Button trigger modal -->
+									<button type="button" class="btn btn-success"
+										id="buttonConfirmAcdCode" style="margin-left: 100px;"
+										data-toggle="modal" data-target="#exampleModal">사고 코드
+										확인하기</button>
+
+									<!-- Modal -->
+									<div class="modal fade" id="exampleModal" tabindex="-1"
+										role="dialog" aria-labelledby="exampleModalLabel"
+										aria-hidden="true">
+										<div class="modal-dialog" role="document">
+											<div class="modal-content">
+												<div class="modal-header">
+													<h5 class="modal-title" id="exampleModalLabel">사고 코드</h5>
+													<button type="button" class="close" data-dismiss="modal"
+														aria-label="Close">
+														<span aria-hidden="true">&times;</span>
+													</button>
+												</div>
+												<div class="modal-body">
+
+													<div class="container-fluid">
+														<div class="row">
+															<div class="col-md-12">
+
+																<table class="table">
+																	<tbody id="acdCodeTable">
+																		<tr>
+																			<th>사고 코드</th>
+																			<td>사고 내용</td>
+																		</tr>
+
+
+
+																	</tbody>
+																</table>
+															</div>
+														</div>
+													</div>
+
+												</div>
+												<div class="modal-footer">
+													<button type="button" class="btn btn-secondary"
+														data-dismiss="modal">취소</button>
+													<button type="button" class="btn btn-primary">적용하기</button>
+												</div>
+											</div>
+										</div>
+									</div>
+
+
+								</div>
+								<input type="text" class="form-control" id="acd_code_id"
+									name="acd_code_id" />
 							</div>
 
 							<div class="form-group">
@@ -99,11 +176,9 @@ $(function name() {
 							</div>
 
 							<div class="form-group">
-								<label for="acd_timestamp "> 사고 발생시간 </label>
-								<input type="date"
-									class="form-control " id="acd_day" name="acd_day" /> 
-								<input type="time"
-									class="form-control " id="acd_hour" name="acd_hour" />
+								<label for="acd_timestamp "> 사고 발생시간 </label> <input type="date"
+									class="form-control " id="acd_day" name="acd_day" /> <input
+									type="time" class="form-control " id="acd_hour" name="acd_hour" />
 							</div>
 
 							<div class="form-group">

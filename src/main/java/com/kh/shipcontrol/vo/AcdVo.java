@@ -6,8 +6,8 @@ public class AcdVo {
 
 	private int acd_id;
 	private int acd_code_id;
-	private int acd_latitude;
-	private int acd_longitude;
+	private String acd_latitude;
+	private String acd_longitude;
 	private Timestamp acd_date;
 	private String acd_remark;
 	private String acd_take;
@@ -16,7 +16,7 @@ public class AcdVo {
 	public AcdVo() {
 	}
 
-	public AcdVo(int acd_id, int acd_code_id, int acd_latitude, int acd_longitude, Timestamp acd_date,
+	public AcdVo(int acd_id, int acd_code_id, String acd_latitude, String acd_longitude, Timestamp acd_date,
 			String acd_remark, String acd_take, int sh_id) {
 		this.acd_id = acd_id;
 		this.acd_code_id = acd_code_id;
@@ -44,19 +44,19 @@ public class AcdVo {
 		this.acd_code_id = acd_code_id;
 	}
 
-	public int getAcd_latitude() {
+	public String getAcd_latitude() {
 		return acd_latitude;
 	}
 
-	public void setAcd_latitude(int acd_latitude) {
+	public void setAcd_latitude(String acd_latitude) {
 		this.acd_latitude = acd_latitude;
 	}
 
-	public int getAcd_longitude() {
+	public String getAcd_longitude() {
 		return acd_longitude;
 	}
 
-	public void setAcd_longitude(int acd_longitude) {
+	public void setAcd_longitude(String acd_longitude) {
 		this.acd_longitude = acd_longitude;
 	}
 

@@ -10,8 +10,9 @@
 	<div class="row">
 		<div class="col-md-12">
 			<h3>조난 상세내역 페이지</h3>
+			
 			<dl>
-				<dt>사고번호 ? 번 상세내역입니다</dt>
+				<dt>사고번호 ${acdVo.acd_id}번 상세내역입니다</dt>
 			</dl>
 		</div>
 	</div>
@@ -64,31 +65,31 @@
 				<tbody>
 					<tr>
 						<th>사고번호</th>
-						<td>1</td>
+						<td>${acdVo.acd_id }</td>
 					</tr>
 					<tr>
 						<th>사고 코드</th>
-						<td>1202</td>
+						<td>${acdVo.acd_code_id }</td>
 					</tr>
 					<tr>
 						<th>사고위도</th>
-						<td id="acd_latitude">35.44294727060267</td>
+						<td id="acd_latitude">${acdVo.acd_latitude}</td>
 					</tr>
 					<tr>
 						<th>사고경도</th>
-						<td id="acd_longitude">129.36937385789298</td>
+						<td id="acd_longitude">${acdVo.acd_longitude}</td>
 					</tr>
 					<tr>
 						<th>사고발생시간</th>
-						<td>21.07.12 12:47</td>
+						<td>${acdVo.acd_date }</td>
 					</tr>
 					<tr>
 						<th>선박번호</th>
-						<td>157342</td>
+						<td>${acdVo.sh_id }</td>
 					</tr>
 					<tr>
 						<th>진행상태</th>
-						<td>신고접수</td>
+						<td>${acdVo.acd_take }</td>
 					</tr>
 				</tbody>
 			</table>
