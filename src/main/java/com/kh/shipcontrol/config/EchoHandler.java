@@ -11,6 +11,8 @@ import org.springframework.web.socket.TextMessage;
 import org.springframework.web.socket.WebSocketSession;
 import org.springframework.web.socket.handler.TextWebSocketHandler;
 
+import com.kh.shipcontrol.vo.StatusVo;
+
 //소켓통신 핸들러
 
 @RequestMapping("/echo")
@@ -27,10 +29,14 @@ public class EchoHandler extends TextWebSocketHandler{
         logger.info("{} 연결됨", session.getId()); 
     }
 
+
     //클라이언트가 웹소켓 서버로 메시지를 전송했을 때 실행
     @Override
     protected void handleTextMessage(WebSocketSession session, TextMessage message) throws Exception {
         logger.info("{}로 부터 {} 받음", session.getId(), message.getPayload());
+     
+        // StatusVo statusVo = StatusVo.convertStatus(message.getPayload());
+        
         //모든 유저에게 메세지 출력
         for(WebSocketSession sess : sessionList){
             sess.sendMessage(new TextMessage(message.getPayload()));

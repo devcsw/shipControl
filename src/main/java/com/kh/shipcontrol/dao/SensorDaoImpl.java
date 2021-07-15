@@ -29,4 +29,10 @@ public class SensorDaoImpl implements SensorDao {
 				sqlSession.selectList(NAMESPACE + "listShipSensor");
 		return list;
 	}
+
+	@Override
+	public void deleteSensor(int sh_id) {
+		sqlSession.insert(NAMESPACE + "deleteSensor", sh_id); 
+		
+	}
 }

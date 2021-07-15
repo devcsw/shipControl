@@ -12,6 +12,11 @@
 		values 
 			(#{sh_id}, #{sh_name}, #{sh_board_code}, #{sh_owner}, #{sh_owner}, #{sh_cap_name}, #{sh_cap_tel}, #{sh_type}, #{sh_mmsi}, #{sh_call_sign}) 
 	</insert>
+	<!-- 선박삭제 -->
+	<delete id="deleteShip">
+		delete from ship_tb
+		where sh_id = #{sh_id}
+	</delete>
 	<!-- 데이터 받지않고있을때 초기 화면 리스트업 -->
 	<resultMap type="HashMap" id="ListMap">
 		<id column="sh_id" property="sh_id"/>

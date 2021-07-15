@@ -28,4 +28,9 @@ public class ShipDaoImpl implements ShipDao {
 				sqlSession.selectList(NAMESPACE + "listAllShip");
 		return list;
 	}
+
+	@Override
+	public void deleteShip(int sh_id) {
+		sqlSession.delete(NAMESPACE + "insertShip" ,sh_id); 
+	}
 }

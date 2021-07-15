@@ -1,5 +1,6 @@
 package com.kh.shipcontrol.controller;
 
+import java.time.LocalDateTime;
 import java.util.Locale;
 
 import org.slf4j.Logger;
@@ -18,8 +19,9 @@ public class SocketController {
 	@RequestMapping(value = "/client_test", method = RequestMethod.GET)
 	public String chat(Locale locale, Model model) {
 		logger.info("Welcome chat! The client locale is {}.", locale);
-		
+	
 		return "client_test";
 	}
 	
+
 }

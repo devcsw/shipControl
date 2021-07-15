@@ -47,7 +47,7 @@ playAlert = setInterval(function() {
 	// 서버에서 데이터 받는 방법 짜기
 		var dataArray = new Array();
 		console.log("자동 전송 시작");
-		
+		let today = getTimeStamp(new Date()); 
 		
 		//for (var v = 0; v < 3; v++) {
 			
@@ -55,18 +55,25 @@ playAlert = setInterval(function() {
 					"sh_id" :Math.floor(Math.random() * 10),
 					"sh_status_latitude" : Math.floor(Math.random() * 100),
 					"sh_status_longitude" : Math.floor(Math.random() * 100),
-					"fire" : Math.floor(Math.random() * 100),
+					"fire" : Math.floor(Math.random() * 5),
+
 					"temperature" :Math.floor(Math.random() * 100),
 					"smoke" : Math.floor(Math.random() * 100),
 					"windSpeed" : Math.floor(Math.random() * 100),
 					"windDirection" : Math.floor(Math.random() * 100),
-					"gyroscope" : Math.floor(Math.random() * 100)
+					"gyroscope" : Math.floor(Math.random() * 100),
+					"date" :  today
 				}
 			 	dataArray.push(sendData);
+			
+			
 		//	}
 		var sJson = JSON.stringify(dataArray);
 		sendTest("test");
 		sendMessage(sendData);
+		
+
+		
 	}, 1000);
 });
 
@@ -110,6 +117,33 @@ playAlert = setInterval(function() {
 	function onClose(evt) {
 		$("#messageArea").append("연결 끊김");
 		setTimeout(socketInit, 300);
+	}
+	
+	
+	//시간함수
+	function getTimeStamp() {
+	  var d = new Date();
+	  var s =
+	    leadingZeros(d.getFullYear(), 4) + '-' +
+	    leadingZeros(d.getMonth() + 1, 2) + '-' +
+	    leadingZeros(d.getDate(), 2) + ' ' +
+
+	    leadingZeros(d.getHours(), 2) + ':' +
+	    leadingZeros(d.getMinutes(), 2) + ':' +
+	    leadingZeros(d.getSeconds(), 2);
+
+	  return s;
+	}
+
+	function leadingZeros(n, digits) {
+	  var zero = '';
+	  n = n.toString();
+
+	  if (n.length < digits) {
+	    for (i = 0; i < digits - n.length; i++)
+	      zero += '0';
+	  }
+	  return zero + n;
 	}
 </script>
 </html>

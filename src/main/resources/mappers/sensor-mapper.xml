@@ -14,4 +14,10 @@
 		values 
 			(#{sh_id}, #{se_id}) 
 	</insert>
+	
+	<!-- 센서삭제 -->
+	<delete id="deleteSensor">
+		delete from ship_sensor_tb
+		where sh_id = #{sh_id}
+	</delete>
 </mapper>

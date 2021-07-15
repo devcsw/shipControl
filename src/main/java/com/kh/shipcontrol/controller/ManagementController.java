@@ -36,11 +36,8 @@ public class ManagementController {
 	public String home(Locale locale, Model model) {
 		logger.info("management입니다.! The client locale is {}.", locale);
 		
-		Date date = new Date();
-		DateFormat dateFormat = DateFormat.getDateTimeInstance(DateFormat.LONG, DateFormat.LONG, locale);
-		
-		String formattedDate = dateFormat.format(date);
 		List<Map<String, Object>> list = shipService.listAllShip();
+		
 		System.out.println(list);
 		model.addAttribute("list", list );
 		
@@ -49,15 +46,29 @@ public class ManagementController {
 	
 	@RequestMapping(value = "/insertShip", method = RequestMethod.POST)
 	public String insertShip(ShipVo shipVo, SensorDto sensorDto, RedirectAttributes rttr) throws Exception {
-		//체크된 데이터 기준
-		System.out.println(shipVo);
-		System.out.println(sensorDto);
-		rttr.addFlashAttribute("msg", "success");
-		shipService.registShip(shipVo, sensorDto);
 		
+		
+		shipService.registShip(shipVo, sensorDto);
+		rttr.addFlashAttribute("msg", "insertSuccess");
 		return "redirect:/shipcontrol/management";
 	}
 	
+	@RequestMapping(value = "/updateShip", method = RequestMethod.POST)
+	public String updateShip(ShipVo shipVo, SensorDto sensorDto, RedirectAttributes rttr) throws Exception {
+			
+		
+		shipService.registShip(shipVo, sensorDto);
+		rttr.addFlashAttribute("msg", "updateSuccess");
+		return "redirect:/shipcontrol/management";
+	}
+	@RequestMapping(value = "/deleteShip", method = RequestMethod.POST)
+	public String deleteShip(int sh_id, RedirectAttributes rttr) throws Exception {
+			
+		shipService.deleteShip(sh_id);
+	//	shipService.registShip(shipVo, sensorDto);
+		rttr.addFlashAttribute("msg", "updateSuccess");
+		return "redirect:/shipcontrol/management";
+	}
 
 	
 }

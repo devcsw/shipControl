@@ -53,5 +53,12 @@ public class ShipServiceImpl implements ShipService {
 		List<Map<String, Object>> list = shipDao.listAllShip();
 		 return list;
 	}
+
+	@Transactional
+	@Override
+	public void deleteShip(int sh_id) {
+		shipDao.deleteShip(sh_id);
+		sensorDao.deleteSensor(sh_id);
+	}
 	
 }

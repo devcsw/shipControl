@@ -54,64 +54,36 @@ function tableCreate(receivedData){
 	var windSpeed = result.windSpeed;
 	var windDirection = result.windDirection;
 	var gyroscope = result.gyroscope;
-
-	//$('#'+ id ).text('이건왜됨');
-	$('#'+ id ).next().text('선박명');
-	$('#'+ id ).next().next().text('센서코드');
+	var date = result.date;
+	
+	var emergencyCode =""
+	// 데이터 받을때마다 위험도 체크
+	if (fire>=4){
+		emergencyCode = "위험";
+	} else if(fire >=2) {
+		emergencyCode = "주의";
+	} else {
+		emergencyCode = "정상"
+	}
+	
 	$('#'+ id ).next().next().next().text(fire);
 	$('#'+ id ).next().next().next().next().text(temperature);
 	$('#'+ id ).next().next().next().next().next().text(smoke);
 	$('#'+ id ).next().next().next().next().next().next().text(windSpeed);
 	$('#'+ id ).next().next().next().next().next().next().next().text(windDirection);
 	$('#'+ id ).next().next().next().next().next().next().next().next().text(gyroscope);
-	
-	/*for(var v=0; v < jsonArr.size();v++){
-		html += '<tr>';
-	
-		html += '<td>';
-		html += jsonArr.sh_id;
-		html += '</td>';
+	$('#'+ id ).next().next().next().next().next().next().next().next().next().text(date);
+	$('#'+ id ).next().next().next().next().next().next().next().next().next().next().text(emergencyCode);
+	if (emergencyCode=="위험"){
+		$('#'+ id ).next().next().next().next().next().next().next().next().next().next().css("color", "red");
+			
+	} else if (emergencyCode=="주의") {
+		$('#'+ id ).next().next().next().next().next().next().next().next().next().next().css("color", "orange");
 		
-		html += '<td>선박명';
-		html += '</td>';
-	
-		html += '<td>센서코드';
-		html += '</td>';
+	} else {
+		$('#'+ id ).next().next().next().next().next().next().next().next().next().next().css("color", "green");
 		
-		
-		html += '<td>';
-		html += jsonArr.fire;
-		html += '</td>';
-		html += '<td>';
-		html += jsonArr.temperature;
-		html += '</td>';
-		html += '<td>';
-		html += jsonArr.smoke;
-		html += '</td>';
-		html += '<td>';
-		html += jsonArr.windSpeed;
-		html += '</td>';
-		html += '<td>';
-		html += jsonArr.windDirection;
-		html += '</td>';
-		html += '<td>';
-		html += jsonArr.gyroscope;
-		html += '</td>';
-		
-		html += '<td>보고일시';
-		html += '</td>';
-		
-		html += '<td>긴급여부';
-		html += '</td>';
-		
-		html += '<td>상세보기';
-		html += '</td>';
-	
-		html += '</tr>';
-	//}
-	//target.empty();
-	target.append(html);*/
-	
+	}
 }
 
 </script>
@@ -308,48 +280,47 @@ function tableCreate(receivedData){
 	    					<td id="${list.sh_id }">${list.sh_id }</td>
 	    					<td>${list.sh_name }</td>
 	    					<td>${list.sh_board_code }</td>
-	    					<td>${list.fire }</td>
-	    					<td>${list.temperature }</td>
-	    					<td>${list.smoke }</td>
-	    					<td>${list.windspeed }</td>
-	    					<td>${list.widdirection }</td>
-	    					<td>${list.gyroscope }</td>
+	    					<td>
+		    					<c:if test="${not empty list.fire }">
+	    							<c:out value="on" />
+								</c:if>
+							</td>
+	    					<td>
+		    					<c:if test="${not empty list.temperature }">
+	    							<c:out value="on" />
+								</c:if>
+							</td>
+	    					<td>
+	    						<c:if test="${not empty list.smoke }">
+	    							<c:out value="on" />
+								</c:if>
+	    					</td>
+	    					<td>
+	    						<c:if test="${not empty list.windspeed }">
+	    							<c:out value="on" />
+								</c:if>
+	    					</td>
+	    					<td>
+	    						<c:if test="${not empty list.widdirection }">
+	    							<c:out value="on" />
+								</c:if>
+	    					</td>
+	    					<td>
+	    						<c:if test="${not empty list.gyroscope }">
+	    							<c:out value="on" />
+								</c:if>
+	    					</td>
 	    					<td></td>
 	    					<td></td>
-	    					<td></td>
+	    					<td><button class="btn-primary" value="${list.sh_id }">내역</button></td>
 	   					</tr>
 					</c:forEach>
 				</tbody>
 				
 			</table>
 			<!-- //테이블  -->
-			
-			<!-- 
-			<div class="row">
-				<div class="col-md-2">
-					<div>
-						<ul class="pagination pagination-sm">
-							<li class="page-item disabled"><a class="page-link" href="#">&laquo;</a>
-							</li>
-							<li class="page-item active"><a class="page-link" href="#">1</a>
-							</li>
-							<li class="page-item"><a class="page-link" href="#">2</a></li>
-							<li class="page-item"><a class="page-link" href="#">3</a></li>
-							<li class="page-item"><a class="page-link" href="#">4</a></li>
-							<li class="page-item"><a class="page-link" href="#">5</a></li>
-							<li class="page-item"><a class="page-link" href="#">&raquo;</a></li>
-						</ul>
-					</div>
-				</div>
-				<div class="col-md-2"></div>
-				<div class="col-md-2"></div>
-				<div class="col-md-2"></div>
-				<div class="col-md-2"></div>
-				<div class="col-md-2"></div>
-			</div>
-		  -->
-		</div>
 
+		</div>
 	</div>
 </div>
 
