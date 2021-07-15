@@ -74,7 +74,6 @@
 				<ul class="navbar-nav me-auto">
 					<li class="nav-item"><a class="nav-link" href="/">전체상황 </a></li>
 					<li class="nav-item"><a class="nav-link" href="/shipcontrol/management">선박관리</a></li>
-					<li class="nav-item"><a class="nav-link" href="#">처리현황</a></li>
 					<li class="nav-item"><a class="nav-link" href="/reportPage">조난내역</a></li>
 					<li class="nav-item dropdown"><a
 						class="nav-link dropdown-toggle" data-bs-toggle="dropdown"

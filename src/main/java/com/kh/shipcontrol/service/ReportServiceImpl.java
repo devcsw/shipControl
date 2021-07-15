@@ -63,4 +63,10 @@ public class ReportServiceImpl implements ReportService {
 		return list;
 	}
 
+	@Override
+	public int getAcdIdSeq() {
+		int count = reportDao.getAcdIdSeq();
+		return count;
+	}
+
 }

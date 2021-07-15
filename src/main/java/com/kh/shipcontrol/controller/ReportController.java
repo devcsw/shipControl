@@ -61,6 +61,12 @@ public class ReportController {
 //		System.out.println("@ReportController acdVo : " + acdVo);
 
 		reportService.registReport(acdVo);
+		int acd_id = reportService.getAcdIdSeq();
+		AcdHndVo acdHndVo = new AcdHndVo();
+		acdHndVo.setAcd_id(acd_id - 1);
+		acdHndVo.setAcd_hnd_content("최초신고접수");
+		acdHndVo.setAcd_hnd_take("신고접수");
+		reportService.addAcdHnd(acdHndVo);
 
 		return "redirect:/";
 	}
@@ -100,7 +106,7 @@ public class ReportController {
 		Map<String, String> map = new HashMap<>();
 		map.put("searchType", searchType);
 		map.put("searchWord", searchWord);
-		
+
 		List<AcdVo> list = reportService.getAcdListBySerachType(map);
 		System.out.println("@ReportController list :" + list);
 		model.addAttribute("list", list);

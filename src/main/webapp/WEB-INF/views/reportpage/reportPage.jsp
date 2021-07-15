@@ -125,7 +125,7 @@
 							<td>${list.sh_id }</td>
 							<td><a id="modalAcdTake" href="#modal-container-120818"
 								role="button" class="btn btn-success modalAcdTake"
-								data-toggle="modal">확인하기</a></td>
+								data-toggle="modal">${list.acd_take }</a></td>
 						</tr>
 					</c:forEach>
 				</tbody>

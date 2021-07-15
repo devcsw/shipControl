@@ -67,4 +67,10 @@ public class ReportDaoImpl implements ReportDao {
 		
 	}
 
+	@Override
+	public int getAcdIdSeq() {
+		int count = sqlsession.selectOne(NAMESPACE + "getAcdIdSeq");
+		return count;
+	}
+
 }
