@@ -23,6 +23,7 @@ import com.kh.shipcontrol.vo.ShipVo;
 /**
  * Handles requests for the application home page.
  */
+
 @Controller
 @RequestMapping(value = "/shipcontrol")
 public class ManagementController {
@@ -53,16 +54,22 @@ public class ManagementController {
 		return "redirect:/shipcontrol/management";
 	}
 	
-	@RequestMapping(value = "/updateShip", method = RequestMethod.POST)
+	@RequestMapping(value = "/updateShipForm", method = RequestMethod.GET)
 	public String updateShip(ShipVo shipVo, SensorDto sensorDto, RedirectAttributes rttr) throws Exception {
+			
+		return "shipcontrol/updateShipForm";
+	}	
+	
+	@RequestMapping(value = "/updateShipRun", method = RequestMethod.POST)
+	public String updateShipRun(ShipVo shipVo, SensorDto sensorDto, RedirectAttributes rttr) throws Exception {
 			
 		
 		shipService.registShip(shipVo, sensorDto);
 		rttr.addFlashAttribute("msg", "updateSuccess");
 		return "redirect:/shipcontrol/management";
 	}
-	@RequestMapping(value = "/deleteShip", method = RequestMethod.POST)
-	public String deleteShip(int sh_id, RedirectAttributes rttr) throws Exception {
+	@RequestMapping(value = "/deleteShipRun", method = RequestMethod.POST)
+	public String deleteShipRun(int sh_id, RedirectAttributes rttr) throws Exception {
 			
 		shipService.deleteShip(sh_id);
 	//	shipService.registShip(shipVo, sensorDto);

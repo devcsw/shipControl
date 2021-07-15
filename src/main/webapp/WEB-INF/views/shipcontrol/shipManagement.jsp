@@ -276,7 +276,7 @@ function tableCreate(receivedData){
 				<tbody id="tbody">
 					<c:forEach var="list" items="${list}">
 						<tr >
-	    					<td id="${list.sh_id }">${list.sh_id }</td>
+	    					<td id="${list.sh_id }"><a href="/shipcontrol/updateShipForm">${list.sh_id}</a></td>
 	    					<td>${list.sh_name }</td>
 	    					<td>${list.sh_board_code }</td>
 	    					<td>
