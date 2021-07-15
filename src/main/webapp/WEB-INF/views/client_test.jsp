@@ -52,24 +52,7 @@
 </body>
 
 
-<<<<<<< HEAD
-$(document).ready(function() {
-	
-	
-//계속 데이터를 쏴주는 코드 작성
-//생성되는 데이터 기준으로 화면 변경 및 데이터 베이스 입력
-playAlert = setInterval(function() {
-	// 리스트에 선박데이터 배열 100개 생성 코드
-	//생성 될 때마다 테이블 변경
-	// 추후 생성 될 때마다 지도 api에 위치 마크업
-	// 서버에서 데이터 받는 방법 짜기
-		var dataArray = new Array();
-		console.log("자동 전송 시작");
-		let today = getTimeStamp(new Date()); 
-		
-		//for (var v = 0; v < 3; v++) {
-			
-=======
+
 <script type="text/javascript">
 	$(document).ready(function() {
 
@@ -85,10 +68,8 @@ playAlert = setInterval(function() {
 
 			//for (var v = 0; v < 3; v++) {
 
->>>>>>> branch 'main' of https://github.com/devcsw/shipControl
 			sendData = {
-<<<<<<< HEAD
-					"sh_id" :Math.floor(Math.random() * 10),
+				"sh_id" :Math.floor(Math.random() * 10),
 					"sh_status_latitude" : Math.floor(Math.random() * 100),
 					"sh_status_longitude" : Math.floor(Math.random() * 100),
 					"fire" : Math.floor(Math.random() * 5),
@@ -112,7 +93,6 @@ playAlert = setInterval(function() {
 		
 	}, 1000);
 });
-=======
 				"sh_id" : Math.floor(Math.random() * 10),
 				"sh_status_latitude" : Math.floor(Math.random() * 100),
 				"sh_status_longitude" : Math.floor(Math.random() * 100),
@@ -130,7 +110,6 @@ playAlert = setInterval(function() {
 			sendMessage(sendData);
 		}, 1000);
 	});
->>>>>>> branch 'main' of https://github.com/devcsw/shipControl
 
 	//메세지 전송시에 데이터처리
 	$("#sendBtn").click(function() {
