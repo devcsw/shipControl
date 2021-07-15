@@ -54,62 +54,35 @@
 
 
 <script type="text/javascript">
-	$(document).ready(function() {
+$(document).ready(function() {
 
-		//계속 데이터를 쏴주는 코드 작성
-		//생성되는 데이터 기준으로 화면 변경 및 데이터 베이스 입력
-		playAlert = setInterval(function() {
-			// 리스트에 선박데이터 배열 100개 생성 코드
-			//생성 될 때마다 테이블 변경
-			// 추후 생성 될 때마다 지도 api에 위치 마크업
-			// 서버에서 데이터 받는 방법 짜기
-			var dataArray = new Array();
-			console.log("자동 전송 시작");
-
-			//for (var v = 0; v < 3; v++) {
-
-			sendData = {
-				"sh_id" :Math.floor(Math.random() * 10),
-					"sh_status_latitude" : Math.floor(Math.random() * 100),
-					"sh_status_longitude" : Math.floor(Math.random() * 100),
-					"fire" : Math.floor(Math.random() * 5),
-
-					"temperature" :Math.floor(Math.random() * 100),
-					"smoke" : Math.floor(Math.random() * 100),
-					"windSpeed" : Math.floor(Math.random() * 100),
-					"windDirection" : Math.floor(Math.random() * 100),
-					"gyroscope" : Math.floor(Math.random() * 100),
-					"date" :  today
-				}
-			 	dataArray.push(sendData);
-			
-			
-		//	}
-		var sJson = JSON.stringify(dataArray);
-		sendTest("test");
-		sendMessage(sendData);
-		
-
-		
-	}, 1000);
-});
-				"sh_id" : Math.floor(Math.random() * 10),
+	setInterval(function () {
+	//var dataArray = new Array();
+		console.log("자동 전송 시작");
+		today = getTimeStamp(new Date());
+		sendData = {
+			"sh_id" :Math.floor(Math.random() * 10),
 				"sh_status_latitude" : Math.floor(Math.random() * 100),
 				"sh_status_longitude" : Math.floor(Math.random() * 100),
-				"fire" : Math.floor(Math.random() * 100),
-				"temperature" : Math.floor(Math.random() * 100),
+				"fire" : Math.floor(Math.random() * 5),
+
+				"temperature" :Math.floor(Math.random() * 100),
 				"smoke" : Math.floor(Math.random() * 100),
 				"windSpeed" : Math.floor(Math.random() * 100),
 				"windDirection" : Math.floor(Math.random() * 100),
-				"gyroscope" : Math.floor(Math.random() * 100)
+				"gyroscope" : Math.floor(Math.random() * 100),
+				"date" :  today
 			}
-			dataArray.push(sendData);
-			//	}
-			var sJson = JSON.stringify(dataArray);
-			sendTest("test");
-			sendMessage(sendData);
-		}, 1000);
-	});
+	 	//dataArray.push(sendData);
+		//var sJson = JSON.stringify(dataArray);
+		sendMessage(sendData);
+	}, 1000);
+
+
+});
+
+	
+
 
 	//메세지 전송시에 데이터처리
 	$("#sendBtn").click(function() {
@@ -131,7 +104,6 @@
 	let sock = new SockJS("http://localhost:80/echo/");
 	sock.onmessage = onMessage;
 	sock.onclose = onClose;
-
 	// 메시지 전송
 	function sendMessage(sendData) {
 		sock.send(JSON.stringify(sendData));
@@ -149,7 +121,6 @@
 	// 서버와 연결을 끊었을 때
 	function onClose(evt) {
 		$("#messageArea").append("연결 끊김");
-		setTimeout(socketInit, 300);
 	}
 	
 	

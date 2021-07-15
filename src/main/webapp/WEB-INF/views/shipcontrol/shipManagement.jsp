@@ -14,6 +14,7 @@ $(document).ready(function() {
 
 //소켓 데이터 수신
 function connect() {
+	console.log("onConnect")
 	let ws = new SockJS("http://localhost:80/echo/");
 	socket = ws;
 	
@@ -30,13 +31,12 @@ function connect() {
 	//끝날때 보여줌
 	ws.onclose = function(event){
 		console.log('Info : connection closed');
-		/*
-		setTimeout(() => {
-			ws.onopen;
-		}, 100);*/
-		setTimeout(socketInit, 300);
+		connect();
 	
 	}	
+	
+	
+	
 	//에러가 생겼을때
 	ws.onerror = function(err) {console.log('Error : ', err);}
 }
@@ -46,7 +46,6 @@ function tableCreate(receivedData){
 	var html = '';
 	
 	var result = JSON.parse(receivedData);
-	//var test = document.getElementById(result.sh_id).innerHTML;
 	var id = result.sh_id;
 	var fire = result.fire;
 	var temperature= result.temperature;
