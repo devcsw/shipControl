@@ -6,6 +6,7 @@ import java.util.Map;
 import javax.inject.Inject;
 
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.kh.shipcontrol.dao.ReportDao;
 import com.kh.shipcontrol.vo.AcdCodeVo;
@@ -43,8 +44,10 @@ public class ReportServiceImpl implements ReportService {
 	}
 
 	@Override
+	@Transactional
 	public void addAcdHnd(AcdHndVo acdHndVo) {
 		reportDao.addAcdHnd(acdHndVo);
+		reportDao.updateAcdTake(acdHndVo);
 
 	}
 

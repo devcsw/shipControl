@@ -22,4 +22,6 @@ public interface ReportDao {
 	public List<AcdHndVo> getAcdHnd(String acd_id);
 
 	public List<AcdVo> getAcdListBySerachType(Map<String, String> map);
+	
+	public void updateAcdTake(AcdHndVo acdHndVo);
 }

@@ -61,4 +61,10 @@ public class ReportDaoImpl implements ReportDao {
 		return acdVo;
 	}
 
+	@Override
+	public void updateAcdTake(AcdHndVo acdHndVo) {
+		sqlsession.update(NAMESPACE + "updateAcdTake", acdHndVo);
+		
+	}
+
 }
