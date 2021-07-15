@@ -1,7 +1,9 @@
 package com.kh.shipcontrol.controller;
 
 import java.sql.Timestamp;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.inject.Inject;
 
@@ -53,10 +55,10 @@ public class ReportController {
 	public String registReportRun(AcdVo acdVo, String acd_day, String acd_hour) throws Exception {
 		// 위도, 경도에 대한 처리 필요
 		String format = acd_day + " " + acd_hour + ":00";
-		System.out.println(format);
+//		System.out.println(format);
 		Timestamp timestamp = Timestamp.valueOf(format);
 		acdVo.setAcd_date(timestamp);
-		System.out.println("@ReportController acdVo : " + acdVo);
+//		System.out.println("@ReportController acdVo : " + acdVo);
 
 		reportService.registReport(acdVo);
 
@@ -84,10 +86,26 @@ public class ReportController {
 	@RequestMapping(value = "/getAcdHnd", method = RequestMethod.GET)
 	@ResponseBody
 	public List<AcdHndVo> getAcdHnd(String acd_id) throws Exception {
-		System.out.println("@ReportController acd_id :" + acd_id);
+//		System.out.println("@ReportController acd_id :" + acd_id);
 		List<AcdHndVo> list = reportService.getAcdHnd(acd_id);
-		System.out.println("@ReportController list :" + list);
+//		System.out.println("@ReportController list :" + list);
 		return list;
+	}
+
+	@RequestMapping(value = "/getAcdListBySerachType", method = RequestMethod.GET)
+	public String getAcdListBySerachType(String searchType, String searchWord, Model model) throws Exception {
+//		System.out.println("@ReportController searchType :" + searchType);
+//		System.out.println("@ReportController searchWord :" + searchWord); 
+		// 확인완료
+		Map<String, String> map = new HashMap<>();
+		map.put("searchType", searchType);
+		map.put("searchWord", searchWord);
+		
+		List<AcdVo> list = reportService.getAcdListBySerachType(map);
+		System.out.println("@ReportController list :" + list);
+		model.addAttribute("list", list);
+
+		return "/reportpage/reportPage";
 	}
 
 }

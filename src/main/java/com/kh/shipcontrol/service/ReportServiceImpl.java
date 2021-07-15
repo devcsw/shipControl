@@ -1,6 +1,7 @@
 package com.kh.shipcontrol.service;
 
 import java.util.List;
+import java.util.Map;
 
 import javax.inject.Inject;
 
@@ -44,12 +45,18 @@ public class ReportServiceImpl implements ReportService {
 	@Override
 	public void addAcdHnd(AcdHndVo acdHndVo) {
 		reportDao.addAcdHnd(acdHndVo);
-		
+
 	}
 
 	@Override
 	public List<AcdHndVo> getAcdHnd(String acd_id) {
 		List<AcdHndVo> list = reportDao.getAcdHnd(acd_id);
+		return list;
+	}
+
+	@Override
+	public List<AcdVo> getAcdListBySerachType(Map<String, String> map) {
+		List<AcdVo> list = reportDao.getAcdListBySerachType(map);
 		return list;
 	}
 

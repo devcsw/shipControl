@@ -135,10 +135,10 @@
 			<table class="table">
 				<thead>
 					<tr>
-						<th>ACD_HND_ID</th>
-						<th>ACD_ID</th>
-						<th>ACD_HND_CONTENT</th>
-						<th>ACD_HND_TAKE</th>
+						<th>#</th>
+						<th>사고번호</th>
+						<th>처리내용</th>
+						<th>진행상태</th>
 					</tr>
 				</thead>
 				<tbody>

@@ -1,6 +1,7 @@
 package com.kh.shipcontrol.dao;
 
 import java.util.List;
+import java.util.Map;
 
 import javax.inject.Inject;
 
@@ -52,6 +53,12 @@ public class ReportDaoImpl implements ReportDao {
 	public List<AcdHndVo> getAcdHnd(String acd_id) {
 		List<AcdHndVo> list = sqlsession.selectList(NAMESPACE + "getAcdHnd", acd_id);
 		return list;
+	}
+
+	@Override
+	public List<AcdVo> getAcdListBySerachType(Map<String, String> map) {
+		List<AcdVo> acdVo = sqlsession.selectList(NAMESPACE + "getAcdListBySerachType", map);
+		return acdVo;
 	}
 
 }

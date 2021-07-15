@@ -15,6 +15,16 @@
 
 			$.get(url, sendData, function name(rData) {
 				console.log(rData);
+				$("#tableAcdHnd").empty();
+
+				let base = "<tr>";
+				base += "<th>#</th>";
+				base += "<th>처리내용</th>";
+				base += "<th>처리시간</th>";
+				base += "<th>처리상태</th>";
+				base += "</tr>";
+
+				$("#tableAcdHnd").append(base);
 
 				for (var v = 0; v < rData.length; v++) {
 					let str = "";
@@ -24,16 +34,23 @@
 					str += "<td>" + rData[v].acd_hnd_date + "</td>";
 					str += "<td>" + rData[v].acd_hnd_take + "</td>";
 					str += "</tr>";
-					
 					$("#tableAcdHnd").append(str);
 				}
-
 			});
-
 		});
+
+		$(".dropdown-item").click(function name() {
+			let thistext = $(this).text();
+			$("#dropdownMenuButton").text(thistext);
+		});
+
+		$("#searchInput").on("submit", function name(e) {
+			let searchType = $("#dropdownMenuButton").text();
+			$("#searchType").val(searchType);
+		});
+
 	})
 </script>
-
 
 <!-- 페이지 설명 -->
 <div class="container-fluid">
@@ -65,18 +82,20 @@
 					data-target="#bs-example-navbar-collapse-1">
 					<span class="navbar-toggler-icon"></span>
 				</button>
-
 				<div class="collapse navbar-collapse"
 					id="bs-example-navbar-collapse-1">
-					<form class="form-inline">
-						<input class="form-control mr-sm-2" type="text" />
+					<form class="form-inline" id="searchInput"
+						action="/getAcdListBySerachType" method="get">
+						<input type="hidden" id="searchType" name="searchType" /> <input
+							class="form-control mr-sm-2" type="text" id="searchWord"
+							name="searchWord" />
 						<button class="btn btn-primary dropdown-toggle" type="button"
 							id="dropdownMenuButton" data-toggle="dropdown">사고 번호</button>
 						<div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-							<a class="dropdown-item" href="#">사고 번호</a> <a
-								class="dropdown-item" href="#">사고 코드</a>
+							<a class="dropdown-item" href="#" id="dropDownAcdId">사고 번호</a> <a
+								class="dropdown-item" href="#" id="dropDownAcdCode">사고 코드</a>
 						</div>
-						<button style="margin-left: 10px"
+						<button style="margin-left: 10px" id="buttonSearch"
 							class="btn btn-primary my-2 my-sm-0" type="submit">검색하기</button>
 					</form>
 				</div>
@@ -97,7 +116,6 @@
 					</tr>
 				</thead>
 				<tbody>
-
 					<c:forEach items="${list}" var="list">
 						<tr>
 							<td><a href="/reportContent?acd_id=${list.acd_id }">${list.acd_id }</a></td>
@@ -112,9 +130,6 @@
 					</c:forEach>
 				</tbody>
 			</table>
-
-
-
 			<div class="modal fade" id="modal-container-120818" role="dialog"
 				aria-labelledby="myModalLabel" aria-hidden="true">
 				<div class="modal-dialog" role="document">
@@ -126,35 +141,21 @@
 							</button>
 						</div>
 						<div class="modal-body">
-										<table class="table" id="tableAcdHnd">
-											<thead>
-												<tr>
-													<th>처리번호</th>
-													<th>처리내용</th>
-													<th>처리시간</th>
-													<th>처리상태</th>
-												</tr>
-											</thead>
-											
-										</table>
+							<table class="table" id="tableAcdHnd">
+
+
+							</table>
 						</div>
 						<div class="modal-footer">
-
 							<button type="button" class="btn btn-primary"
 								data-dismiss="modal">돌아가기</button>
 						</div>
 					</div>
-
 				</div>
-
 			</div>
-
-
 			<!-- 테이블 끝 -->
-
 			<a type="button" class="btn btn-primary justify-content-end"
 				href="/manuallyRegistReport">등록하기</a>
-
 			<!-- pagination -->
 			<nav>
 				<ul class="pagination justify-content-center">
@@ -163,13 +164,9 @@
 					<li class="page-item"><a class="page-link" href="#">이후</a></li>
 				</ul>
 			</nav>
-
 			<!-- pagination 끝 -->
 		</div>
 	</div>
 </div>
-
-
-
 
 <%@ include file="../include/footer.jsp"%>
