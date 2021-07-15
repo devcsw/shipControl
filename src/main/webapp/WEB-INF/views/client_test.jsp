@@ -61,7 +61,7 @@ $(document).ready(function() {
 		console.log("자동 전송 시작");
 		today = getTimeStamp(new Date());
 		sendData = {
-			"sh_id" :Math.floor(Math.random() * 10),
+				"sh_id" :Math.floor(Math.random() * 10),
 				"sh_status_latitude" : Math.floor(Math.random() * 100),
 				"sh_status_longitude" : Math.floor(Math.random() * 100),
 				"fire" : Math.floor(Math.random() * 5),
@@ -80,9 +80,6 @@ $(document).ready(function() {
 
 
 });
-
-	
-
 
 	//메세지 전송시에 데이터처리
 	$("#sendBtn").click(function() {
@@ -108,10 +105,7 @@ $(document).ready(function() {
 	function sendMessage(sendData) {
 		sock.send(JSON.stringify(sendData));
 	}
-	// 메시지 전송
-	function sendTest(msg) {
-		sock.send(msg);
-	}
+	
 	// 서버로부터 메시지를 받았을 때 -- 본인 페이지에 적용
 	function onMessage(msg) {
 		var data = msg.data;
@@ -119,10 +113,16 @@ $(document).ready(function() {
 	}
 
 	// 서버와 연결을 끊었을 때
-	function onClose(evt) {
+	function onClose(event) {
 		$("#messageArea").append("연결 끊김");
+		  if (event.wasClean) {
+		    alert('커넥션이 정상적으로 종료되었습니다 (code=' +event.code + 'reason=' + event.reason);
+		  } else {
+		    // 예시: 프로세스가 죽거나 네트워크에 장애가 있는 경우
+		    // event.code가 1006이 됩니다.
+		    alert('[close] 커넥션이 죽었습니다.');
+		  }
 	}
-	
 	
 	//시간함수
 	function getTimeStamp() {

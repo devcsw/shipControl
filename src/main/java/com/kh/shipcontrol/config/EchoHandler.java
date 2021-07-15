@@ -3,6 +3,9 @@ package com.kh.shipcontrol.config;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.websocket.OnError;
+import javax.websocket.Session;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -10,8 +13,6 @@ import org.springframework.web.socket.CloseStatus;
 import org.springframework.web.socket.TextMessage;
 import org.springframework.web.socket.WebSocketSession;
 import org.springframework.web.socket.handler.TextWebSocketHandler;
-
-import com.kh.shipcontrol.vo.StatusVo;
 
 //소켓통신 핸들러
 
@@ -28,7 +29,6 @@ public class EchoHandler extends TextWebSocketHandler{
         sessionList.add(session);
         logger.info("{} 연결됨", session.getId()); 
     }
-
 
     //클라이언트가 웹소켓 서버로 메시지를 전송했을 때 실행
     @Override

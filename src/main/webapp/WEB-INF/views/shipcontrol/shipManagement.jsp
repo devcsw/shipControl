@@ -8,7 +8,6 @@ $(document).ready(function() {
 //sh_id, sh_name, sh_board_code, sh_owner, sh_owner_tel, 
 //sh_cap_name, sh_cap_tel, sh_type, sh_mmsi, sh_call_sign, sh_date
 	connect();
-
 	console.log("아이디 값:" + $('#1').text());
 });
 
@@ -34,9 +33,6 @@ function connect() {
 		connect();
 	
 	}	
-	
-	
-	
 	//에러가 생겼을때
 	ws.onerror = function(err) {console.log('Error : ', err);}
 }
@@ -65,23 +61,23 @@ function tableCreate(receivedData){
 		emergencyCode = "정상"
 	}
 	
-	$('#'+ id ).next().next().next().text(fire);
-	$('#'+ id ).next().next().next().next().text(temperature);
-	$('#'+ id ).next().next().next().next().next().text(smoke);
-	$('#'+ id ).next().next().next().next().next().next().text(windSpeed);
-	$('#'+ id ).next().next().next().next().next().next().next().text(windDirection);
-	$('#'+ id ).next().next().next().next().next().next().next().next().text(gyroscope);
-	$('#'+ id ).next().next().next().next().next().next().next().next().next().text(date);
-	$('#'+ id ).next().next().next().next().next().next().next().next().next().next().text(emergencyCode);
+	$('#'+ id).next().next().next().text(fire);
+	$('#'+ id).next().next().next().next().text(temperature);
+	$('#'+ id).next().next().next().next().next().text(smoke);
+	$('#'+ id).next().next().next().next().next().next().text(windSpeed);
+	$('#'+ id).next().next().next().next().next().next().next().text(windDirection);
+	$('#'+ id).next().next().next().next().next().next().next().next().text(gyroscope);
+	$('#'+ id).next().next().next().next().next().next().next().next().next().text(date);
+	$('#'+ id).next().next().next().next().next().next().next().next().next().next().text(emergencyCode);
 	if (emergencyCode=="위험"){
-		$('#'+ id ).next().next().next().next().next().next().next().next().next().next().css("color", "red");
-			
+		$('#'+ id).next().next().next().next().next().next().next().next().next().next().css("color", "red");
+		$('#tr' + id).css("color", "red");	
 	} else if (emergencyCode=="주의") {
-		$('#'+ id ).next().next().next().next().next().next().next().next().next().next().css("color", "orange");
-		
+		$('#'+ id).next().next().next().next().next().next().next().next().next().next().css("color", "orange");
+		$('#tr' + id).css("color", "orange");
 	} else {
 		$('#'+ id ).next().next().next().next().next().next().next().next().next().next().css("color", "green");
-		
+		$('#tr' + id).css("color", "green");
 	}
 }
 
@@ -275,8 +271,8 @@ function tableCreate(receivedData){
 				
 				<tbody id="tbody">
 					<c:forEach var="list" items="${list}">
-						<tr >
-	    					<td id="${list.sh_id }"><a href="/shipcontrol/updateShipForm">${list.sh_id}</a></td>
+						<tr id="tr${list.sh_id}">
+	    					<td id="${list.sh_id}"><a href="/shipcontrol/updateShipForm">${list.sh_id}</a></td>
 	    					<td>${list.sh_name }</td>
 	    					<td>${list.sh_board_code }</td>
 	    					<td>
