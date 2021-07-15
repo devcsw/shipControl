@@ -49,8 +49,25 @@
 	<div class="row">
 		<div class="col-md-6">
 			<!-- 지도데이터 div -->
-			<div class="d-flex justify-content-center">
-				<div id="map" style="width: 500px; height: 500px;"></div>
+			<div class="row">
+				<div class="d-flex justify-content-center">
+					<div id="map" style="width: 500px; height: 500px;"></div>
+				</div>
+			</div>
+
+			<div class="row">
+				<div class="d-flex justify-content-center">
+					<nav aria-label="Page navigation example">
+						<ul class="pagination">
+
+							<c:forEach items="list" var="v" varStatus="vs">
+								<li class="page-item"><a class="page-link" href="#">${vs.count}
+								</a></li>
+							</c:forEach>
+
+						</ul>
+					</nav>
+				</div>
 			</div>
 			<script>
 				var container = document.getElementById('map'); //지도를 담을 영역의 DOM 레퍼런스
@@ -80,8 +97,25 @@
 
 					marker.setPosition(new kakao.maps.LatLng(xLocation,
 							yLocation));
+					
+					kakao.maps.event.addListener(map, 'click', function(mouseEvent) {        
+					    
+					    // 클릭한 위도, 경도 정보를 가져옵니다 
+					    var latlng = mouseEvent.latLng; 
+					    
+					    // 마커 위치를 클릭한 위치로 옮깁니다
+					    marker.setPosition(latlng);
+					    
+					    var message = '클릭한 위치의 위도는 ' + latlng.getLat() + ' 이고, ';
+					    message += '경도는 ' + latlng.getLng() + ' 입니다';
+					    
+					    console.log(message);
+					    
+					    
+					});
 
 				});
+				
 			</script>
 			<!-- 지도데이터 div 끝 -->
 		</div>
