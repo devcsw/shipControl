@@ -10,6 +10,9 @@ public interface ShipDao {
 	public void insertShip(ShipVo shipVo);
 	//선박삭제
 	public void deleteShip(int sh_id);
+	//선박수정
+	public void updateShip(ShipVo shipVo);
+	public ShipVo selectOneShip(int sh_id);
 	//선박리스트출력
 	public List<Map<String, Object>> listAllShip();
 }

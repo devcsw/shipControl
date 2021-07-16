@@ -31,6 +31,16 @@ public class ShipDaoImpl implements ShipDao {
 
 	@Override
 	public void deleteShip(int sh_id) {
-		sqlSession.delete(NAMESPACE + "insertShip" ,sh_id); 
+		sqlSession.delete(NAMESPACE + "deleteShip" ,sh_id); 
+	}
+
+	@Override
+	public void updateShip(ShipVo shipVo) {
+		sqlSession.update(NAMESPACE + "updateShip" ,shipVo); 
+	}
+
+	@Override
+	public ShipVo selectOneShip(int sh_id) {
+		return sqlSession.selectOne(NAMESPACE + "selectOneShip", sh_id);
 	}
 }

@@ -138,12 +138,12 @@ function tableCreate(receivedData){
 						</div> 
 						<div class="checkbox">					 
 							<label>
-								<input type="checkbox" name="windSpeed" id="windSpeed"  value="3"/> 풍속 센서
+								<input type="checkbox" name="smoke" id="smoke" value="3"/> 연기 센서
 							</label>
-						</div> 
+						</div>  
 						<div class="checkbox">					 
 							<label>
-								<input type="checkbox" name="gyroscope" id="gyroscope" value="5" /> 기울기 센서
+								<input type="checkbox" name="windDirection" id="windDirection" value="5"/> 풍향 센서
 							</label>
 						</div> 
 				
@@ -184,14 +184,16 @@ function tableCreate(receivedData){
 						</div>
 						<div class="checkbox">					 
 							<label>
-								<input type="checkbox" name="smoke" id="smoke" value="4"/> 연기 센서
-							</label>
-						</div>  
-						<div class="checkbox">					 
-							<label>
-								<input type="checkbox" name="windDirection" id="windDirection" value="6"/> 풍향 센서
+								<input type="checkbox" name="windSpeed" id="windSpeed"  value="4"/> 풍속 센서
 							</label>
 						</div> 
+						<div class="checkbox">					 
+							<label>
+								<input type="checkbox" name="gyroscope" id="gyroscope" value="6" /> 기울기 센서
+							</label>
+						</div> 
+						
+						
 				
 					</div>
 				</div>
@@ -272,7 +274,7 @@ function tableCreate(receivedData){
 				<tbody id="tbody">
 					<c:forEach var="list" items="${list}">
 						<tr id="tr${list.sh_id}">
-	    					<td id="${list.sh_id}"><a href="/shipcontrol/updateShipForm">${list.sh_id}</a></td>
+	    					<td id="${list.sh_id}"><a href="/shipcontrol/updateShipForm?sh_id=${list.sh_id}"  >${list.sh_id}</a></td>
 	    					<td>${list.sh_name }</td>
 	    					<td>${list.sh_board_code }</td>
 	    					<td>
@@ -296,7 +298,7 @@ function tableCreate(receivedData){
 								</c:if>
 	    					</td>
 	    					<td>
-	    						<c:if test="${not empty list.widdirection }">
+	    						<c:if test="${not empty list.winddirection }">
 	    							<c:out value="on" />
 								</c:if>
 	    					</td>

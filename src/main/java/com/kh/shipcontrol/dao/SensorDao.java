@@ -2,6 +2,7 @@ package com.kh.shipcontrol.dao;
 
 import java.util.List;
 
+import com.kh.shipcontrol.vo.SensorDto;
 import com.kh.shipcontrol.vo.ShipSensorVo;
 import com.kh.shipcontrol.vo.ShipVo;
 
@@ -17,6 +18,7 @@ public interface SensorDao {
 	//센서등록
 	public void insertSensor(ShipSensorVo shipSensorVo);
 	public void deleteSensor(int sh_id);
+	public SensorDto selectShipSensor(int sh_id);
 	//선박별 센서 리스트
 	public List<ShipVo> listShipSensor();
 	
