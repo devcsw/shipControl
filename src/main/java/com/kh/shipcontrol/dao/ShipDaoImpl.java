@@ -43,4 +43,10 @@ public class ShipDaoImpl implements ShipDao {
 	public ShipVo selectOneShip(int sh_id) {
 		return sqlSession.selectOne(NAMESPACE + "selectOneShip", sh_id);
 	}
+
+	@Override
+	public ShipVo getShipInfoById(int sh_id) {
+		ShipVo shipVo = sqlSession.selectOne(NAMESPACE + "getShipInfoById", sh_id);
+		return shipVo;
+	}
 }

@@ -27,6 +27,15 @@
 			});
 		});
 
+		$(document).on('click', "tr", function name() {
+			let acdCode = $(this).find("th").text();
+			console.log(acdCode);
+
+			$("#acd_code_id").val(acdCode);
+			$("#buttonDismissModal").trigger('click');
+
+		});
+
 	});
 </script>
 
@@ -163,9 +172,8 @@
 
 												</div>
 												<div class="modal-footer">
-													<button type="button" class="btn btn-secondary"
-														data-dismiss="modal">취소</button>
-													<button type="button" class="btn btn-primary">적용하기</button>
+													<button type="button" class="btn btn-primary"
+														id="buttonDismissModal" data-dismiss="modal">확인</button>
 												</div>
 											</div>
 										</div>

@@ -39,6 +39,61 @@
 			});
 		});
 
+		$(".modalShipInfo").on('click', function name() {
+			let sh_id = $(this).text();
+			console.log(sh_id);
+
+			let url = "/getShipInfo";
+			let sendData = {
+				"sh_id" : sh_id
+			};
+
+			$.get(url, sendData, function name(rData) {
+				console.log(rData);
+				let shipTable = $("#tableShipInfo");
+				$("#tableShipInfo").empty();
+
+				let base = "<tr>";
+				base += "<th>선박번호</th>";
+				base += "<td>" + rData.sh_id + "</td>";
+				base += "</tr>";
+				base += "<th>선박이름</th>";
+				base += "<td>" + rData.sh_name + "</td>";
+				base += "</tr>";
+				base += "<th>선박보드</th>";
+				base += "<td>" + rData.sh_board_code + "</td>";
+				base += "</tr>";
+				base += "<th>선주</th>";
+				base += "<td>" + rData.sh_owner + "</td>";
+				base += "</tr>";
+				base += "<th>선주전화번호</th>";
+				base += "<td>" + rData.sh_owner_tel + "</td>";
+				base += "</tr>";
+				base += "<th>선장</th>";
+				base += "<td>" + rData.sh_cap_name + "</td>";
+				base += "</tr>";
+				base += "<th>선장전화번호</th>";
+				base += "<td>" + rData.sh_cap_tel + "</td>";
+				base += "</tr>";
+				base += "<th>선박유형</th>";
+				base += "<td>" + rData.sh_type + "</td>";
+				base += "</tr>";
+				base += "<th>MMSI</th>";
+				base += "<td>" + rData.sh_mmsi + "</td>";
+				base += "</tr>";
+				base += "<th>CALL_SIGN</th>";
+				base += "<td>" + rData.sh_call_sign + "</td>";
+				base += "</tr>";
+				base += "<th>등록일자</th>";
+				base += "<td>" + rData.sh_date + "</td>";
+				base += "</tr>";
+
+				$("#tableShipInfo").append(base);
+
+			});
+
+		});
+
 		$(".dropdown-item").click(function name() {
 			let thistext = $(this).text();
 			$("#dropdownMenuButton").text(thistext);
@@ -122,7 +177,9 @@
 							<td>${list.acd_code_id }</td>
 							<td>(${list.acd_latitude } , ${list.acd_longitude })</td>
 							<td>${list.acd_date }</td>
-							<td>${list.sh_id }</td>
+							<td><a id="modalShipInfo" href="#modal-container-124126"
+								role="button" class="btn btn-success modalShipInfo"
+								data-toggle="modal">${list.sh_id }</a></td>
 							<td><a id="modalAcdTake" href="#modal-container-120818"
 								role="button" class="btn btn-success modalAcdTake"
 								data-toggle="modal">${list.acd_take }</a></td>
@@ -130,6 +187,41 @@
 					</c:forEach>
 				</tbody>
 			</table>
+
+			<!-- 선박 정보 모달 -->
+			<div class="modal fade" id="modal-container-124126" role="dialog"
+				aria-labelledby="myModalLabel" aria-hidden="true">
+				<div class="modal-dialog" role="document">
+					<div class="modal-content">
+						<div class="modal-header">
+							<h5 class="modal-title" id="shipModalLabel">선박 정보</h5>
+							<button type="button" class="close" data-dismiss="modal">
+								<span aria-hidden="true">×</span>
+							</button>
+						</div>
+						<div class="modal-body">
+
+							<table class="table" id="tableShipInfo">
+
+
+							</table>
+
+						</div>
+						<div class="modal-footer">
+
+
+							<button type="button" class="btn btn-primary"
+								data-dismiss="modal">확인</button>
+						</div>
+					</div>
+				</div>
+			</div>
+
+			<!-- 선박 정보 모달 끝 -->
+
+
+			<!-- 진행상태 모달 -->
+
 			<div class="modal fade" id="modal-container-120818" role="dialog"
 				aria-labelledby="myModalLabel" aria-hidden="true">
 				<div class="modal-dialog" role="document">
@@ -153,6 +245,10 @@
 					</div>
 				</div>
 			</div>
+
+			<!-- 진행상태 모달 끝 -->
+
+
 			<!-- 테이블 끝 -->
 			<a type="button" class="btn btn-primary justify-content-end"
 				href="/manuallyRegistReport">등록하기</a>

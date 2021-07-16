@@ -12,5 +12,6 @@ public interface ShipService {
 	public void updateShip(ShipVo shipVo, SensorDto sensorDto);
 	public Map<String, Object> selectOneShip(int sh_id);
 	public  List<Map<String, Object>>  listAllShip();
+	public ShipVo getShipInfoById(int sh_id);
 }
 	

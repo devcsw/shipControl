@@ -15,15 +15,20 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.kh.shipcontrol.service.ReportService;
+import com.kh.shipcontrol.service.ShipService;
 import com.kh.shipcontrol.vo.AcdCodeVo;
 import com.kh.shipcontrol.vo.AcdHndVo;
 import com.kh.shipcontrol.vo.AcdVo;
+import com.kh.shipcontrol.vo.ShipVo;
 
 @Controller
 public class ReportController {
 
 	@Inject
 	ReportService reportService;
+
+	@Inject
+	ShipService shipService;
 
 	@RequestMapping(value = "/reportPage")
 	public String reportPage(Model model) throws Exception {
@@ -68,7 +73,7 @@ public class ReportController {
 		acdHndVo.setAcd_hnd_take("신고접수");
 		reportService.addAcdHnd(acdHndVo);
 
-		return "redirect:/";
+		return "redirect:/reportPage";
 	}
 
 	@RequestMapping(value = "/getAcdCode", method = RequestMethod.GET)
@@ -112,6 +117,17 @@ public class ReportController {
 		model.addAttribute("list", list);
 
 		return "/reportpage/reportPage";
+	}
+
+	@RequestMapping(value = "/getShipInfo", method = RequestMethod.GET)
+	@ResponseBody
+	public ShipVo getShipInfo(String sh_id) throws Exception {
+
+		ShipVo shipVo = shipService.getShipInfoById(Integer.parseInt(sh_id));
+		
+		System.out.println(shipVo);
+		
+		return shipVo;
 	}
 
 }
