@@ -9,6 +9,30 @@ $(document).ready(function() {
 //sh_cap_name, sh_cap_tel, sh_type, sh_mmsi, sh_call_sign, sh_date
 	connect();
 	console.log("아이디 값:" + $('#1').text());
+	
+	// 검색 옵션 선택
+	$(".searchType").click(function(e) {
+		e.preventDefault();
+		var searchType = $(this).attr("href");
+		$("#frmSearch > input[name=searchType]").val(searchType);
+		$("#spanSearchType").text($(this).text());
+	});
+	// 검색버튼
+	$("#btnSearch").click(function() {
+		var searchType = 
+			$("#frmSearch> input[name=searchType]").val();
+		if (searchType == "") {
+			alert("검색 옵션을 먼저 선택해 주세요");
+			return;
+		}
+		var keyword = $("#txtSearch").val().trim();
+		if (keyword == "") {
+			alert("검색어를 입력해 주세요");
+			return;
+		}
+		$("#frmSearch > input[name=keyword]").val(keyword);
+		$("#frmSearch").submit();
+	});
 });
 
 //소켓 데이터 수신
@@ -82,7 +106,10 @@ function tableCreate(receivedData){
 }
 
 </script>
-
+<form id="frmSearch" action="/shipcontrol/management" method="get">
+	<input type="hidden" name="searchType" value="${searchType}"/>
+	<input type="hidden" name="keyword" value="${keyword}"/>
+</form>
 <!--  선박등록 모달창 -->
 <!--  <a id="modal-200855" href="#modal-container-200855" role="button" class="btn" data-toggle="modal">Launch demo modal</a>-->
 
@@ -226,16 +253,28 @@ function tableCreate(receivedData){
 		<div class="col-md-2"></div>
 		<div class="col-md-1"></div>
 		<div class="col-md-3">
+				
 			<form class="d-flex">
+				
 				<a class="nav-link dropdown-toggle" data-bs-toggle="dropdown"
-				href="#" role="button" aria-haspopup="true" aria-expanded="false">Dropdown</a>
+				href="#" role="button" aria-haspopup="true" aria-expanded="false" id="dropdown" >
+					<span id="spanSearchType">검색조건
+						<c:choose>
+							<c:when test="${searchType == 'id'}">선박번호</c:when>
+							<c:when test="${searchType == 'name'}">선박명</c:when>
+							<c:when test="${searchType == 'code'}">센서코드</c:when>
+						</c:choose>
+					</span>
+				
+				</a>
+				
 					<div class="dropdown-menu">
-						<a class="dropdown-item" href="#">선박명</a> 
-						<a class="dropdown-item" href="#">긴급여부</a> 
-						<a class="dropdown-item" href="#">센서코드</a>
+						<a class="dropdown-item searchType" href="id" >선박번호</a> 
+						<a class="dropdown-item searchType" href="name">선박명</a> 
+						<a class="dropdown-item searchType" href="code">센서코드</a>
 					</div>
-				<input class="form-control me-sm-2" type="text" placeholder="Search">
-				<button class="btn btn-secondary my-2 my-sm-0" type="submit">Search</button>
+				<input class="form-control me-sm-2" type="text" placeholder="Search" id="txtSearch" value="${keyword}">
+				<button class="btn btn-secondary my-2 my-sm-0" type="button" id="btnSearch">Search</button>
 			</form>
 		</div>
 	</div>

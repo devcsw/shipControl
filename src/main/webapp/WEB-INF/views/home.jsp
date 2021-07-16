@@ -8,6 +8,49 @@
 <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=0e70be96a08733981d994c3517a10a37&libraries=services,clusterer,drawing"></script>
 
 <script>
+$(document).ready(function() {
+	//sh_id, sh_name, sh_board_code, sh_owner, sh_owner_tel, 
+	//sh_cap_name, sh_cap_tel, sh_type, sh_mmsi, sh_call_sign, sh_date
+		connect();
+		console.log("아이디 값:" + $('#1').text());
+	});
+
+	//소켓 데이터 수신@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+	function connect() {
+		console.log("onConnect")
+		let ws = new SockJS("http://localhost:80/echo/");
+		socket = ws;
+		
+		//한번 오픈하는듯?
+		ws.onopen = function(){
+			console.log('Info : connection opend');
+		}
+		//메세지 받았을때
+		ws.onmessage = function(event){
+			//console.log("ReceiveMessage : ", event.data + '\n');
+			var result = JSON.parse(event.data);
+			var sh_status_latitude = result.sh_status_latitude;
+			var sh_status_longitude = result.sh_status_longitude;
+			console.log(sh_status_latitude);
+			// 지도 혹은 로드뷰에서 마커의 위치를 지정
+			var marker = new kakao.maps.Marker({
+			    map: map,
+			    position: new kakao.maps.LatLng(sh_status_latitude, sh_status_longitude)
+			});
+			//여기서 테이블 변경
+		}
+		//끝날때 보여줌
+		ws.onclose = function(event){
+			console.log('Info : connection closed');
+			connect();
+		
+		}	
+		//에러가 생겼을때
+		ws.onerror = function(err) {console.log('Error : ', err);}
+	}
+	//소켓통신끝@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+	
+	//지도API @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 	var container = document.getElementById('map');
 	var options = {
 		center : new kakao.maps.LatLng(35.44294727060267, 129.36937385789298),

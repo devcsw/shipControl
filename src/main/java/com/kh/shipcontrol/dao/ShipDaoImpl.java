@@ -23,9 +23,10 @@ public class ShipDaoImpl implements ShipDao {
 	}
 	
 	@Override
-	public List<Map<String, Object>> listAllShip() {
+	public List<Map<String, Object>> listAllShip(Map<String, String> map) {
+		
 		List<Map<String, Object>> list = 
-				sqlSession.selectList(NAMESPACE + "listAllShip");
+				sqlSession.selectList(NAMESPACE + "listAllShip", map);
 		return list;
 	}
 

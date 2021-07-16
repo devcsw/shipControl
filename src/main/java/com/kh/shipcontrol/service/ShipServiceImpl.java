@@ -50,8 +50,8 @@ public class ShipServiceImpl implements ShipService {
 		}
 	}
 	
-	public List<Map<String, Object>> listAllShip() {
-		List<Map<String, Object>> list = shipDao.listAllShip();
+	public List<Map<String, Object>> listAllShip(Map<String,String> map) {
+		List<Map<String, Object>> list = shipDao.listAllShip(map);
 		 return list;
 	}
 

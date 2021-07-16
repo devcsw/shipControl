@@ -9,6 +9,7 @@
 <meta charset="UTF-8">
 <title>선박수정</title>
 </head>
+
 <body>
 	<!--sh_id,sh_name,sh_board_code,sh_owner,sh_owner_tel,sh_cap_name,sh_cap_tel,sh_type,sh_mmsi,sh_call_sign,sh_date -->
 	<div class="row">

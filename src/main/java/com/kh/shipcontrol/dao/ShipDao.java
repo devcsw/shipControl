@@ -14,7 +14,7 @@ public interface ShipDao {
 	public void updateShip(ShipVo shipVo);
 	public ShipVo selectOneShip(int sh_id);
 	//선박리스트출력
-	public List<Map<String, Object>> listAllShip();
+	public List<Map<String, Object>> listAllShip(Map<String,String> map);
 	//id로 선박 vo 가져오기
 	public ShipVo getShipInfoById(int sh_id);
 }

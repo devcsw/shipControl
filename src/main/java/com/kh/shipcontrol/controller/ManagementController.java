@@ -2,6 +2,7 @@
 
 import java.text.DateFormat;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
@@ -34,10 +35,14 @@ public class ManagementController {
 	private ShipService shipService;
 	//선박관리 페이지
 	@RequestMapping(value = "/management", method = RequestMethod.GET)
-	public String home(Locale locale, Model model) {
-		logger.info("management입니다.! The client locale is {}.", locale);
+	public String home(Model model, String keyword, String searchType) {
+		System.out.println(searchType);
+		System.out.println(keyword);
+		Map<String,String> map = new HashMap<String, String>();
+		map.put("searchType", searchType);
+		map.put("keyword", keyword);
 		
-		List<Map<String, Object>> list = shipService.listAllShip();
+		List<Map<String, Object>> list = shipService.listAllShip(map);
 		
 		System.out.println(list);
 		model.addAttribute("list", list );

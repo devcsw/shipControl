@@ -3,8 +3,6 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ include file="./include/header.jsp"%>
 
-
-
 <!--  소켓통신 테스트 페이지 -->
 <!DOCTYPE html>
 <html>
@@ -51,7 +49,12 @@
 	<div id="messageArea"></div>
 </body>
 
-
+<!--
+오른쪽 밑 35.33739730025277/129.59474464012257
+오른쪽 위 35.472543181966444/129.5849838182228
+왼쪽끝 35.46939737546278/129.3438031220253
+왼쪽 밑 35.36703907063168/129.3584398895261
+-->
 
 <script type="text/javascript">
 $(document).ready(function() {
@@ -62,8 +65,8 @@ $(document).ready(function() {
 		today = getTimeStamp(new Date());
 		sendData = {
 				"sh_id" :Math.floor(Math.random() * 10),
-				"sh_status_latitude" : Math.floor(Math.random() * 100),
-				"sh_status_longitude" : Math.floor(Math.random() * 100),
+				"sh_status_latitude" : (Math.random()  + 35).toFixed(13),
+				"sh_status_longitude" : (Math.random()   + 129).toFixed(13),
 				"fire" : Math.floor(Math.random() * 5),
 
 				"temperature" :Math.floor(Math.random() * 100),
@@ -76,7 +79,7 @@ $(document).ready(function() {
 	 	//dataArray.push(sendData);
 		//var sJson = JSON.stringify(dataArray);
 		sendMessage(sendData);
-	}, 1000);
+	}, 300);
 
 
 });
