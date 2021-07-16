@@ -60,5 +60,11 @@ public class ShipServiceImpl implements ShipService {
 		shipDao.deleteShip(sh_id);
 		sensorDao.deleteSensor(sh_id);
 	}
+
+	@Override
+	public ShipVo getShipInfoById(int sh_id) {
+		ShipVo shipVo = shipDao.getShipInfoById(sh_id);
+		return shipVo;
+	}
 	
 }

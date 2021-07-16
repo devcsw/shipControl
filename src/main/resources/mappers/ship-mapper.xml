@@ -51,4 +51,9 @@
 		)  se
 		WHERE sh.sh_id=se.sh_id
 	</select>
+	
+	<!-- 단일 선박 정보 get -->
+	<select id="getShipInfoById" resultType="ShipVo">
+	select * from ship_tb where sh_id = #{sh_id}
+	</select>
 </mapper>
