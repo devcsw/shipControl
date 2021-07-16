@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.kh.shipcontrol.status">
+	<select id="getNextVal" resultType="int">
+		select seq_sh_status_id.nextval
+		from dual
+	</select>
+	<!-- 회원등록 -->
+	<insert id="insertStatus">
+		INSERT INTO ship_status_tb 
+		(sh_status_id,sh_id, sh_status_latitude, sh_status_longitude)
+		VALUES
+		(seq_sh_status_id.nextval, #{sh_id}, #{sh_status_latitude}, #{sh_status_longitude})
+	</insert>
+	<insert id="insertSensorStatus">
+		INSERT INTO sensor_status_tb 
+		(sh_status_id, se_id, se_status)
+		VALUES
+		(seq_sh_status_id.nextval,#{se_id}, #{se_status})
+</insert>
+
+</mapper>

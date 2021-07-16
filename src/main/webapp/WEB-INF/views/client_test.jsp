@@ -58,7 +58,11 @@
 
 <script type="text/javascript">
 $(document).ready(function() {
-
+	/*
+	setInterval(function () {
+		
+	},5000); */
+		
 	setInterval(function () {
 	//var dataArray = new Array();
 		console.log("자동 전송 시작");
@@ -76,11 +80,35 @@ $(document).ready(function() {
 				"gyroscope" : Math.floor(Math.random() * 100),
 				"date" :  today
 			}
-	 	//dataArray.push(sendData);
-		//var sJson = JSON.stringify(dataArray);
 		sendMessage(sendData);
-	}, 300);
-
+		
+		console.log("ajax 시작")
+		var url = "/status/insertStatus";
+		
+		console.log(sendData);
+		console.log(JSON.stringify(sendData));
+		// $.get, $.post의 원형, JSON.stringify : json 데이터를 문자열로 변환
+		
+		$.ajax({
+			"url" : url,
+			"headers" : {
+				"Content-Type" : "application/json"
+			},
+			"method" : "post",
+			"dataType" : "text",
+			"data" : JSON.stringify(sendData),
+			"success" : function(receivedData) {
+				console.log(receivedData);
+				// 처리가 잘 되었다면, 댓글 목록 버튼을 클릭시켜서 목록을 새로 얻음
+				if (receivedData == "success") {
+					console.log("받음");
+				}
+			}
+		});	
+		
+		
+	}, 3000);
+	
 
 });
 

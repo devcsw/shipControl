@@ -8,7 +8,6 @@ $(document).ready(function() {
 //sh_id, sh_name, sh_board_code, sh_owner, sh_owner_tel, 
 //sh_cap_name, sh_cap_tel, sh_type, sh_mmsi, sh_call_sign, sh_date
 	connect();
-	console.log("아이디 값:" + $('#1').text());
 	
 	// 검색 옵션 선택
 	$(".searchType").click(function(e) {
@@ -62,9 +61,7 @@ function connect() {
 }
 
 function tableCreate(receivedData){
-	var target = $('#'+ id );
-	var html = '';
-	
+
 	var result = JSON.parse(receivedData);
 	var id = result.sh_id;
 	var fire = result.fire;
@@ -74,8 +71,9 @@ function tableCreate(receivedData){
 	var windDirection = result.windDirection;
 	var gyroscope = result.gyroscope;
 	var date = result.date;
-	
+	var target = $('#tr'+ id).find("td");
 	var emergencyCode =""
+	
 	// 데이터 받을때마다 위험도 체크
 	if (fire>=4){
 		emergencyCode = "위험";
@@ -84,23 +82,20 @@ function tableCreate(receivedData){
 	} else {
 		emergencyCode = "정상"
 	}
-	
-	$('#'+ id).next().next().next().text(fire);
-	$('#'+ id).next().next().next().next().text(temperature);
-	$('#'+ id).next().next().next().next().next().text(smoke);
-	$('#'+ id).next().next().next().next().next().next().text(windSpeed);
-	$('#'+ id).next().next().next().next().next().next().next().text(windDirection);
-	$('#'+ id).next().next().next().next().next().next().next().next().text(gyroscope);
-	$('#'+ id).next().next().next().next().next().next().next().next().next().text(date);
-	$('#'+ id).next().next().next().next().next().next().next().next().next().next().text(emergencyCode);
+	//화면 설정
+	target.eq(3).text(fire);
+	target.eq(4).text(temperature);
+	target.eq(5).text(smoke);
+	target.eq(6).text(windSpeed);
+	target.eq(7).text(windDirection);
+	target.eq(8).text(gyroscope);
+	target.eq(9).text(date);
+	target.eq(10).text(emergencyCode);
 	if (emergencyCode=="위험"){
-		$('#'+ id).next().next().next().next().next().next().next().next().next().next().css("color", "red");
 		$('#tr' + id).css("color", "red");	
 	} else if (emergencyCode=="주의") {
-		$('#'+ id).next().next().next().next().next().next().next().next().next().next().css("color", "orange");
 		$('#tr' + id).css("color", "orange");
 	} else {
-		$('#'+ id ).next().next().next().next().next().next().next().next().next().next().css("color", "green");
 		$('#tr' + id).css("color", "green");
 	}
 }
