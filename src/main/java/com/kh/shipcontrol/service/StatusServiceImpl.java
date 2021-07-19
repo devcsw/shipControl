@@ -1,5 +1,8 @@
 package com.kh.shipcontrol.service;
 
+import java.util.List;
+import java.util.Map;
+
 import javax.inject.Inject;
 
 import org.springframework.stereotype.Service;
@@ -35,6 +38,13 @@ public class StatusServiceImpl implements StatusService {
 		statusDao.insertSensorStatus(statusVal, windspeed, statusVo.getWindSpeed());
 		statusDao.insertSensorStatus(statusVal, winddirection, statusVo.getWindDirection());
 		statusDao.insertSensorStatus(statusVal, gyroscope, statusVo.getGyroscope());
+	}
+
+	@Override
+	public List<Map<String, Object>> getStatusList(int sh_id) {
+		List<Map<String, Object>> list = statusDao.statusList(sh_id);
+		 
+		return list;
 	}
 
 }

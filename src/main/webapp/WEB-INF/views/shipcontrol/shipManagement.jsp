@@ -77,20 +77,26 @@ function tableCreate(receivedData){
 	var emergencyCode =""
 	
 	// 데이터 받을때마다 위험도 체크
-	if (fire>=4){
+//	if (fire>=4 || temperature>=4 || moke >=4 || windSpeed >=4 || windDirection >=4 || gyroscope >=4){
+	if (fire>=4 ){
 		emergencyCode = "위험";
 	} else if(fire >=2) {
 		emergencyCode = "주의";
 	} else {
 		emergencyCode = "정상"
 	}
+	
+	console.log(target.eq(3).text().trim());
+	
 	//화면 설정
-	target.eq(3).text(fire);
-	target.eq(4).text(temperature);
-	target.eq(5).text(smoke);
-	target.eq(6).text(windSpeed);
-	target.eq(7).text(windDirection);
-	target.eq(8).text(gyroscope);
+	if (target.eq(3).text().trim() != "") {	target.eq(3).text(fire);}
+	if (target.eq(4).text().trim() != "") {	target.eq(4).text(temperature);	}
+	if (target.eq(5).text().trim() != "") {	target.eq(5).text(smoke);}
+	if (target.eq(6).text().trim() != "") {	target.eq(6).text(windSpeed);}
+	if (target.eq(7).text().trim() != "") {	target.eq(7).text(windDirection);}
+	if (target.eq(8).text().trim() != "") {	target.eq(8).text(gyroscope);}
+	
+
 	target.eq(9).text(date);
 	target.eq(10).text(emergencyCode);
 	if (emergencyCode=="위험"){
@@ -216,9 +222,6 @@ function tableCreate(receivedData){
 								<input type="checkbox" name="gyroscope" id="gyroscope" value="6" /> 기울기 센서
 							</label>
 						</div> 
-						
-						
-				
 					</div>
 				</div>
 		
@@ -244,7 +247,9 @@ function tableCreate(receivedData){
 	<br>
 	<!-- 검색버튼 -->
 	<div class="row">
-		<div class="col-md-2"></div>
+		<div class="col-md-2">
+			<a type="button" class="btn btn-primary" data-toggle="modal"  href="#modal-container-200855">등록</a>
+		</div>
 		<div class="col-md-2"></div>
 		<div class="col-md-2"></div>
 		<div class="col-md-2"></div>
@@ -275,15 +280,8 @@ function tableCreate(receivedData){
 			</form>
 		</div>
 	</div>
-	<br>
-	<!-- //검색버튼 -->
-	<!-- 등록수정버튼 -->
-	<div class="row">
-		<div class="col-md-12">
-			<a type="button" class="btn btn-primary" data-toggle="modal"  href="#modal-container-200855">등록</a>
-			<!--  <button type="button" class="btn btn-secondary">수정</button> -->
-		</div>
-	</div>
+
+
 	<br>
 	<!--//등록수정버튼 -->
 	<!--  테이블 -->
@@ -315,37 +313,40 @@ function tableCreate(receivedData){
 	    					<td>${list.sh_board_code }</td>
 	    					<td>
 		    					<c:if test="${not empty list.fire }">
-	    							<c:out value="on" />
+	    							<button class="btn btn-secondary btn-sm">on</button>
 								</c:if>
 							</td>
 	    					<td>
 		    					<c:if test="${not empty list.temperature }">
-	    							<c:out value="on" />
+	    							<button class="btn btn-secondary btn-sm">on</button>
 								</c:if>
 							</td>
 	    					<td>
 	    						<c:if test="${not empty list.smoke }">
-	    							<c:out value="on" />
+	    							<button class="btn btn-secondary btn-sm">on</button>
 								</c:if>
 	    					</td>
 	    					<td>
 	    						<c:if test="${not empty list.windspeed }">
-	    							<c:out value="on" />
+	    							<button class="btn btn-secondary btn-sm">on</button>
 								</c:if>
 	    					</td>
 	    					<td>
 	    						<c:if test="${not empty list.winddirection }">
-	    							<c:out value="on" />
+	    							<button class="btn btn-secondary btn-sm">on</button>
 								</c:if>
 	    					</td>
 	    					<td>
 	    						<c:if test="${not empty list.gyroscope }">
-	    							<c:out value="on" />
+	    							<button class="btn btn-secondary btn-sm">on</button>
 								</c:if>
 	    					</td>
 	    					<td></td>
 	    					<td></td>
-	    					<td><button class="btn-primary" value="${list.sh_id }">내역</button></td>
+	    					<td><a class="btn btn-primary" 
+	    					href="/shipcontrol/statusList?sh_id=${list.sh_id}" 
+	    					>내역</a>
+	    					</td>
 	   					</tr>
 					</c:forEach>
 				</tbody>

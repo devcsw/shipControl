@@ -1,10 +1,7 @@
 	package com.kh.shipcontrol.controller;
 
-import java.text.DateFormat;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Locale;
 import java.util.Map;
 
 import javax.inject.Inject;
@@ -18,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.kh.shipcontrol.service.ShipService;
+import com.kh.shipcontrol.service.StatusService;
 import com.kh.shipcontrol.vo.SensorDto;
 import com.kh.shipcontrol.vo.ShipVo;
 
@@ -33,6 +31,8 @@ public class ManagementController {
 	
 	@Inject
 	private ShipService shipService;
+	@Inject
+	private StatusService statusService;
 	//선박관리 페이지
 	@RequestMapping(value = "/management", method = RequestMethod.GET)
 	public String home(Model model, String keyword, String searchType) {
@@ -71,6 +71,7 @@ public class ManagementController {
 		model.addAttribute("sh_id",sh_id);
 		return "shipcontrol/updateShipForm";
 	}	
+	
 	//선박 수정 삭제
 	@RequestMapping(value = "/updateShipRun", method = RequestMethod.POST)
 	public String updateShipRun(ShipVo shipVo, SensorDto sensorDto, RedirectAttributes rttr) throws Exception {
@@ -88,6 +89,18 @@ public class ManagementController {
 		rttr.addFlashAttribute("msg", "updateSuccess");
 		return "redirect:/shipcontrol/management";
 	}
-
+	
+	@RequestMapping(value = "/statusList", method = RequestMethod.GET)
+	public String statusList(Model model, String keyword, String searchType, int sh_id) {
+		System.out.println(sh_id);
+		Map<String, Object> map = shipService.selectOneShip(sh_id);
+		List<Map<String, Object>> list = statusService.getStatusList(sh_id);
+		
+		ShipVo shipVo = (ShipVo)map.get("ShipVo");
+		System.out.println(shipVo);
+		model.addAttribute("ShipVo", shipVo);
+		model.addAttribute("list", list);
+		return "shipcontrol/statusList";
+	}
 	
 }

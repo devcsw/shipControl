@@ -1,6 +1,7 @@
 package com.kh.shipcontrol.dao;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import javax.inject.Inject;
@@ -42,6 +43,14 @@ public class StatusDaoImpl implements StatusDao {
 	@Override
 	public int getStatusId() {
 		return sqlSession.selectOne(NAMESPACE + "getStatusVal");
+	}
+	
+	@Override
+	public List<Map<String, Object>> statusList(int sh_id) {
+		
+		List<Map<String, Object>> list = 
+				sqlSession.selectList(NAMESPACE + "statusList", sh_id);
+		return list;
 	}
 
 }

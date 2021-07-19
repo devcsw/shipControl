@@ -13,6 +13,7 @@
 </head>
 <body>
 	<h1>소켓통신 테스트 페이지</h1>
+	<h2> 테스트 할려면  선박번호에 등록된 번호를 입력해놓으면 자동으로 찾아서 보여줌</h2>
 	<label for="sh_id">선박번호</label>
 	<input type="text" id="sh_id" />
 	<br>
@@ -58,6 +59,10 @@
 -->
 
 <script type="text/javascript">
+
+//저장용 데이터
+var socketData = "";
+
 $(document).ready(function() {
 	
 		connect();
@@ -88,8 +93,6 @@ $(document).ready(function() {
 
 });
 
-var socketData = "";
-
 function connect(){
 	console.log("소켓시작");
 	let ws = new SockJS("http://localhost:80/echo/");
@@ -105,16 +108,15 @@ function connect(){
 			console.log("자동 전송 시작");
 			today = getTimeStamp(new Date());
 			sendData = {
-					"sh_id" :Math.floor(Math.random() * 10),
+					"sh_id" : $("#sh_id").val(),
 					"sh_status_latitude" : (Math.random()  + 35).toFixed(13),
 					"sh_status_longitude" : (Math.random()   + 129).toFixed(13),
 					"fire" : Math.floor(Math.random() * 5),
-
-					"temperature" :Math.floor(Math.random() * 100),
-					"smoke" : Math.floor(Math.random() * 100),
-					"windSpeed" : Math.floor(Math.random() * 100),
-					"windDirection" : Math.floor(Math.random() * 100),
-					"gyroscope" : Math.floor(Math.random() * 100),
+					"temperature" :Math.floor(Math.random() * 5),
+					"smoke" : Math.floor(Math.random() * 5),
+					"windSpeed" : Math.floor(Math.random() * 5),
+					"windDirection" : Math.floor(Math.random() * 5),
+					"gyroscope" : Math.floor(Math.random() * 5),
 					"date" :  today
 				}	
 			ws.send(JSON.stringify(sendData));

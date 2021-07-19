@@ -21,5 +21,38 @@
 		VALUES
 		(#{sh_status_id}, #{se_id}, #{se_status})
 </insert>
+<!-- 데이터 받지않고있을때 초기 화면 리스트업 -->
+	<resultMap type="HashMap" id="ListStatusMap">
+		<id column="sh_status_id" property="sh_status_id"/>
+		<id column="sh_id" property="sh_id"/>
+		<id column="sh_status_latitude" property="sh_status_latitude"/>
+		<id column="sh_status_longitude" property="sh_status_longitude"/>
+		<id column="sh_status_date" property="sh_status_date"/>
+		<id column="fire" property="fire"/>
+		<id column="temperature" property="temperature"/>
+		<id column="smoke" property="smoke"/>
+		<id column="windspeed" property="windspeed"/>
+		<id column="winddirection" property="winddirection"/>
+		<id column="gyroscope" property="gyroscope"/>
+	</resultMap>
+<select id="statusList" resultMap="ListStatusMap">
+(   
+SELECT 
+*
+FROM
+    (
+    SELECT sh.sh_status_id, sh.sh_id, ss.se_id, ss.se_status, sh.sh_status_latitude, sh.sh_status_longitude, sh.sh_status_date 
+    FROM ship_status_tb sh, sensor_status_tb ss
+    WHERE sh.sh_status_id = ss.sh_status_id
+    AND sh.sh_id= #{sh_id}
+     )
+    PIVOT
+    (
+        SUM(se_status) -- 집계함수
+        FOR
+        se_id IN ( 1 as fire,2 as temperature,3 as smoke,4 as windspeed,5 as winddirection,6 as gyroscope ) --행으로 올릴 열
+    )
+) 
 
+</select>
 </mapper>
