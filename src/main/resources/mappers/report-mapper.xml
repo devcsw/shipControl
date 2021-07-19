@@ -40,7 +40,7 @@
 
 	<select id="getAcdHnd" resultType="AcdHndVo">
 		select * from acd_hnd_tb where
-		acd_id = #{acd_id} order by acd_hnd_id desc
+		acd_id = #{acd_id} order by acd_hnd_date asc
 	</select>
 
 

@@ -44,6 +44,7 @@ public class ReportController {
 //		System.out.println("@ReportController acd_id :" + acd_id);
 		AcdVo acdVo = reportService.getAcdById(Integer.parseInt(acd_id));
 		List<AcdHndVo> acdHndList = reportService.getAcdHnd(acd_id);
+		System.out.println("@ReportController acdHndLIst: " + acdHndList);
 		model.addAttribute("acd_hnd_page", acd_hnd_page);
 		model.addAttribute("acdVo", acdVo);
 		model.addAttribute("acdHndList", acdHndList);
@@ -128,6 +129,16 @@ public class ReportController {
 		ShipVo shipVo = shipService.getShipInfoById(Integer.parseInt(sh_id));
 
 		return shipVo;
+	}
+	
+	
+	@RequestMapping(value="/getShipCodeAndName", method=RequestMethod.GET)
+	@ResponseBody
+	public List<ShipVo> getShipCodeAndName() throws Exception {
+		
+		List<ShipVo> list = shipService.getShipList();
+		System.out.println("@ReportController shipVoList :" + list);
+		return list;
 	}
 
 }

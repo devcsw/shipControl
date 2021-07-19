@@ -59,6 +59,7 @@ public class ShipDaoImpl implements ShipDao {
 	}
 
 	@Override
+<<<<<<< HEAD
 	public int checkDupId(int sh_id) {
 		return  sqlSession.selectOne(NAMESPACE + "checkDupId", sh_id);
 		
@@ -80,5 +81,10 @@ public class ShipDaoImpl implements ShipDao {
 	public int checkDupCallSign(String sh_call_sign) {
 		return  sqlSession.selectOne(NAMESPACE + "checkDupCallSign", sh_call_sign);
 		
+=======
+	public List<ShipVo> getShipList() {
+		List<ShipVo> list = sqlSession.selectList(NAMESPACE + "getShipList");
+		return list;
+>>>>>>> branch 'main' of https://github.com/devcsw/shipControl
 	}
 }

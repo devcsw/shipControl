@@ -63,7 +63,9 @@
 							<c:forEach items="${acdHndList}" var="v" varStatus="vs">
 								<li
 									class="page-item <c:if test="${acd_hnd_page == vs.count}"> active</c:if>"><a
-									class="page-link" href="/reportContent?acd_id=${acdVo.acd_id}&acd_hnd_page=${vs.count}">${vs.count} </a></li>
+									class="page-link"
+									href="/reportContent?acd_id=${acdVo.acd_id}&acd_hnd_page=${vs.count}">${vs.count}
+								</a></li>
 
 							</c:forEach>
 
@@ -100,20 +102,18 @@
 					marker.setPosition(new kakao.maps.LatLng(xLocation,
 							yLocation));
 					
-					kakao.maps.event.addListener(map, 'click', function(mouseEvent) {        
-					    
-					    // 클릭한 위도, 경도 정보를 가져옵니다 
-					    var latlng = mouseEvent.latLng; 
-					    
-					    // 마커 위치를 클릭한 위치로 옮깁니다
-					    marker.setPosition(latlng);
-					    
-					    var message = '클릭한 위치의 위도는 ' + latlng.getLat() + ' 이고, ';
-					    message += '경도는 ' + latlng.getLng() + ' 입니다';
-					    
-					    console.log(message);
-					    
-					    
+					let iwContent = 
+					'<div>처리상황:${acdHndList[acd_hnd_page-1].acd_hnd_take}<br>처리시간:${acdHndList[acd_hnd_page-1].acd_hnd_date}<br>처리내용:${acdHndList[acd_hnd_page-1].acd_hnd_content}<br></div>',iwRemoveable = true;
+					
+					let infoWindow = new kakao.maps.InfoWindow({
+						content : iwContent,
+						removable : iwRemoveable
+					});
+					
+					infoWindow.open(map, marker);
+					
+					kakao.maps.event.addListener(marker, 'click', function () {
+						
 					});
 
 				});

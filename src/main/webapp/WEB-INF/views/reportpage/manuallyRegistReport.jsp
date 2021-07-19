@@ -27,6 +27,26 @@
 			});
 		});
 
+		$("#modalConfirmShip").one('click', function name() {
+			let url = "/getShipCodeAndName";
+
+			$.get(url, function name(rData) {
+				console.log(rData);
+
+				for (var v = 0; v < rData.length; v++) {
+					let str = "";
+					str += "<tr>";
+					str += "<th>" + rData[v].sh_id + "</th>";
+					str += "<td>" + rData[v].sh_name + "</td>";
+					str += "</tr>";
+
+					$("#shipCodeTable").append(str);
+				}
+
+			});
+
+		});
+
 		$(document).on('click', "tr", function name() {
 			let acdCode = $(this).find("th").text();
 			console.log(acdCode);
@@ -240,7 +260,7 @@
 								<label for="sh_id "> 선박번호 </label>
 
 								<!-- modal shop table -->
-								<a id="modal-237494" href="#modal-container-237494"
+								<a id="modalConfirmShip" href="#modal-container-237494"
 									role="button" class="btn btn-success" data-toggle="modal">선박
 									확인하기</a>
 
