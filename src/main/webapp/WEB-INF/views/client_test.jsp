@@ -43,6 +43,7 @@
 	<br>
 
 	<input type="button" id="sendBtn" value="보내기" />
+	<input type="button" id="ajaxTest" value="데이터저장" />
 	<br>
 	<!-- 정상 /센서등록되어있는데 데이터 없을시 연결실패/ 센서별 red코드일시에 긴급 /  -->
 	<!--  센서별 코드 1:정상 2:연결실패 3:redcode 4:orangecode 5:yellocode -->
@@ -58,37 +59,15 @@
 
 <script type="text/javascript">
 $(document).ready(function() {
-	/*
-	setInterval(function () {
-		
-	},5000); */
-		
-	setInterval(function () {
-	//var dataArray = new Array();
-		console.log("자동 전송 시작");
-		today = getTimeStamp(new Date());
-		sendData = {
-				"sh_id" :Math.floor(Math.random() * 10),
-				"sh_status_latitude" : (Math.random()  + 35).toFixed(13),
-				"sh_status_longitude" : (Math.random()   + 129).toFixed(13),
-				"fire" : Math.floor(Math.random() * 5),
-
-				"temperature" :Math.floor(Math.random() * 100),
-				"smoke" : Math.floor(Math.random() * 100),
-				"windSpeed" : Math.floor(Math.random() * 100),
-				"windDirection" : Math.floor(Math.random() * 100),
-				"gyroscope" : Math.floor(Math.random() * 100),
-				"date" :  today
-			}
-		sendMessage(sendData);
+	
+		connect();
 		
 		console.log("ajax 시작")
 		var url = "/status/insertStatus";
 		
-		console.log(sendData);
-		console.log(JSON.stringify(sendData));
 		// $.get, $.post의 원형, JSON.stringify : json 데이터를 문자열로 변환
-		
+	$("#ajaxTest").click(function() {
+		console.log(socketData);
 		$.ajax({
 			"url" : url,
 			"headers" : {
@@ -96,7 +75,7 @@ $(document).ready(function() {
 			},
 			"method" : "post",
 			"dataType" : "text",
-			"data" : JSON.stringify(sendData),
+			"data" : JSON.stringify(socketData),
 			"success" : function(receivedData) {
 				console.log(receivedData);
 				// 처리가 잘 되었다면, 댓글 목록 버튼을 클릭시켜서 목록을 새로 얻음
@@ -105,37 +84,44 @@ $(document).ready(function() {
 				}
 			}
 		});	
-		
-		
-	}, 3000);
-	
+	});
 
 });
 
-	//메세지 전송시에 데이터처리
-	$("#sendBtn").click(function() {
-		sendData = {
-			"sh_id" : $("#sh_id").val(),
-			"sh_status_latitude" : $("#sh_status_latitude").val(),
-			"sh_status_longitude" : $("#sh_status_longitude").val(),
-			"fire" : $("#fire").val(),
-			"temperature" : $("#temperature").val(),
-			"smoke" : $("#smoke").val(),
-			"windSpeed" : $("#windSpeed").val(),
-			"windDirection" : $("#windDirection").val(),
-			"gyroscope" : $("#gyroscope").val()
-		}
-		sendMessage(sendData);
-		$('#message').val('')
-	});
+var socketData = "";
 
-	let sock = new SockJS("http://localhost:80/echo/");
-	sock.onmessage = onMessage;
-	sock.onclose = onClose;
+function connect(){
+	console.log("소켓시작");
+	let ws = new SockJS("http://localhost:80/echo/");
+	ws.onmessage = onMessage;
+	ws.onclose = onClose;
+	
+	
 	// 메시지 전송
-	function sendMessage(sendData) {
-		sock.send(JSON.stringify(sendData));
-	}
+	//function sendMessage() {
+	setInterval(function () {
+		console.log("함수 시작");
+		//var dataArray = new Array();
+			console.log("자동 전송 시작");
+			today = getTimeStamp(new Date());
+			sendData = {
+					"sh_id" :Math.floor(Math.random() * 10),
+					"sh_status_latitude" : (Math.random()  + 35).toFixed(13),
+					"sh_status_longitude" : (Math.random()   + 129).toFixed(13),
+					"fire" : Math.floor(Math.random() * 5),
+
+					"temperature" :Math.floor(Math.random() * 100),
+					"smoke" : Math.floor(Math.random() * 100),
+					"windSpeed" : Math.floor(Math.random() * 100),
+					"windDirection" : Math.floor(Math.random() * 100),
+					"gyroscope" : Math.floor(Math.random() * 100),
+					"date" :  today
+				}	
+			ws.send(JSON.stringify(sendData));
+			socketData = sendData;
+		}, 3000);
+	//}
+	
 	
 	// 서버로부터 메시지를 받았을 때 -- 본인 페이지에 적용
 	function onMessage(msg) {
@@ -146,39 +132,52 @@ $(document).ready(function() {
 	// 서버와 연결을 끊었을 때
 	function onClose(event) {
 		$("#messageArea").append("연결 끊김");
-		  if (event.wasClean) {
-		    alert('커넥션이 정상적으로 종료되었습니다 (code=' +event.code + 'reason=' + event.reason);
-		  } else {
-		    // 예시: 프로세스가 죽거나 네트워크에 장애가 있는 경우
-		    // event.code가 1006이 됩니다.
-		    alert('[close] 커넥션이 죽었습니다.');
-		  }
+		connect();
 	}
-	
-	//시간함수
-	function getTimeStamp() {
-	  var d = new Date();
-	  var s =
-	    leadingZeros(d.getFullYear(), 4) + '-' +
-	    leadingZeros(d.getMonth() + 1, 2) + '-' +
-	    leadingZeros(d.getDate(), 2) + ' ' +
+}
 
-	    leadingZeros(d.getHours(), 2) + ':' +
-	    leadingZeros(d.getMinutes(), 2) + ':' +
-	    leadingZeros(d.getSeconds(), 2);
 
-	  return s;
+//메세지 버튼전송
+$("#sendBtn").click(function() {
+	sendData = {
+		"sh_id" : $("#sh_id").val(),
+		"sh_status_latitude" : $("#sh_status_latitude").val(),
+		"sh_status_longitude" : $("#sh_status_longitude").val(),
+		"fire" : $("#fire").val(),
+		"temperature" : $("#temperature").val(),
+		"smoke" : $("#smoke").val(),
+		"windSpeed" : $("#windSpeed").val(),
+		"windDirection" : $("#windDirection").val(),
+		"gyroscope" : $("#gyroscope").val()
 	}
+	sendMessage(sendData);
+	$('#message').val('')
+});
 
-	function leadingZeros(n, digits) {
-	  var zero = '';
-	  n = n.toString();
+//시간함수
+function getTimeStamp() {
+  var d = new Date();
+  var s =
+    leadingZeros(d.getFullYear(), 4) + '-' +
+    leadingZeros(d.getMonth() + 1, 2) + '-' +
+    leadingZeros(d.getDate(), 2) + ' ' +
 
-	  if (n.length < digits) {
-	    for (i = 0; i < digits - n.length; i++)
-	      zero += '0';
-	  }
-	  return zero + n;
-	}
+    leadingZeros(d.getHours(), 2) + ':' +
+    leadingZeros(d.getMinutes(), 2) + ':' +
+    leadingZeros(d.getSeconds(), 2);
+
+  return s;
+}
+
+function leadingZeros(n, digits) {
+  var zero = '';
+  n = n.toString();
+
+  if (n.length < digits) {
+    for (i = 0; i < digits - n.length; i++)
+      zero += '0';
+  }
+  return zero + n;
+}
 </script>
 </html>
