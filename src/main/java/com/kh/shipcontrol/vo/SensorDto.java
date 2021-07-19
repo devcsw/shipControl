@@ -1,6 +1,7 @@
 package com.kh.shipcontrol.vo;
 
 public class SensorDto {
+	//설계 미스로 생긴 Vo 
 	private String fire;
 	private String temperature;
 	private String windSpeed;

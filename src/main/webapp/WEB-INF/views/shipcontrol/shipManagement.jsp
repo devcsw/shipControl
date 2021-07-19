@@ -40,15 +40,16 @@ function connect() {
 	let ws = new SockJS("http://localhost:80/echo/");
 	socket = ws;
 	
-	//한번 오픈하는듯?
+	//이벤트 발생시
 	ws.onopen = function(){
 		console.log('Info : connection opend');
 	}
 	//메세지 받았을때
 	ws.onmessage = function(event){
 		//console.log("ReceiveMessage : ", event.data + '\n');
-		tableCreate(event.data);
 		//여기서 테이블 변경
+		tableCreate(event.data);
+		
 	}
 	//끝날때 보여줌
 	ws.onclose = function(event){
@@ -59,6 +60,7 @@ function connect() {
 	//에러가 생겼을때
 	ws.onerror = function(err) {console.log('Error : ', err);}
 }
+
 
 function tableCreate(receivedData){
 

@@ -26,14 +26,15 @@ public class StatusServiceImpl implements StatusService {
 		int windspeed = sensorDao.WINDSPEED;
 		int winddirection = sensorDao.WINDDIRECTION;
 		int gyroscope = sensorDao.GYROSCOPE;
+		int statusVal = statusDao.getStatusId();
 		
-		statusDao.insertStatus(statusVo);
-		statusDao.insertSensorStatus(fire, statusVo.getFire());
-		statusDao.insertSensorStatus(temperature, statusVo.getTemperature());
-		statusDao.insertSensorStatus(smoke, statusVo.getSmoke());
-		statusDao.insertSensorStatus(windspeed, statusVo.getWindSpeed());
-		statusDao.insertSensorStatus(winddirection, statusVo.getWindDirection());
-		statusDao.insertSensorStatus(gyroscope, statusVo.getGyroscope());
+		statusDao.insertStatus(statusVal, statusVo);
+		statusDao.insertSensorStatus(statusVal, fire, statusVo.getFire());
+		statusDao.insertSensorStatus(statusVal, temperature, statusVo.getTemperature());
+		statusDao.insertSensorStatus(statusVal, smoke, statusVo.getSmoke());
+		statusDao.insertSensorStatus(statusVal, windspeed, statusVo.getWindSpeed());
+		statusDao.insertSensorStatus(statusVal, winddirection, statusVo.getWindDirection());
+		statusDao.insertSensorStatus(statusVal, gyroscope, statusVo.getGyroscope());
 	}
 
 }
