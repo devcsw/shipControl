@@ -153,6 +153,10 @@
 						<button style="margin-left: 10px" id="buttonSearch"
 							class="btn btn-primary my-2 my-sm-0" type="submit">검색하기</button>
 					</form>
+					<div>
+						<c:if test="${map != null}">${map.searchType} ${map.searchWord }번의 검색 결과입니다</c:if>
+						<c:if test="${map == null }">전체 사고내역 조회 결과입니다</c:if>
+					</div>
 				</div>
 
 				<!-- 검색바 끝 -->

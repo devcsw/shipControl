@@ -32,7 +32,7 @@ public class ReportController {
 
 	@RequestMapping(value = "/reportPage")
 	public String reportPage(Model model) throws Exception {
-
+		
 		List<AcdVo> list = reportService.getWholeAcd();
 		model.addAttribute("list", list);
 
@@ -115,6 +115,7 @@ public class ReportController {
 		List<AcdVo> list = reportService.getAcdListBySerachType(map);
 		System.out.println("@ReportController list :" + list);
 		model.addAttribute("list", list);
+		model.addAttribute("map", map);
 
 		return "/reportpage/reportPage";
 	}
