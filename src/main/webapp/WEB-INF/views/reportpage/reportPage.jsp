@@ -183,7 +183,7 @@
 				<tbody>
 					<c:forEach items="${list}" var="list">
 						<tr>
-							<td><a href="/reportContent?acd_id=${list.acd_id }">${list.acd_id }</a></td>
+							<td><a href="/reportContent?acd_id=${list.acd_id }&acd_hnd_page=1">${list.acd_id }</a></td>
 							<td>${list.acd_code_id }</td>
 							<td>(${list.acd_latitude } , ${list.acd_longitude })</td>
 							<td>${list.acd_date }</td>

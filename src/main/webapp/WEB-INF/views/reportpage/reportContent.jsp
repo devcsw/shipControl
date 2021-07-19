@@ -60,9 +60,11 @@
 					<nav aria-label="Page navigation example">
 						<ul class="pagination">
 
-							<c:forEach items="list" var="v" varStatus="vs">
-								<li class="page-item"><a class="page-link" href="#">${vs.count}
-								</a></li>
+							<c:forEach items="${acdHndList}" var="v" varStatus="vs">
+								<li
+									class="page-item <c:if test="${acd_hnd_page == vs.count}"> active</c:if>"><a
+									class="page-link" href="/reportContent?acd_id=${acdVo.acd_id}&acd_hnd_page=${vs.count}">${vs.count} </a></li>
+
 							</c:forEach>
 
 						</ul>

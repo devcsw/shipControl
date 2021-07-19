@@ -40,10 +40,11 @@ public class ReportController {
 	}
 
 	@RequestMapping(value = "/reportContent", method = RequestMethod.GET)
-	public String reportContent(@RequestParam("acd_id") String acd_id, Model model) throws Exception {
+	public String reportContent(@RequestParam("acd_id") String acd_id, @RequestParam("acd_hnd_page")String acd_hnd_page, Model model) throws Exception {
 //		System.out.println("@ReportController acd_id :" + acd_id);
 		AcdVo acdVo = reportService.getAcdById(Integer.parseInt(acd_id));
 		List<AcdHndVo> acdHndList = reportService.getAcdHnd(acd_id);
+		model.addAttribute("acd_hnd_page", acd_hnd_page);
 		model.addAttribute("acdVo", acdVo);
 		model.addAttribute("acdHndList", acdHndList);
 
