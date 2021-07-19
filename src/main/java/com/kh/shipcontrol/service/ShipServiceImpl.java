@@ -65,7 +65,10 @@ public class ShipServiceImpl implements ShipService {
 		//fk삭제를 위해 순서
 		sensorDao.deleteSensor(sh_id);
 		shipDao.deleteShip(sh_id);
+		//상세보기  데이터 삭제
+		
 	}
+	
 	@Transactional
 	@Override
 	public void updateShip(ShipVo shipVo, SensorDto sensorDto) {

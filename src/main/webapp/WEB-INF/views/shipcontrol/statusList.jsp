@@ -21,10 +21,18 @@ p {
 			  <div class="card-header">${ShipVo.sh_name}</div>
 			  <div class="card-body">
 			    <h6 class="card-title"  style="font-size: 15px;">${ShipVo.sh_owner}</h6>
-			    <p class="card-text" >센서코드 : ${ShipVo.sh_board_code}  </p>
-			    <p class="card-text" >선장명 : ${ShipVo.sh_cap_name} </p>
-			    <p class="card-text" >선장번호 : ${ShipVo.sh_cap_tel} </p>
-			    <p class="card-text" >선주번호 : ${ShipVo.sh_owner_tel} </p>
+			    <div class="row">
+			    <div class="col-md-6">
+				    <p class="card-text" >센서코드 : ${ShipVo.sh_board_code}  </p>
+				    <p class="card-text" >mmsi : ${ShipVo.sh_mmsi}  </p>
+				    <p class="card-text" >선장명 : ${ShipVo.sh_cap_name} </p>
+				</div>
+				<div class="col-md-6">
+				    <p class="card-text" >호출부호 : ${ShipVo.sh_call_sign}  </p>
+				    <p class="card-text" >선주번호 : ${ShipVo.sh_owner_tel} </p>
+				    <p class="card-text" >선장번호 : ${ShipVo.sh_cap_tel} </p>
+		    	</div>
+			    </div>
 			  </div>
 			</div>
 		</div>

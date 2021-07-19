@@ -19,7 +19,7 @@ public interface ShipDao {
 	//id로 선박 vo 가져오기
 	public ShipVo getShipInfoById(int sh_id);
 
-	//validation
+	//유효성검사
 	public int checkDupId(int sh_id); 
 	public int checkDupBoardCode(String sh_board_code); 
 	public int checkDupMmsi(String sh_mmsi); 

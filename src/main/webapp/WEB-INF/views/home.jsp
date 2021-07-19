@@ -8,6 +8,8 @@
 <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=0e70be96a08733981d994c3517a10a37&libraries=services,clusterer,drawing"></script>
 
 <script>
+var arr = [];
+
 $(document).ready(function() {
 	//sh_id, sh_name, sh_board_code, sh_owner, sh_owner_tel, 
 	//sh_cap_name, sh_cap_tel, sh_type, sh_mmsi, sh_call_sign, sh_date
@@ -31,12 +33,22 @@ $(document).ready(function() {
 			var result = JSON.parse(event.data);
 			var sh_status_latitude = result.sh_status_latitude;
 			var sh_status_longitude = result.sh_status_longitude;
-			console.log(sh_status_latitude);
 			// 지도 혹은 로드뷰에서 마커의 위치를 지정
+			
+			
+			/*
 			var marker = new kakao.maps.Marker({
 			    map: map,
-			    position: new kakao.maps.LatLng(sh_status_latitude, sh_status_longitude)
+			    position: new kakao.maps.LatLng(sh_status_latitude, sh_status_longitude),
+			    title: result.sh_id,
+			    image: icon
 			});
+			*/
+			console.log(arr[result.sh_id]);
+			var marker = getMarker(result,icon);
+			console.log(marker);
+			//arr[result.sh_id] = marker;
+			
 			//여기서 테이블 변경
 		}
 		//끝날때 보여줌
@@ -49,22 +61,40 @@ $(document).ready(function() {
 	}
 	//소켓통신끝@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 	
+	
+	
+	
 	//지도API @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
-	   
+	//이미지
+	var icon = new kakao.maps.MarkerImage(
+        '/resources/img/ship.png',
+        new kakao.maps.Size(31, 35));
+	
+	//map 생성
 	var container = document.getElementById('map');
 	var options = {
 		center : new kakao.maps.LatLng(35.44294727060267, 129.36937385789298),
-		level : 7
+		level : 8
 	};
 
 	var map = new kakao.maps.Map(container, options);
-
+	
 	// 일반 지도와 스카이뷰로 지도 타입을 전환할 수 있는 지도타입 컨트롤을 생성합니다
 	var mapTypeControl = new kakao.maps.MapTypeControl();
-
+	
 	// 지도 타입 컨트롤을 지도에 표시합니다
 	map.addControl(mapTypeControl, kakao.maps.ControlPosition.TOPRIGHT);
-
+	
+	//마커생성 함수
+	function getMarker(result, icon) {
+		var marker = new kakao.maps.Marker({ 
+			map: map,
+		    position: new kakao.maps.LatLng(result.sh_status_latitude, result.sh_status_longitude),
+		    title: result.sh_id,
+		    image: icon
+		}); 
+	}
+	//정보얻기
 	function getInfo() {
 	    // 지도의 현재 중심좌표를 얻어옵니다 
 	    var center = map.getCenter(); 
@@ -98,10 +128,12 @@ $(document).ready(function() {
 	    // 개발자도구를 통해 직접 message 내용을 확인해 보세요.
 	    // ex) console.log(message);
 	}
+	
 	// 지도를 클릭한 위치에 표출할 마커입니다
 	var marker = new kakao.maps.Marker({ 
 	    // 지도 중심좌표에 마커를 생성합니다 
-	    position: map.getCenter() 
+	    position: map.getCenter() ,
+	    image: icon
 	}); 
 	
 	// 지도에 마커를 표시합니다
