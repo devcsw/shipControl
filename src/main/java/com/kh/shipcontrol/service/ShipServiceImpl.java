@@ -108,7 +108,6 @@ public class ShipServiceImpl implements ShipService {
 	}
 
 	@Override
-<<<<<<< HEAD
 	public Map<String, Integer> dupShip(ShipVo shipVo) {
 		Map<String, Integer> map = new HashMap<String, Integer>();
 		int sh_id = shipDao.checkDupId(shipVo.getSh_id());
@@ -120,11 +119,9 @@ public class ShipServiceImpl implements ShipService {
 		map.put("sh_mmsi", sh_mmsi);
 		map.put("sh_call_sign", sh_call_sign);
 		return map;
-=======
 	public List<ShipVo> getShipList() {
 		List<ShipVo> list = shipDao.getShipList();
 		return list;
->>>>>>> branch 'main' of https://github.com/devcsw/shipControl
 	}
 	
 }

@@ -18,14 +18,13 @@ public interface ShipDao {
 	public List<Map<String, Object>> getNotSensorList(Map<String,String> map);
 	//id로 선박 vo 가져오기
 	public ShipVo getShipInfoById(int sh_id);
-<<<<<<< HEAD
+
 	//validation
 	public int checkDupId(int sh_id); 
 	public int checkDupBoardCode(String sh_board_code); 
 	public int checkDupMmsi(String sh_mmsi); 
 	public int checkDupCallSign(String sh_call_sign); 
-=======
+
 	//선박 id와 이름 가져오기
 	public List<ShipVo> getShipList();
->>>>>>> branch 'main' of https://github.com/devcsw/shipControl
 }

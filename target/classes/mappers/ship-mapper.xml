@@ -126,5 +126,11 @@
 		where sh_call_sign = #{sh_call_sign}
 	</select>
 	<!--  //validation -->
+	<!-- shipList get -->
+	
+	<select id="getShipList" resultType="ShipVo">
+	select * from ship_tb
+	</select>
+	
 	
 </mapper>
