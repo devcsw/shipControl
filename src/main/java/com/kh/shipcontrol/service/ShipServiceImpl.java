@@ -119,6 +119,7 @@ public class ShipServiceImpl implements ShipService {
 		map.put("sh_mmsi", sh_mmsi);
 		map.put("sh_call_sign", sh_call_sign);
 		return map;
+	}
 	public List<ShipVo> getShipList() {
 		List<ShipVo> list = shipDao.getShipList();
 		return list;
