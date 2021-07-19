@@ -12,6 +12,8 @@ public interface ShipService {
 	public void updateShip(ShipVo shipVo, SensorDto sensorDto);
 	public Map<String, Object> selectOneShip(int sh_id);
 	public  List<Map<String, Object>>  listAllShip(Map<String, String> map);
+	public  List<Map<String, Object>>  getNotSensorList(Map<String, String> map);
 	public ShipVo getShipInfoById(int sh_id);
+	public Map<String, Integer> dupShip(ShipVo shipVo);
 }
 	

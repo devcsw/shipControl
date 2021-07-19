@@ -11,8 +11,8 @@ public class ShipVo {
 	private String sh_cap_name;
 	private String sh_cap_tel;
 	private String sh_type;
-	private int sh_mmsi;
-	private int sh_call_sign;
+	private String sh_mmsi;
+	private String sh_call_sign;
 	private Timestamp sh_date;
 
 	
@@ -23,23 +23,8 @@ public class ShipVo {
 
 
 	public ShipVo(int sh_id, String sh_name, String sh_board_code, String sh_owner, String sh_owner_tel,
-			String sh_cap_name, String sh_cap_tel, String sh_type, int sh_mmsi, int sh_call_sign) {
-		super();
-		this.sh_id = sh_id;
-		this.sh_name = sh_name;
-		this.sh_board_code = sh_board_code;
-		this.sh_owner = sh_owner;
-		this.sh_owner_tel = sh_owner_tel;
-		this.sh_cap_name = sh_cap_name;
-		this.sh_cap_tel = sh_cap_tel;
-		this.sh_type = sh_type;
-		this.sh_mmsi = sh_mmsi;
-		this.sh_call_sign = sh_call_sign;
-	}
-
-
-	public ShipVo(int sh_id, String sh_name, String sh_board_code, String sh_owner, String sh_owner_tel,
-			String sh_cap_name, String sh_cap_tel, String sh_type, int sh_mmsi, int sh_call_sign, Timestamp sh_date) {
+			String sh_cap_name, String sh_cap_tel, String sh_type, String sh_mmsi, String sh_call_sign,
+			Timestamp sh_date) {
 		super();
 		this.sh_id = sh_id;
 		this.sh_name = sh_name;
@@ -53,7 +38,7 @@ public class ShipVo {
 		this.sh_call_sign = sh_call_sign;
 		this.sh_date = sh_date;
 	}
-
+	
 
 	public int getSh_id() {
 		return sh_id;
@@ -135,22 +120,22 @@ public class ShipVo {
 	}
 
 
-	public int getSh_mmsi() {
+	public String getSh_mmsi() {
 		return sh_mmsi;
 	}
 
 
-	public void setSh_mmsi(int sh_mmsi) {
+	public void setSh_mmsi(String sh_mmsi) {
 		this.sh_mmsi = sh_mmsi;
 	}
 
 
-	public int getSh_call_sign() {
+	public String getSh_call_sign() {
 		return sh_call_sign;
 	}
 
 
-	public void setSh_call_sign(int sh_call_sign) {
+	public void setSh_call_sign(String sh_call_sign) {
 		this.sh_call_sign = sh_call_sign;
 	}
 
@@ -172,7 +157,6 @@ public class ShipVo {
 				+ sh_cap_tel + ", sh_type=" + sh_type + ", sh_mmsi=" + sh_mmsi + ", sh_call_sign=" + sh_call_sign
 				+ ", sh_date=" + sh_date + "]";
 	}
-	
 	
 	
 }

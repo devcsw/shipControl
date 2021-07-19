@@ -16,34 +16,7 @@
 	<h2> 테스트 할려면  선박번호에 등록된 번호를 입력해놓으면 자동으로 찾아서 보여줌</h2>
 	<label for="sh_id">선박번호</label>
 	<input type="text" id="sh_id" />
-	<br>
-	<label for="sh_status_latitude">위도</label>
-	<input type="text" id="sh_status_latitude" />
-	<br>
-	<label for="sh_status_longitude">경도</label>
-	<input type="text" id="sh_status_longitude" />
-	<br>
-	<!-- 센서 데이터 //센서는 Null값이 넘어올 수 있음 -->
-	<label for="fire">화재</label>
-	<input type="text" id="fire" />
-	<br>
-	<label for="temperature">온도</label>
-	<input type="text" id="temperature" />
-	<br>
-	<label for="smoke">연기</label>
-	<input type="text" id="smoke" />
-	<br>
-	<label for="windSpeed">풍속</label>
-	<input type="text" id="windSpeed" />
-	<br>
-	<label for="windDirection">풍향</label>
-	<input type="text" id="windDirection" />
-	<br>
-	<label for="gyroscope">기울기</label>
-	<input type="text" id="gyroscope" />
-	<br>
 
-	<input type="button" id="sendBtn" value="보내기" />
 	<input type="button" id="ajaxTest" value="데이터저장" />
 	<br>
 	<!-- 정상 /센서등록되어있는데 데이터 없을시 연결실패/ 센서별 red코드일시에 긴급 /  -->
@@ -65,13 +38,15 @@ var socketData = "";
 
 $(document).ready(function() {
 	
-		connect();
-		
-		console.log("ajax 시작")
-		var url = "/status/insertStatus";
+	connect();
+	
 		
 		// $.get, $.post의 원형, JSON.stringify : json 데이터를 문자열로 변환
 	$("#ajaxTest").click(function() {
+
+		console.log("ajax 시작")
+		var url = "/status/insertStatus";
+		
 		console.log(socketData);
 		$.ajax({
 			"url" : url,
@@ -98,8 +73,7 @@ function connect(){
 	let ws = new SockJS("http://localhost:80/echo/");
 	ws.onmessage = onMessage;
 	ws.onclose = onClose;
-	
-	
+	var count = 9;
 	// 메시지 전송
 	//function sendMessage() {
 	setInterval(function () {
@@ -120,7 +94,14 @@ function connect(){
 					"date" :  today
 				}	
 			ws.send(JSON.stringify(sendData));
-			socketData = sendData;
+			count = count + 1;
+			console.log("count 체크" + count);
+			if (count == 10){
+				console.log("count 체크" + count);
+				insertData(sendData);
+				count = 0;
+			}
+			
 		}, 3000);
 	//}
 	
@@ -136,25 +117,32 @@ function connect(){
 		$("#messageArea").append("연결 끊김");
 		connect();
 	}
+	
+	function insertData(sendData) {
+		console.log("ajax 자동 시작")
+		var url = "/status/insertStatus";
+		
+		console.log(socketData);
+		$.ajax({
+			"url" : url,
+			"headers" : {
+				"Content-Type" : "application/json"
+			},
+			"method" : "post",
+			"dataType" : "text",
+			"data" : JSON.stringify(sendData),
+			"success" : function(receivedData) {
+				console.log(receivedData);
+				// 처리가 잘 되었다면, 댓글 목록 버튼을 클릭시켜서 목록을 새로 얻음
+				if (receivedData == "success") {
+					console.log("받음");
+				}
+			}
+		});	
+	}
 }
 
 
-//메세지 버튼전송
-$("#sendBtn").click(function() {
-	sendData = {
-		"sh_id" : $("#sh_id").val(),
-		"sh_status_latitude" : $("#sh_status_latitude").val(),
-		"sh_status_longitude" : $("#sh_status_longitude").val(),
-		"fire" : $("#fire").val(),
-		"temperature" : $("#temperature").val(),
-		"smoke" : $("#smoke").val(),
-		"windSpeed" : $("#windSpeed").val(),
-		"windDirection" : $("#windDirection").val(),
-		"gyroscope" : $("#gyroscope").val()
-	}
-	sendMessage(sendData);
-	$('#message').val('')
-});
 
 //시간함수
 function getTimeStamp() {

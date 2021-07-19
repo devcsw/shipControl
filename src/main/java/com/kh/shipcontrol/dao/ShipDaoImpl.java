@@ -29,6 +29,13 @@ public class ShipDaoImpl implements ShipDao {
 				sqlSession.selectList(NAMESPACE + "listAllShip", map);
 		return list;
 	}
+	@Override
+	public List<Map<String, Object>> getNotSensorList(Map<String, String> map) {
+		
+		List<Map<String, Object>> list = 
+				sqlSession.selectList(NAMESPACE + "getNotSensorList", map);
+		return list;
+	}
 
 	@Override
 	public void deleteShip(int sh_id) {
@@ -49,5 +56,29 @@ public class ShipDaoImpl implements ShipDao {
 	public ShipVo getShipInfoById(int sh_id) {
 		ShipVo shipVo = sqlSession.selectOne(NAMESPACE + "getShipInfoById", sh_id);
 		return shipVo;
+	}
+
+	@Override
+	public int checkDupId(int sh_id) {
+		return  sqlSession.selectOne(NAMESPACE + "checkDupId", sh_id);
+		
+	}
+
+	@Override
+	public int checkDupBoardCode(String sh_board_code) {
+		return  sqlSession.selectOne(NAMESPACE + "checkDupBoardCode", sh_board_code);
+		
+	}
+
+	@Override
+	public int checkDupMmsi(String sh_mmsi) {
+		return  sqlSession.selectOne(NAMESPACE + "checkDupMmsi", sh_mmsi);
+		
+	}
+
+	@Override
+	public int checkDupCallSign(String sh_call_sign) {
+		return  sqlSession.selectOne(NAMESPACE + "checkDupCallSign", sh_call_sign);
+		
 	}
 }

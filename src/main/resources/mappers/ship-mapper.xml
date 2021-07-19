@@ -8,9 +8,12 @@
 	<!-- 선박등록 -->
 	<insert id="insertShip">
 		INSERT INTO ship_tb  
-			(sh_id, sh_name, sh_board_code, sh_owner, sh_owner_tel, sh_cap_name, sh_cap_tel, sh_type, sh_mmsi, sh_call_sign)
+			(sh_id, sh_name, sh_board_code, sh_owner, 
+			sh_owner_tel, sh_cap_name, sh_cap_tel, sh_type, sh_mmsi, sh_call_sign)
 		VALUES 
-			(#{sh_id}, #{sh_name}, #{sh_board_code}, #{sh_owner}, #{sh_owner}, #{sh_cap_name}, #{sh_cap_tel}, #{sh_type}, #{sh_mmsi}, #{sh_call_sign}) 
+			(#{sh_id}, #{sh_name}, #{sh_board_code}, #{sh_owner, jdbcType=VARCHAR}, 
+			#{sh_owner_tel, jdbcType=VARCHAR }, #{sh_cap_name, jdbcType=VARCHAR}, 
+			#{sh_cap_tel, jdbcType=VARCHAR}, #{sh_type}, #{sh_mmsi}, #{sh_call_sign}) 
 	</insert>
 	<!-- 선박삭제 -->
 	<delete id="deleteShip">
@@ -21,10 +24,10 @@
 		UPDATE ship_tb SET 
             sh_name= #{sh_name},
             sh_board_code= #{sh_board_code},
-            sh_owner = #{sh_owner},
-            sh_owner_tel = #{sh_owner_tel},
-            sh_cap_name = #{sh_cap_name},
-            sh_cap_tel = #{sh_cap_tel},
+            sh_owner = #{sh_owner , jdbcType=VARCHAR},
+            sh_owner_tel = #{sh_owner_tel , jdbcType=VARCHAR},
+            sh_cap_name = #{sh_cap_name , jdbcType=VARCHAR},
+            sh_cap_tel = #{sh_cap_tel , jdbcType=VARCHAR},
             sh_type = #{sh_type},
             sh_mmsi = #{sh_mmsi},
             sh_call_sign = #{sh_call_sign}
@@ -93,4 +96,35 @@
 	<select id="getShipInfoById" resultType="ShipVo">
 	select * from ship_tb where sh_id = #{sh_id}
 	</select>
+	
+	<select id="getNotSensorList" resultMap="ListMap">
+	select *
+	from ship_tb sh
+	WHERE NOT EXISTS
+	(
+	    SELECT * FROM ship_sensor_tb ss
+	    WHERE sh.sh_id = ss.sh_id 
+	)
+	ORDER BY sh_id asc
+	</select>
+	
+	<!-- validation -->
+	<select id="checkDupId" resultType="int">
+		select count(*) from ship_tb
+		where sh_id = #{sh_id}
+	</select>
+	<select id="checkDupBoardCode" resultType="int">
+		select count(*) from ship_tb
+		where sh_board_code = #{sh_board_code}
+	</select>
+	<select id="checkDupMmsi" resultType="int">
+		select count(*) from ship_tb
+		where sh_mmsi = #{sh_mmsi}
+	</select>
+	<select id="checkDupCallSign" resultType="int">
+		select count(*) from ship_tb
+		where sh_call_sign = #{sh_call_sign}
+	</select>
+	<!--  //validation -->
+	
 </mapper>

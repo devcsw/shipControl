@@ -43,7 +43,6 @@ $(document).ready(function() {
 		ws.onclose = function(event){
 			console.log('Info : connection closed');
 			connect();
-		
 		}	
 		//에러가 생겼을때
 		ws.onerror = function(err) {console.log('Error : ', err);}
@@ -51,6 +50,7 @@ $(document).ready(function() {
 	//소켓통신끝@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 	
 	//지도API @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+	   
 	var container = document.getElementById('map');
 	var options = {
 		center : new kakao.maps.LatLng(35.44294727060267, 129.36937385789298),

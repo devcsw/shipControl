@@ -5,8 +5,7 @@
 
 <script>
 $(document).ready(function() {
-//sh_id, sh_name, sh_board_code, sh_owner, sh_owner_tel, 
-//sh_cap_name, sh_cap_tel, sh_type, sh_mmsi, sh_call_sign, sh_date
+	//처음 소켓 통신 실행
 	connect();
 	
 	// 검색 옵션 선택
@@ -31,6 +30,65 @@ $(document).ready(function() {
 		}
 		$("#frmSearch > input[name=keyword]").val(keyword);
 		$("#frmSearch").submit();
+	});
+	
+	
+	//유효성 검사
+	$("#btnShipDup").click(function() {
+		sh_id = $("#sh_id").val();
+		sh_board_code =  $("#sh_board_code").val();
+		sh_mmsi = $("#sh_mmsi").val();
+		sh_call_sign = $("#sh_call_sign").val();
+		
+		if(sh_id=='' || sh_board_code=='' || sh_mmsi=='' ||sh_call_sign==''){
+			alert('데이터를 입력해 주세요');
+			return;
+		}
+		
+		var url = "/shipcontrol/dupShip";
+		sendData = {
+				"sh_id" : sh_id,
+				"sh_board_code" : sh_board_code,
+				"sh_mmsi" : sh_mmsi ,
+				"sh_call_sign" :  sh_call_sign
+			}	
+		$.ajax({
+			"url" : url,
+			"headers" : {
+				"Content-Type" : "application/json"
+			},
+			"method" : "post",
+			"dataType" : "text",
+			"data" : JSON.stringify(sendData),
+			"success" : function(receivedData) {
+				var result = JSON.parse(receivedData);
+				console.log(result);
+				if(result['sh_id'] == '' && result['sh_board_code'] == '' && result['sh_mmsi'] == '' 
+						&& result['sh_call_sign'] == ''){
+					$('#dupResult span').text('등록 가능');
+					$('#btnShipInsert').prop('disabled' , false);
+				} else{
+					if(result['sh_id'] == 'exist'){
+						$('#sh_id').val('');
+						$('#sh_id').attr('placeholder', '아이디가 중복 되었습니다.');
+					}
+					if(result['sh_board_code'] == 'exist'){
+						$('#sh_board_code').val('');
+						$('#sh_board_code').attr('placeholder', '센서코드가 중복 되었습니다.');
+					}
+					if(result['sh_mmsi'] == 'exist'){
+						$('#sh_mmsi').val('');
+						$('#sh_mmsi').attr('placeholder', 'mmsi가 중복 되었습니다.');
+					}
+					if(result['sh_call_sign'] == 'exist'){
+						$('#sh_call_sign').val('');
+						$('#sh_call_sign').attr('placeholder', '호출부호가 중복 되었습니다.');
+					}
+					$('#dupResult span').text('등록 불가능');
+					$('#btnShipInsert').prop('disabled' , true);
+				}
+			}
+		});	
 	});
 });
 
@@ -61,9 +119,9 @@ function connect() {
 	ws.onerror = function(err) {console.log('Error : ', err);}
 }
 
-
+//테이블 만드는 함수
 function tableCreate(receivedData){
-
+	console.log("ㅇㅇ");
 	var result = JSON.parse(receivedData);
 	var id = result.sh_id;
 	var fire = result.fire;
@@ -77,7 +135,8 @@ function tableCreate(receivedData){
 	var emergencyCode =""
 	
 	// 데이터 받을때마다 위험도 체크
-//	if (fire>=4 || temperature>=4 || moke >=4 || windSpeed >=4 || windDirection >=4 || gyroscope >=4){
+	//	if (fire>=4 || temperature>=4 || moke >=4 || windSpeed >=4 || windDirection >=4 || gyroscope >=4){
+	// 테스트용으로 화재센서에만 적용
 	if (fire>=4 ){
 		emergencyCode = "위험";
 	} else if(fire >=2) {
@@ -85,8 +144,6 @@ function tableCreate(receivedData){
 	} else {
 		emergencyCode = "정상"
 	}
-	
-	console.log(target.eq(3).text().trim());
 	
 	//화면 설정
 	if (target.eq(3).text().trim() != "") {	target.eq(3).text(fire);}
@@ -114,8 +171,6 @@ function tableCreate(receivedData){
 	<input type="hidden" name="keyword" value="${keyword}"/>
 </form>
 <!--  선박등록 모달창 -->
-<!--  <a id="modal-200855" href="#modal-container-200855" role="button" class="btn" data-toggle="modal">Launch demo modal</a>-->
-
 <div class="modal fade" id="modal-container-200855" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
 	<div class="modal-dialog" role="document">
 		<div class="modal-content">
@@ -132,33 +187,32 @@ function tableCreate(receivedData){
 			<div class="modal-body">
 			
 				<div class="row">
+					<!-- 왼쪽 등록창 -->
 					<div class="col-md-6">
-	<!-- sh_id, sh_name, sh_board_code, sh_owner, sh_owner_tel, 
-	sh_cap_name, sh_cap_tel, sh_type, sh_mmsi, sh_call_sign, sh_date -->
 						<label for="sh_id">
 							선박번호
 						</label>
-						<input type="text" class="form-control" id="sh_id" name="sh_id" />
+						<input type="text" class="form-control" id="sh_id" name="sh_id"  maxlength="10" required />
 						
 						<label for="sh_board_code">
 							센서코드
 						</label>
-						<input type="text" class="form-control" id="sh_board_code" name="sh_board_code" />
+						<input type="text" class="form-control" id="sh_board_code" name="sh_board_code" maxlength="6" placeholder="예) 123456" required />
 						
 						<label for="sh_owner">
 							선주
 						</label>
-						<input type="text" class="form-control" id="sh_owner" name="sh_owner" />
+						<input type="text" class="form-control" id="sh_owner" maxlength="15" name="sh_owner" />
 						
 						<label for="sh_cap_name">
 							선장이름
 						</label>
-						<input type="text" class="form-control" id="sh_cap_name" name="sh_cap_name" />
+						<input type="text" class="form-control" id="sh_cap_name" maxlength="15" name="sh_cap_name" />
 						
 						<label for="sh_call_sign">
 							호출부호
 						</label>
-						<input type="text" class="form-control" id="sh_call_sign" name="sh_call_sign" />
+						<input type="text" class="form-control" id="sh_call_sign" name="sh_call_sign" maxlength="10" required />
 						<br>
 					
 						<div class="checkbox">					 
@@ -179,32 +233,35 @@ function tableCreate(receivedData){
 				
 						
 					</div>
+					<!-- 오른쪽 등록창 -->
 					<div class="col-md-6">
 					
 						<label for="sh_name">
 							선박이름
 						</label>
-						<input type="text" class="form-control" id="sh_name" name="sh_name" />
+						<input type="text" class="form-control" id="sh_name" name="sh_name"  maxlength="15" required/>
 						
 						<label for="sh_mmsi">
 							mmsi
 						</label>
-						<input type="text" class="form-control" id="sh_mmsi" name="sh_mmsi" />
+						<input type="text" class="form-control" id="sh_mmsi" name="sh_mmsi" placeholder="예) 1234"  maxlength="4" required/>
 						
 						<label for="sh_owner_tel">
 							선주번호
 						</label>
-						<input type="text" class="form-control" id="sh_owner_tel" name="sh_owner_tel" />
+						<input type="text" class="form-control" id="sh_owner_tel" name="sh_owner_tel"  
+						pattern="^010[0-9]{8}$" placeholder="예) 01012345678" maxlength="15"/>
 						
 						<label for="sh_cap_tel">
 							선장번호
 						</label>
-						<input type="text" class="form-control" id="sh_cap_tel" name="sh_cap_tel" />
+						<input type="text" class="form-control" id="sh_cap_tel" name="sh_cap_tel"   
+						pattern="^010[0-9]{8}$" placeholder="예) 01012345678" maxlength="15"/>
 						
 						<label for="sh_type">
 							선박타입
 						</label>
-						<input type="text" class="form-control" id="sh_type" name="sh_type" />
+						<input type="text" class="form-control" id="sh_type" name="sh_type" maxlength="10" required />
 						<br>
 						
 						<div class="checkbox">					 
@@ -226,9 +283,14 @@ function tableCreate(receivedData){
 				</div>
 		
 		</div>
-		
+			
 			<div class="modal-footer">
-				<button type="submit" class="btn btn-primary" id="btnShipInsert">
+				<div  id="dupResult"><span>중복검사를 먼저 진행해 주세요</span></div>
+				<button type="button" class="btn btn-info" id="btnShipDup">
+					검사하기
+				</button> 
+				
+				<button type="submit" class="btn btn-primary" id="btnShipInsert" disabled >
 					저장하기
 				</button> 
 				
@@ -345,6 +407,27 @@ function tableCreate(receivedData){
 	    					<td></td>
 	    					<td><a class="btn btn-primary" 
 	    					href="/shipcontrol/statusList?sh_id=${list.sh_id}" 
+	    					>내역</a>
+	    					</td>
+	   					</tr>
+					</c:forEach>
+					<!-- 센서 미등록 선박 -->
+					<c:forEach var="notSensorList" items="${notSensorList}">
+						<tr id="tr${notSensorList.sh_id}">
+	    					<td id="${notSensorList.sh_id}"><a href="/shipcontrol/updateShipForm?sh_id=${notSensorList.sh_id}"  >${notSensorList.sh_id}</a></td>
+	    					<td>${notSensorList.sh_name }</td>
+	    					<td>${notSensorList.sh_board_code }</td>
+	    					
+	    					<td></td>
+	    					<td></td>
+	    					<td></td>
+	    					<td></td>
+	    					<td></td>
+	    					<td></td>
+	    					<td></td>
+	    					<td></td>
+	    					<td><a class="btn btn-primary" 
+	    					href="/shipcontrol/statusList?sh_id=${notSensorList.sh_id}" 
 	    					>내역</a>
 	    					</td>
 	   					</tr>

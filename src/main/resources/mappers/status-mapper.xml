@@ -36,7 +36,7 @@
 		<id column="gyroscope" property="gyroscope"/>
 	</resultMap>
 <select id="statusList" resultMap="ListStatusMap">
-(   
+   
 SELECT 
 *
 FROM
@@ -44,7 +44,7 @@ FROM
     SELECT sh.sh_status_id, sh.sh_id, ss.se_id, ss.se_status, sh.sh_status_latitude, sh.sh_status_longitude, sh.sh_status_date 
     FROM ship_status_tb sh, sensor_status_tb ss
     WHERE sh.sh_status_id = ss.sh_status_id
-    AND sh.sh_id= #{sh_id}
+    AND sh.sh_id= #{sh_id} <!-- 선박id로 조회 -->
      )
     PIVOT
     (
@@ -52,7 +52,7 @@ FROM
         FOR
         se_id IN ( 1 as fire,2 as temperature,3 as smoke,4 as windspeed,5 as winddirection,6 as gyroscope ) --행으로 올릴 열
     )
-) 
+ORDER BY sh_status_date desc 
 
 </select>
 </mapper>

@@ -15,6 +15,12 @@ public interface ShipDao {
 	public ShipVo selectOneShip(int sh_id);
 	//선박리스트출력
 	public List<Map<String, Object>> listAllShip(Map<String,String> map);
+	public List<Map<String, Object>> getNotSensorList(Map<String,String> map);
 	//id로 선박 vo 가져오기
 	public ShipVo getShipInfoById(int sh_id);
+	//validation
+	public int checkDupId(int sh_id); 
+	public int checkDupBoardCode(String sh_board_code); 
+	public int checkDupMmsi(String sh_mmsi); 
+	public int checkDupCallSign(String sh_call_sign); 
 }

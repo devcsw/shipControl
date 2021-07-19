@@ -54,6 +54,10 @@ public class ShipServiceImpl implements ShipService {
 		List<Map<String, Object>> list = shipDao.listAllShip(map);
 		 return list;
 	}
+	public List<Map<String, Object>> getNotSensorList(Map<String,String> map) {
+		List<Map<String, Object>> list = shipDao.getNotSensorList(map);
+		return list;
+	}
 
 	@Transactional
 	@Override
@@ -101,6 +105,20 @@ public class ShipServiceImpl implements ShipService {
 	public ShipVo getShipInfoById(int sh_id) {
 		ShipVo shipVo = shipDao.getShipInfoById(sh_id);
 		return shipVo;
+	}
+
+	@Override
+	public Map<String, Integer> dupShip(ShipVo shipVo) {
+		Map<String, Integer> map = new HashMap<String, Integer>();
+		int sh_id = shipDao.checkDupId(shipVo.getSh_id());
+		int sh_board_code = shipDao.checkDupBoardCode(shipVo.getSh_board_code());
+		int sh_mmsi = shipDao.checkDupMmsi(shipVo.getSh_mmsi());
+		int sh_call_sign =shipDao.checkDupCallSign(shipVo.getSh_call_sign());
+		map.put("sh_id", sh_id);
+		map.put("sh_board_code", sh_board_code);
+		map.put("sh_mmsi", sh_mmsi);
+		map.put("sh_call_sign", sh_call_sign);
+		return map;
 	}
 	
 }
