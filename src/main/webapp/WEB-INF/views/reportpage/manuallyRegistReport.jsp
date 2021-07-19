@@ -36,6 +36,38 @@
 
 		});
 
+		$("#buttonSetTime").click(function name() {
+
+			let date = new Date();
+			let fullyear = date.getFullYear();
+			let month = date.getMonth() + 1;
+			let day = date.getDate();
+
+			if (month < 10) {
+				month = "0" + month;
+			}
+			let dayFormat = fullyear + "-" + month + "-" + day;
+
+			let time = date.getHours();
+			let minutes = date.getMinutes();
+
+			if (minutes < 10) {
+				minutes = "0" + minutes;
+			}
+
+			let seconds = date.getSeconds();
+
+			if (seconds < 10) {
+				seconds = "0" + seconds;
+			}
+
+			let timeFormat = time + ":" + minutes + ":" + seconds;
+			console.log(timeFormat);
+
+			$('#acd_day').val(dayFormat);
+			$('#acd_hour').val(timeFormat);
+		});
+
 	});
 </script>
 
@@ -196,14 +228,65 @@
 							</div>
 
 							<div class="form-group">
-								<label for="acd_timestamp "> 사고 발생시간 </label> <input type="date"
-									class="form-control " id="acd_day" name="acd_day" /> <input
-									type="time" class="form-control " id="acd_hour" name="acd_hour" />
+								<label for="acd_timestamp "> 사고 발생시간 </label>
+								<button type="button" class="btn btn-success" id="buttonSetTime">현재시간으로
+									설정하기</button>
+								<input type="date" class="form-control " id="acd_day"
+									name="acd_day" /> <input type="time" class="form-control "
+									id="acd_hour" name="acd_hour" />
 							</div>
 
 							<div class="form-group">
-								<label for="sh_id "> 선박번호 </label> <input type="text"
-									class="form-control" id="sh_id" name="sh_id" />
+								<label for="sh_id "> 선박번호 </label>
+
+								<!-- modal shop table -->
+								<a id="modal-237494" href="#modal-container-237494"
+									role="button" class="btn btn-success" data-toggle="modal">선박
+									확인하기</a>
+
+								<div class="modal fade" id="modal-container-237494"
+									role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+									<div class="modal-dialog" role="document">
+										<div class="modal-content">
+											<div class="modal-header">
+												<h5 class="modal-title" id="myModalLabel">선박 정보</h5>
+												<button type="button" class="close" data-dismiss="modal">
+													<span aria-hidden="true">×</span>
+												</button>
+											</div>
+											<div class="modal-body">
+
+												<div class="container-fluid">
+													<div class="row">
+														<div class="col-md-12">
+
+															<table class="table">
+																<tbody id="shipCodeTable">
+																	<tr>
+																		<th>선박 코드</th>
+																		<td>선박 이름</td>
+																	</tr>
+
+
+
+																</tbody>
+															</table>
+														</div>
+													</div>
+												</div>
+
+											</div>
+											<div class="modal-footer">
+												<button type="button" class="btn btn-primary"
+													data-dismiss="modal">확인</button>
+											</div>
+										</div>
+									</div>
+
+									<!-- modal ship table ends -->
+
+								</div>
+								<input type="text" class="form-control" id="sh_id" name="sh_id" />
 							</div>
 
 							<div class="form-group">

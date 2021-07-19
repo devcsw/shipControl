@@ -8,7 +8,30 @@ $(document).ready(function() {
 //sh_id, sh_name, sh_board_code, sh_owner, sh_owner_tel, 
 //sh_cap_name, sh_cap_tel, sh_type, sh_mmsi, sh_call_sign, sh_date
 	connect();
-	console.log("아이디 값:" + $('#1').text());
+	
+	// 검색 옵션 선택
+	$(".searchType").click(function(e) {
+		e.preventDefault();
+		var searchType = $(this).attr("href");
+		$("#frmSearch > input[name=searchType]").val(searchType);
+		$("#spanSearchType").text($(this).text());
+	});
+	// 검색버튼
+	$("#btnSearch").click(function() {
+		var searchType = 
+			$("#frmSearch> input[name=searchType]").val();
+		if (searchType == "") {
+			alert("검색 옵션을 먼저 선택해 주세요");
+			return;
+		}
+		var keyword = $("#txtSearch").val().trim();
+		if (keyword == "") {
+			alert("검색어를 입력해 주세요");
+			return;
+		}
+		$("#frmSearch > input[name=keyword]").val(keyword);
+		$("#frmSearch").submit();
+	});
 });
 
 //소켓 데이터 수신
@@ -38,9 +61,7 @@ function connect() {
 }
 
 function tableCreate(receivedData){
-	var target = $('#'+ id );
-	var html = '';
-	
+
 	var result = JSON.parse(receivedData);
 	var id = result.sh_id;
 	var fire = result.fire;
@@ -50,8 +71,9 @@ function tableCreate(receivedData){
 	var windDirection = result.windDirection;
 	var gyroscope = result.gyroscope;
 	var date = result.date;
-	
+	var target = $('#tr'+ id).find("td");
 	var emergencyCode =""
+	
 	// 데이터 받을때마다 위험도 체크
 	if (fire>=4){
 		emergencyCode = "위험";
@@ -60,29 +82,29 @@ function tableCreate(receivedData){
 	} else {
 		emergencyCode = "정상"
 	}
-	
-	$('#'+ id).next().next().next().text(fire);
-	$('#'+ id).next().next().next().next().text(temperature);
-	$('#'+ id).next().next().next().next().next().text(smoke);
-	$('#'+ id).next().next().next().next().next().next().text(windSpeed);
-	$('#'+ id).next().next().next().next().next().next().next().text(windDirection);
-	$('#'+ id).next().next().next().next().next().next().next().next().text(gyroscope);
-	$('#'+ id).next().next().next().next().next().next().next().next().next().text(date);
-	$('#'+ id).next().next().next().next().next().next().next().next().next().next().text(emergencyCode);
+	//화면 설정
+	target.eq(3).text(fire);
+	target.eq(4).text(temperature);
+	target.eq(5).text(smoke);
+	target.eq(6).text(windSpeed);
+	target.eq(7).text(windDirection);
+	target.eq(8).text(gyroscope);
+	target.eq(9).text(date);
+	target.eq(10).text(emergencyCode);
 	if (emergencyCode=="위험"){
-		$('#'+ id).next().next().next().next().next().next().next().next().next().next().css("color", "red");
 		$('#tr' + id).css("color", "red");	
 	} else if (emergencyCode=="주의") {
-		$('#'+ id).next().next().next().next().next().next().next().next().next().next().css("color", "orange");
 		$('#tr' + id).css("color", "orange");
 	} else {
-		$('#'+ id ).next().next().next().next().next().next().next().next().next().next().css("color", "green");
 		$('#tr' + id).css("color", "green");
 	}
 }
 
 </script>
-
+<form id="frmSearch" action="/shipcontrol/management" method="get">
+	<input type="hidden" name="searchType" value="${searchType}"/>
+	<input type="hidden" name="keyword" value="${keyword}"/>
+</form>
 <!--  선박등록 모달창 -->
 <!--  <a id="modal-200855" href="#modal-container-200855" role="button" class="btn" data-toggle="modal">Launch demo modal</a>-->
 
@@ -138,12 +160,12 @@ function tableCreate(receivedData){
 						</div> 
 						<div class="checkbox">					 
 							<label>
-								<input type="checkbox" name="windSpeed" id="windSpeed"  value="3"/> 풍속 센서
+								<input type="checkbox" name="smoke" id="smoke" value="3"/> 연기 센서
 							</label>
-						</div> 
+						</div>  
 						<div class="checkbox">					 
 							<label>
-								<input type="checkbox" name="gyroscope" id="gyroscope" value="5" /> 기울기 센서
+								<input type="checkbox" name="windDirection" id="windDirection" value="5"/> 풍향 센서
 							</label>
 						</div> 
 				
@@ -184,14 +206,16 @@ function tableCreate(receivedData){
 						</div>
 						<div class="checkbox">					 
 							<label>
-								<input type="checkbox" name="smoke" id="smoke" value="4"/> 연기 센서
-							</label>
-						</div>  
-						<div class="checkbox">					 
-							<label>
-								<input type="checkbox" name="windDirection" id="windDirection" value="6"/> 풍향 센서
+								<input type="checkbox" name="windSpeed" id="windSpeed"  value="4"/> 풍속 센서
 							</label>
 						</div> 
+						<div class="checkbox">					 
+							<label>
+								<input type="checkbox" name="gyroscope" id="gyroscope" value="6" /> 기울기 센서
+							</label>
+						</div> 
+						
+						
 				
 					</div>
 				</div>
@@ -224,16 +248,28 @@ function tableCreate(receivedData){
 		<div class="col-md-2"></div>
 		<div class="col-md-1"></div>
 		<div class="col-md-3">
+				
 			<form class="d-flex">
+				
 				<a class="nav-link dropdown-toggle" data-bs-toggle="dropdown"
-				href="#" role="button" aria-haspopup="true" aria-expanded="false">Dropdown</a>
+				href="#" role="button" aria-haspopup="true" aria-expanded="false" id="dropdown" >
+					<span id="spanSearchType">검색조건
+						<c:choose>
+							<c:when test="${searchType == 'id'}">선박번호</c:when>
+							<c:when test="${searchType == 'name'}">선박명</c:when>
+							<c:when test="${searchType == 'code'}">센서코드</c:when>
+						</c:choose>
+					</span>
+				
+				</a>
+				
 					<div class="dropdown-menu">
-						<a class="dropdown-item" href="#">선박명</a> 
-						<a class="dropdown-item" href="#">긴급여부</a> 
-						<a class="dropdown-item" href="#">센서코드</a>
+						<a class="dropdown-item searchType" href="id" >선박번호</a> 
+						<a class="dropdown-item searchType" href="name">선박명</a> 
+						<a class="dropdown-item searchType" href="code">센서코드</a>
 					</div>
-				<input class="form-control me-sm-2" type="text" placeholder="Search">
-				<button class="btn btn-secondary my-2 my-sm-0" type="submit">Search</button>
+				<input class="form-control me-sm-2" type="text" placeholder="Search" id="txtSearch" value="${keyword}">
+				<button class="btn btn-secondary my-2 my-sm-0" type="button" id="btnSearch">Search</button>
 			</form>
 		</div>
 	</div>
@@ -272,7 +308,7 @@ function tableCreate(receivedData){
 				<tbody id="tbody">
 					<c:forEach var="list" items="${list}">
 						<tr id="tr${list.sh_id}">
-	    					<td id="${list.sh_id}"><a href="/shipcontrol/updateShipForm">${list.sh_id}</a></td>
+	    					<td id="${list.sh_id}"><a href="/shipcontrol/updateShipForm?sh_id=${list.sh_id}"  >${list.sh_id}</a></td>
 	    					<td>${list.sh_name }</td>
 	    					<td>${list.sh_board_code }</td>
 	    					<td>
@@ -296,7 +332,7 @@ function tableCreate(receivedData){
 								</c:if>
 	    					</td>
 	    					<td>
-	    						<c:if test="${not empty list.widdirection }">
+	    						<c:if test="${not empty list.winddirection }">
 	    							<c:out value="on" />
 								</c:if>
 	    					</td>

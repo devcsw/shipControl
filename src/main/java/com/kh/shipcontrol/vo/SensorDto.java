@@ -4,23 +4,26 @@ public class SensorDto {
 	private String fire;
 	private String temperature;
 	private String windSpeed;
+	private String windDirection;
 	private String smoke;
 	private String gyroscope;
-	private String windDirection;
+	
 	public SensorDto() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
-	public SensorDto(String fire, String temperature, String windSpeed, String smoke, String gyroscope,
-			String windDirection) {
+	
+	public SensorDto(String fire, String temperature, String windSpeed, String windDirection, String smoke,
+			String gyroscope) {
 		super();
 		this.fire = fire;
 		this.temperature = temperature;
 		this.windSpeed = windSpeed;
+		this.windDirection = windDirection;
 		this.smoke = smoke;
 		this.gyroscope = gyroscope;
-		this.windDirection = windDirection;
 	}
+
 	public String getFire() {
 		return fire;
 	}
@@ -59,9 +62,10 @@ public class SensorDto {
 	}
 	@Override
 	public String toString() {
-		return "SensorDto [fire=" + fire + ", temperature=" + temperature + ", windSpeed=" + windSpeed + ", smoke="
-				+ smoke + ", gyroscope=" + gyroscope + ", windDirection=" + windDirection + "]";
+		return "SensorDto [fire=" + fire + ", temperature=" + temperature + ", windSpeed=" + windSpeed
+				+ ", windDirection=" + windDirection + ", smoke=" + smoke + ", gyroscope=" + gyroscope + "]";
 	}
+	
 	
 	
 }

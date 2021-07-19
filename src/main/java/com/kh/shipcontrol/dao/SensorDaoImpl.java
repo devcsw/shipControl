@@ -7,6 +7,7 @@ import javax.inject.Inject;
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.stereotype.Repository;
 
+import com.kh.shipcontrol.vo.SensorDto;
 import com.kh.shipcontrol.vo.ShipSensorVo;
 import com.kh.shipcontrol.vo.ShipVo;
 
@@ -33,6 +34,11 @@ public class SensorDaoImpl implements SensorDao {
 	@Override
 	public void deleteSensor(int sh_id) {
 		sqlSession.insert(NAMESPACE + "deleteSensor", sh_id); 
+	}
+
+	@Override
+	public SensorDto selectShipSensor(int sh_id) {
+		return sqlSession.selectOne(NAMESPACE + "selectShipSensor", sh_id); 
 		
 	}
 }

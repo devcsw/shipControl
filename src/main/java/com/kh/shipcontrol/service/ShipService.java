@@ -9,7 +9,9 @@ import com.kh.shipcontrol.vo.ShipVo;
 public interface ShipService {
 	public void registShip(ShipVo shipVo, SensorDto sensorDto);
 	public void deleteShip(int sh_id);
-	public  List<Map<String, Object>>  listAllShip();
+	public void updateShip(ShipVo shipVo, SensorDto sensorDto);
+	public Map<String, Object> selectOneShip(int sh_id);
+	public  List<Map<String, Object>>  listAllShip(Map<String, String> map);
 	public ShipVo getShipInfoById(int sh_id);
 }
 	

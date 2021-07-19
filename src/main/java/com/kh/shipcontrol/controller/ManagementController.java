@@ -1,7 +1,8 @@
-package com.kh.shipcontrol.controller;
+	package com.kh.shipcontrol.controller;
 
 import java.text.DateFormat;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
@@ -32,12 +33,16 @@ public class ManagementController {
 	
 	@Inject
 	private ShipService shipService;
-
+	//선박관리 페이지
 	@RequestMapping(value = "/management", method = RequestMethod.GET)
-	public String home(Locale locale, Model model) {
-		logger.info("management입니다.! The client locale is {}.", locale);
+	public String home(Model model, String keyword, String searchType) {
+		System.out.println(searchType);
+		System.out.println(keyword);
+		Map<String,String> map = new HashMap<String, String>();
+		map.put("searchType", searchType);
+		map.put("keyword", keyword);
 		
-		List<Map<String, Object>> list = shipService.listAllShip();
+		List<Map<String, Object>> list = shipService.listAllShip(map);
 		
 		System.out.println(list);
 		model.addAttribute("list", list );
@@ -55,24 +60,31 @@ public class ManagementController {
 	}
 	
 	@RequestMapping(value = "/updateShipForm", method = RequestMethod.GET)
-	public String updateShip(ShipVo shipVo, SensorDto sensorDto, RedirectAttributes rttr) throws Exception {
-			
+	public String updateShip(int sh_id, Model model) throws Exception {
+		System.out.println(sh_id);
+		Map<String, Object> map = shipService.selectOneShip(sh_id);
+		model.addAttribute("sh_id", sh_id);
+		SensorDto sensorDto = (SensorDto)map.get("SensorDto");
+		ShipVo shipVo = (ShipVo)map.get("ShipVo");
+		model.addAttribute("ShipVo",shipVo);
+		model.addAttribute("SensorDto",sensorDto);
+		model.addAttribute("sh_id",sh_id);
 		return "shipcontrol/updateShipForm";
 	}	
-	
+	//선박 수정 삭제
 	@RequestMapping(value = "/updateShipRun", method = RequestMethod.POST)
 	public String updateShipRun(ShipVo shipVo, SensorDto sensorDto, RedirectAttributes rttr) throws Exception {
-			
-		
-		shipService.registShip(shipVo, sensorDto);
+		System.out.println(shipVo);	
+		System.out.println("sensordto문제:" + sensorDto);	
+		shipService.updateShip(shipVo, sensorDto);
 		rttr.addFlashAttribute("msg", "updateSuccess");
 		return "redirect:/shipcontrol/management";
 	}
-	@RequestMapping(value = "/deleteShipRun", method = RequestMethod.POST)
+	
+	@RequestMapping(value = "/deleteShipRun", method = RequestMethod.GET)
 	public String deleteShipRun(int sh_id, RedirectAttributes rttr) throws Exception {
-			
+		System.out.println("deleteRun:" + sh_id);
 		shipService.deleteShip(sh_id);
-	//	shipService.registShip(shipVo, sensorDto);
 		rttr.addFlashAttribute("msg", "updateSuccess");
 		return "redirect:/shipcontrol/management";
 	}

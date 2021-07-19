@@ -31,7 +31,13 @@
 					str += "<tr>";
 					str += "<td>" + rData[v].acd_hnd_id + "</th>";
 					str += "<td>" + rData[v].acd_hnd_content + "</td>";
-					str += "<td>" + rData[v].acd_hnd_date + "</td>";
+					
+					let date = new Date(rData[v].acd_hnd_date);
+					let formattedDate = date.getFullYear() + "-" + (date.getMonth() + 1) + "-"  + date.getDate();
+					let formattedTime = date.getHours() + ":" + date.getMinutes() + ":" + date.getSeconds();
+					
+					
+					str += "<td>" + formattedDate + " " + formattedTime + "</td>";
 					str += "<td>" + rData[v].acd_hnd_take + "</td>";
 					str += "</tr>";
 					$("#tableAcdHnd").append(str);

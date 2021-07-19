@@ -9,9 +9,9 @@
 	<!-- 센서 등록 -->
 	<!-- 화재,온도,연기,풍속,풍향,기울기 (고정값) -->
 	<insert id="insertSensor">
-		insert into ship_sensor_tb  
+		INSERT INTO ship_sensor_tb  
 			(sh_id, se_id)
-		values 
+		VALUES 
 			(#{sh_id}, #{se_id}) 
 	</insert>
 	
@@ -20,4 +20,29 @@
 		delete from ship_sensor_tb
 		where sh_id = #{sh_id}
 	</delete>
+	<!-- 선박 센서 조회 -->
+	<select id="selectShipSensor" resultType="SensorDto">
+		SELECT   se.fire, se.temperature, se.windspeed, se.winddirection, se.smoke,  se.gyroscope 
+		
+		FROM ship_tb sh, (   
+		SELECT 
+		    *
+		    FROM
+		    (
+		     SELECT ss.sh_id, ss.se_id, se.se_name
+		    FROM ship_sensor_tb ss, sensor_tb se
+		    WHERE ss.se_id = se.se_id )
+		    PIVOT
+		    (
+		        SUM(se_id) 
+		        FOR
+		        se_name IN ( 'fire' AS fire,'temperature' AS temperature, 
+		        'smoke' AS smoke,'windspeed' AS windspeed, 
+		        'winddirection' AS winddirection, 'gyroscope' AS gyroscope
+		         ) --행으로 올릴 열
+		    )
+		)  se
+		WHERE sh.sh_id=se.sh_id
+		AND sh.sh_id=#{sh_id}
+	</select>
 </mapper>

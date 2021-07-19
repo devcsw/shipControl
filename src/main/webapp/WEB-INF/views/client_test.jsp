@@ -3,8 +3,6 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ include file="./include/header.jsp"%>
 
-
-
 <!--  소켓통신 테스트 페이지 -->
 <!DOCTYPE html>
 <html>
@@ -51,19 +49,28 @@
 	<div id="messageArea"></div>
 </body>
 
-
+<!--
+오른쪽 밑 35.33739730025277/129.59474464012257
+오른쪽 위 35.472543181966444/129.5849838182228
+왼쪽끝 35.46939737546278/129.3438031220253
+왼쪽 밑 35.36703907063168/129.3584398895261
+-->
 
 <script type="text/javascript">
 $(document).ready(function() {
-
+	/*
+	setInterval(function () {
+		
+	},5000); */
+		
 	setInterval(function () {
 	//var dataArray = new Array();
 		console.log("자동 전송 시작");
 		today = getTimeStamp(new Date());
 		sendData = {
 				"sh_id" :Math.floor(Math.random() * 10),
-				"sh_status_latitude" : Math.floor(Math.random() * 100),
-				"sh_status_longitude" : Math.floor(Math.random() * 100),
+				"sh_status_latitude" : (Math.random()  + 35).toFixed(13),
+				"sh_status_longitude" : (Math.random()   + 129).toFixed(13),
 				"fire" : Math.floor(Math.random() * 5),
 
 				"temperature" :Math.floor(Math.random() * 100),
@@ -73,11 +80,35 @@ $(document).ready(function() {
 				"gyroscope" : Math.floor(Math.random() * 100),
 				"date" :  today
 			}
-	 	//dataArray.push(sendData);
-		//var sJson = JSON.stringify(dataArray);
 		sendMessage(sendData);
-	}, 1000);
-
+		
+		console.log("ajax 시작")
+		var url = "/status/insertStatus";
+		
+		console.log(sendData);
+		console.log(JSON.stringify(sendData));
+		// $.get, $.post의 원형, JSON.stringify : json 데이터를 문자열로 변환
+		
+		$.ajax({
+			"url" : url,
+			"headers" : {
+				"Content-Type" : "application/json"
+			},
+			"method" : "post",
+			"dataType" : "text",
+			"data" : JSON.stringify(sendData),
+			"success" : function(receivedData) {
+				console.log(receivedData);
+				// 처리가 잘 되었다면, 댓글 목록 버튼을 클릭시켜서 목록을 새로 얻음
+				if (receivedData == "success") {
+					console.log("받음");
+				}
+			}
+		});	
+		
+		
+	}, 3000);
+	
 
 });
 

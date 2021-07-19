@@ -32,7 +32,7 @@ public class ReportController {
 
 	@RequestMapping(value = "/reportPage")
 	public String reportPage(Model model) throws Exception {
-		
+
 		List<AcdVo> list = reportService.getWholeAcd();
 		model.addAttribute("list", list);
 
@@ -59,7 +59,7 @@ public class ReportController {
 	@RequestMapping(value = "/registReportRun", method = RequestMethod.POST)
 	public String registReportRun(AcdVo acdVo, String acd_day, String acd_hour) throws Exception {
 		// 위도, 경도에 대한 처리 필요
-		String format = acd_day + " " + acd_hour + ":00";
+		String format = acd_day + " " + acd_hour;
 //		System.out.println(format);
 		Timestamp timestamp = Timestamp.valueOf(format);
 		acdVo.setAcd_date(timestamp);
@@ -113,7 +113,7 @@ public class ReportController {
 		map.put("searchWord", searchWord);
 
 		List<AcdVo> list = reportService.getAcdListBySerachType(map);
-		System.out.println("@ReportController list :" + list);
+//		System.out.println("@ReportController list :" + list);
 		model.addAttribute("list", list);
 		model.addAttribute("map", map);
 
@@ -125,9 +125,7 @@ public class ReportController {
 	public ShipVo getShipInfo(String sh_id) throws Exception {
 
 		ShipVo shipVo = shipService.getShipInfoById(Integer.parseInt(sh_id));
-		
-		System.out.println(shipVo);
-		
+
 		return shipVo;
 	}
 
