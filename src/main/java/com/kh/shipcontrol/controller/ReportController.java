@@ -129,5 +129,15 @@ public class ReportController {
 
 		return shipVo;
 	}
+	
+	
+	@RequestMapping(value="/getShipCodeAndName", method=RequestMethod.GET)
+	@ResponseBody
+	public List<ShipVo> getShipCodeAndName() throws Exception {
+		
+		List<ShipVo> list = shipService.getShipList();
+		System.out.println("@ReportController shipVoList :" + list);
+		return list;
+	}
 
 }

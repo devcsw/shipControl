@@ -102,5 +102,11 @@ public class ShipServiceImpl implements ShipService {
 		ShipVo shipVo = shipDao.getShipInfoById(sh_id);
 		return shipVo;
 	}
+
+	@Override
+	public List<ShipVo> getShipList() {
+		List<ShipVo> list = shipDao.getShipList();
+		return list;
+	}
 	
 }

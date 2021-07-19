@@ -93,4 +93,12 @@
 	<select id="getShipInfoById" resultType="ShipVo">
 	select * from ship_tb where sh_id = #{sh_id}
 	</select>
+	<!-- shipList get -->
+	
+	<select id="getShipList" resultType="ShipVo">
+	select * from ship_tb
+	</select>
+	
+	
+	
 </mapper>
