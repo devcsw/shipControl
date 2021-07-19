@@ -44,6 +44,7 @@ public class ReportController {
 //		System.out.println("@ReportController acd_id :" + acd_id);
 		AcdVo acdVo = reportService.getAcdById(Integer.parseInt(acd_id));
 		List<AcdHndVo> acdHndList = reportService.getAcdHnd(acd_id);
+		System.out.println("@ReportController acdHndLIst: " + acdHndList);
 		model.addAttribute("acd_hnd_page", acd_hnd_page);
 		model.addAttribute("acdVo", acdVo);
 		model.addAttribute("acdHndList", acdHndList);
