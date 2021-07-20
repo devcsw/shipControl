@@ -8,7 +8,7 @@
 		select seq_sh_status_id.nextval
 		from dual
 	</select>
-	<!-- 회원등록 -->
+	<!-- 상태등록 -->
 	<insert id="insertStatus">
 		INSERT INTO ship_status_tb 
 		(sh_status_id,sh_id, sh_status_latitude, sh_status_longitude)
@@ -20,7 +20,8 @@
 		(sh_status_id, se_id, se_status)
 		VALUES
 		(#{sh_status_id}, #{se_id}, #{se_status})
-</insert>
+	</insert>
+
 <!-- 데이터 받지않고있을때 초기 화면 리스트업 -->
 	<resultMap type="HashMap" id="ListStatusMap">
 		<id column="sh_status_id" property="sh_status_id"/>

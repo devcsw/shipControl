@@ -35,12 +35,9 @@
 
 //저장용 데이터
 var socketData = "";
-
 $(document).ready(function() {
 	
 	connect();
-	
-		
 		// $.get, $.post의 원형, JSON.stringify : json 데이터를 문자열로 변환
 	$("#ajaxTest").click(function() {
 
@@ -69,52 +66,86 @@ $(document).ready(function() {
 });
 
 function connect(){
+
+	var latitude = (Math.random()  + 35).toFixed(13);
+	var longitude = (Math.random()   + 129).toFixed(13);
+
 	console.log("소켓시작");
 	let ws = new SockJS("http://localhost:80/echo/");
+	//let ws = new WebSocket("ws://localhost:80/echo/");
 	ws.onmessage = onMessage;
 	ws.onclose = onClose;
-	var count = 9;
+	var count = 19;
+	
+	var plus = 0.01;
+	var minus = -0.01; 
 	// 메시지 전송
 	//function sendMessage() {
 	setInterval(function () {
-		console.log("함수 시작");
-		//var dataArray = new Array();
-			console.log("자동 전송 시작");
-			today = getTimeStamp(new Date());
-			sendData = {
-					"sh_id" : $("#sh_id").val(),
-					"sh_status_latitude" : (Math.random()  + 35).toFixed(13),
-					"sh_status_longitude" : (Math.random()   + 129).toFixed(13),
-					"fire" : Math.floor(Math.random() * 5),
-					"temperature" :Math.floor(Math.random() * 5),
-					"smoke" : Math.floor(Math.random() * 5),
-					"windSpeed" : Math.floor(Math.random() * 5),
-					"windDirection" : Math.floor(Math.random() * 5),
-					"gyroscope" : Math.floor(Math.random() * 5),
-					"date" :  today
-				}	
-			ws.send(JSON.stringify(sendData));
-			count = count + 1;
-			console.log("count 체크" + count);
-			if (count == 10){
+			if($("#sh_id").val() == ""){
+				console.log("데이터없음");
+			} else{
+				today = getTimeStamp(new Date());
+				sendData = {
+						"sh_id" : $("#sh_id").val(),
+						"sh_status_latitude" : latitude ,
+						"sh_status_longitude" : longitude ,
+						"fire" : Math.floor(Math.random() * 5),
+						"temperature" :Math.floor(Math.random() * 5),
+						"smoke" : Math.floor(Math.random() * 5),
+						"windSpeed" : Math.floor(Math.random() * 5),
+						"windDirection" : Math.floor(Math.random() * 5),
+						"gyroscope" : Math.floor(Math.random() * 5),
+						"date" :  today
+					}	
+				ws.send(JSON.stringify(sendData));
+				//데이터 저장
+				count = count + 1;
 				console.log("count 체크" + count);
-				insertData(sendData);
-				count = 0;
+				if (count == 20){
+					console.log("count 체크" + count);
+					insertData(sendData);
+					count = 0;
+				}
+				// 위도 경도 변경
+				var rand = Math.floor(Math.random() * 4);
+				console.log("rand:" + rand);
+				if (rand == 1) {
+				latitude = parseFloat(latitude) + parseFloat(plus);
+				longitude = parseFloat(longitude) + parseFloat(plus);
+				}
+				else if (rand == 2) {
+					latitude = parseFloat(latitude) + parseFloat(plus);
+					longitude = parseFloat(longitude) - parseFloat(plus);
+				}
+				else if (rand == 3) {
+					latitude = parseFloat(latitude) - parseFloat(plus);
+					longitude = parseFloat(longitude) + parseFloat(plus);
+				}
+				else if (rand == 4) {
+					latitude = parseFloat(latitude) - parseFloat(plus);
+					longitude = parseFloat(longitude) - parseFloat(plus);
+				}
+				
 			}
-			
 		}, 3000);
 	//}
 	
 	
 	// 서버로부터 메시지를 받았을 때 -- 본인 페이지에 적용
 	function onMessage(msg) {
-		var data = msg.data;
-		$("#messageArea").append(data + "<br/>");
+		var data = JSON.parse(msg.data);
+		
+		if (data.sh_id == $("#sh_id").val()){
+			$("#messageArea").append(msg.data + "<br/>");
+		}
 	}
 
 	// 서버와 연결을 끊었을 때
 	function onClose(event) {
 		$("#messageArea").append("연결 끊김");
+		console.log(event.data);
+		console.log(event);
 		connect();
 	}
 	
@@ -143,31 +174,5 @@ function connect(){
 }
 
 
-
-//시간함수
-function getTimeStamp() {
-  var d = new Date();
-  var s =
-    leadingZeros(d.getFullYear(), 4) + '-' +
-    leadingZeros(d.getMonth() + 1, 2) + '-' +
-    leadingZeros(d.getDate(), 2) + ' ' +
-
-    leadingZeros(d.getHours(), 2) + ':' +
-    leadingZeros(d.getMinutes(), 2) + ':' +
-    leadingZeros(d.getSeconds(), 2);
-
-  return s;
-}
-
-function leadingZeros(n, digits) {
-  var zero = '';
-  n = n.toString();
-
-  if (n.length < digits) {
-    for (i = 0; i < digits - n.length; i++)
-      zero += '0';
-  }
-  return zero + n;
-}
 </script>
 </html>

@@ -35,8 +35,6 @@ public class EchoHandler extends TextWebSocketHandler{
     protected void handleTextMessage(WebSocketSession session, TextMessage message) throws Exception {
         logger.info("{}로 부터 {} 받음", session.getId(), message.getPayload());
      
-        // StatusVo statusVo = StatusVo.convertStatus(message.getPayload());
-        
         //모든 유저에게 메세지 출력
         for(WebSocketSession sess : sessionList){
             sess.sendMessage(new TextMessage(message.getPayload()));
@@ -48,5 +46,13 @@ public class EchoHandler extends TextWebSocketHandler{
     public void afterConnectionClosed(WebSocketSession session, CloseStatus status) throws Exception {
         sessionList.remove(session);
         logger.info("{} 연결 끊김.", session.getId());
+        logger.info("{} @상태@.", status.toString());
     }
+    
+    @Override
+	public void handleTransportError(WebSocketSession session, Throwable exception) throws Exception {
+    	
+	}
+
+
 }
