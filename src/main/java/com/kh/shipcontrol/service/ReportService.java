@@ -28,4 +28,8 @@ public interface ReportService {
 	public int getReportCount();
 	
 	public void updateReportRun(AcdVo acdVo);
+	
+	public AcdHndVo getAcdVoById(String acd_hnd_id);
+	
+	public void updateAcdHndById(AcdHndVo acdHndVo);
 }

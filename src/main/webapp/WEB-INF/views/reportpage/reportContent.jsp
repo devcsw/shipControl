@@ -26,6 +26,29 @@
 			});
 
 		});
+		
+		$(".acdhndUpdateButton").click(function name() {
+			let handleId = $(this).parent().parent().find('td:first-child').text();
+			
+			let url = "/getAcdVoById";
+			let sendData = {
+				"acd_hnd_id" : handleId	
+			};
+			
+			$.get(url, sendData, function name(rData) {
+				console.log(rData);
+				
+				$("#acd_hnd_id").val(rData.acd_hnd_id);
+				
+			})
+			
+			
+		});
+		
+		$("#buttonUpdateAcdHnd").click(function name() {
+			$("#acdHndUpdateForm").submit();
+		});
+		
 	});
 </script>
 
@@ -185,11 +208,58 @@
 							<td>${list.acd_id }</td>
 							<td>${list.acd_hnd_content }</td>
 							<td>${list.acd_hnd_take }</td>
-							<td><button type="button" class="btn btn-success">수정하기</button></td>
+							<td><a id="modal-807875" href="#modal-container-807875"
+								role="button" class="btn btn-success acdhndUpdateButton"
+								data-toggle="modal">처리내역 수정하기</a></td>
 						</tr>
 					</c:forEach>
 				</tbody>
 			</table>
+
+			<!-- 처리내역 수정 modal -->
+
+			<div class="modal fade" id="modal-container-807875" role="dialog"
+				aria-labelledby="myModalLabel" aria-hidden="true">
+				<div class="modal-dialog" role="document">
+					<div class="modal-content">
+						<div class="modal-header">
+							<h5 class="modal-title" id="myModalLabel">Modal title</h5>
+							<button type="button" class="close" data-dismiss="modal">
+								<span aria-hidden="true">×</span>
+							</button>
+						</div>
+						<div class="modal-body">
+							<form role="form" action="/updateAcdHndById" method="post" id="acdHndUpdateForm">
+							<input type="hidden" id="acd_id" name="acd_id" value="${acdVo.acd_id}">
+								<div class="form-group">
+									<label for="acd_hnd_id"> # </label> <input
+										type="text" class="form-control" id="acd_hnd_id" name="acd_hnd_id" readonly="readonly"/>
+								</div>
+								
+								<div class="form-group">
+									<label for="acd_hnd_content"> 신고 내용 </label> 
+									<textarea class="form-control" rows="5" cols="10" id="acd_hnd_content" name="acd_hnd_content"></textarea>
+								</div>
+								
+								<div class="form-group">
+									<label for="acd_hnd_take"> 진행 상태 </label> <input
+										type="text" class="form-control" id="acd_hnd_take" name="acd_hnd_take" />
+								</div>
+							</form>
+						</div>
+						<div class="modal-footer">
+
+							<button type="button" class="btn btn-primary" id="buttonUpdateAcdHnd">처리내역 수정하기</button>
+							<button type="button" class="btn btn-secondary"
+								data-dismiss="modal">취소</button>
+						</div>
+					</div>
+
+				</div>
+
+			</div>
+
+
 
 			<!-- 처리내역 등록 modal -->
 

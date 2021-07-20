@@ -86,4 +86,16 @@ public class ReportDaoImpl implements ReportDao {
 		
 	}
 
+	@Override
+	public AcdHndVo getAcdVoById(String acd_hnd_id) {
+		AcdHndVo acdHndVo = sqlsession.selectOne(NAMESPACE + "getAcdVoById", acd_hnd_id);
+		return acdHndVo;
+	}
+
+	@Override
+	public void updateAcdHndById(AcdHndVo acdHndVo) {
+		sqlsession.update(NAMESPACE + "updateAcdHndById", acdHndVo);
+		
+	}
+
 }

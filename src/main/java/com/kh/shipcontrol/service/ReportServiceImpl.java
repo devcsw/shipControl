@@ -82,4 +82,16 @@ public class ReportServiceImpl implements ReportService {
 		
 	}
 
+	@Override
+	public AcdHndVo getAcdVoById(String acd_hnd_id) {
+		AcdHndVo acdHndVo = reportDao.getAcdVoById(acd_hnd_id);
+		return acdHndVo;
+	}
+
+	@Override
+	public void updateAcdHndById(AcdHndVo acdHndVo) {
+		reportDao.updateAcdHndById(acdHndVo);
+		
+	}
+
 }
