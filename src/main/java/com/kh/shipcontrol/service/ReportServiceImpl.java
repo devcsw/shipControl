@@ -12,6 +12,7 @@ import com.kh.shipcontrol.dao.ReportDao;
 import com.kh.shipcontrol.vo.AcdCodeVo;
 import com.kh.shipcontrol.vo.AcdHndVo;
 import com.kh.shipcontrol.vo.AcdVo;
+import com.kh.shipcontrol.vo.PaginationDTO;
 
 @Service
 public class ReportServiceImpl implements ReportService {
@@ -32,8 +33,8 @@ public class ReportServiceImpl implements ReportService {
 	}
 
 	@Override
-	public List<AcdVo> getWholeAcd() {
-		List<AcdVo> list = reportDao.getWholeAcd();
+	public List<AcdVo> getWholeAcd(PaginationDTO dto) {
+		List<AcdVo> list = reportDao.getWholeAcd(dto);
 		return list;
 	}
 
@@ -66,6 +67,12 @@ public class ReportServiceImpl implements ReportService {
 	@Override
 	public int getAcdIdSeq() {
 		int count = reportDao.getAcdIdSeq();
+		return count;
+	}
+
+	@Override
+	public int getReportCount() {
+		int count = reportDao.getReportCount();
 		return count;
 	}
 

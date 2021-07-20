@@ -21,8 +21,12 @@
 	</select>
 
 	<select id="getWholeAcd" resultType="AcdVo">
-		select * from acd_tb order
-		by acd_id desc
+		select * from 
+	    	(select rownum as rn, a.* from 
+	        	(select * from acd_tb order by acd_date desc)a
+	    	where rownum <![CDATA[<=]]> #{endLine})
+		where rn <![CDATA[>=]]> #{startLine}
+		
 	</select>
 
 	<select id="getAcdById" resultType="AcdVo">
@@ -65,5 +69,11 @@
 	<select id="getAcdIdSeq" resultType="int">
 		select SEQ_ACD_ID.nextval from dual
 	</select>
+	
+	<select id="getReportCount" resultType="int">
+		select count(*) from acd_tb
+	</select>
+	
+	
 
 </mapper>

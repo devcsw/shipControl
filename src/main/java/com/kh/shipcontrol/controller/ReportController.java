@@ -19,6 +19,7 @@ import com.kh.shipcontrol.service.ShipService;
 import com.kh.shipcontrol.vo.AcdCodeVo;
 import com.kh.shipcontrol.vo.AcdHndVo;
 import com.kh.shipcontrol.vo.AcdVo;
+import com.kh.shipcontrol.vo.PaginationDTO;
 import com.kh.shipcontrol.vo.ShipVo;
 
 @Controller
@@ -30,21 +31,36 @@ public class ReportController {
 	@Inject
 	ShipService shipService;
 
-	@RequestMapping(value = "/reportPage")
-	public String reportPage(Model model) throws Exception {
+	@RequestMapping(value = "/reportPage", method = RequestMethod.GET)
+	public String reportPage(Model model, String currentPage) throws Exception {
 
-		List<AcdVo> list = reportService.getWholeAcd();
+		if (currentPage == null) {
+			currentPage = "1";
+		}
+
+		int count = reportService.getReportCount();
+		PaginationDTO dto = new PaginationDTO(Integer.parseInt(currentPage));
+		int wholePage = (count / 10) + 1;
+		dto.setWholePage(wholePage);
+
+		System.out.println("@ReportController dto:" + dto);
+		System.out.println("@ReportController currentPage:" + currentPage);
+
+		List<AcdVo> list = reportService.getWholeAcd(dto);
+
 		model.addAttribute("list", list);
+		model.addAttribute("dto", dto);
 
 		return "/reportpage/reportPage";
 	}
 
 	@RequestMapping(value = "/reportContent", method = RequestMethod.GET)
-	public String reportContent(@RequestParam("acd_id") String acd_id, @RequestParam("acd_hnd_page")String acd_hnd_page, Model model) throws Exception {
+	public String reportContent(@RequestParam("acd_id") String acd_id,
+			@RequestParam("acd_hnd_page") String acd_hnd_page, Model model) throws Exception {
 //		System.out.println("@ReportController acd_id :" + acd_id);
 		AcdVo acdVo = reportService.getAcdById(Integer.parseInt(acd_id));
 		List<AcdHndVo> acdHndList = reportService.getAcdHnd(acd_id);
-		System.out.println("@ReportController acdHndLIst: " + acdHndList);
+//		System.out.println("@ReportController acdHndLIst: " + acdHndList);
 		model.addAttribute("acd_hnd_page", acd_hnd_page);
 		model.addAttribute("acdVo", acdVo);
 		model.addAttribute("acdHndList", acdHndList);
@@ -130,15 +146,23 @@ public class ReportController {
 
 		return shipVo;
 	}
-	
-	
-	@RequestMapping(value="/getShipCodeAndName", method=RequestMethod.GET)
+
+	@RequestMapping(value = "/getShipCodeAndName", method = RequestMethod.GET)
 	@ResponseBody
 	public List<ShipVo> getShipCodeAndName() throws Exception {
-		
+
 		List<ShipVo> list = shipService.getShipList();
 		System.out.println("@ReportController shipVoList :" + list);
 		return list;
+	}
+	
+	@RequestMapping(value= "/reportUpdatePage", method = RequestMethod.GET)
+	public String reportUpdatePage(Model model, String acd_id) throws Exception {
+		AcdVo acdVo = reportService.getAcdById(Integer.parseInt(acd_id));
+		model.addAttribute("acdVo", acdVo);
+		System.out.println("@reportController acdVo : " + acdVo);
+		
+		return "/reportpage/reportUpdatePage";
 	}
 
 }

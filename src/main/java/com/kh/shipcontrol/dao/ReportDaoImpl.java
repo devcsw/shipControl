@@ -11,6 +11,7 @@ import org.springframework.stereotype.Repository;
 import com.kh.shipcontrol.vo.AcdCodeVo;
 import com.kh.shipcontrol.vo.AcdHndVo;
 import com.kh.shipcontrol.vo.AcdVo;
+import com.kh.shipcontrol.vo.PaginationDTO;
 
 @Repository
 public class ReportDaoImpl implements ReportDao {
@@ -32,8 +33,8 @@ public class ReportDaoImpl implements ReportDao {
 	}
 
 	@Override
-	public List<AcdVo> getWholeAcd() {
-		List<AcdVo> list = sqlsession.selectList(NAMESPACE + "getWholeAcd");
+	public List<AcdVo> getWholeAcd(PaginationDTO dto) {
+		List<AcdVo> list = sqlsession.selectList(NAMESPACE + "getWholeAcd", dto);
 		return list;
 	}
 
@@ -70,6 +71,12 @@ public class ReportDaoImpl implements ReportDao {
 	@Override
 	public int getAcdIdSeq() {
 		int count = sqlsession.selectOne(NAMESPACE + "getAcdIdSeq");
+		return count;
+	}
+
+	@Override
+	public int getReportCount() {
+		int count = sqlsession.selectOne(NAMESPACE + "getReportCount");
 		return count;
 	}
 
