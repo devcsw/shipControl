@@ -56,60 +56,72 @@
 							});
 						});
 
-				$(".modalShipInfo").on('click', function name() {
-					let sh_id = $(this).text();
-					console.log(sh_id);
+				$(".modalShipInfo").on(
+						'click',
+						function name() {
+							let sh_id = $(this).text();
+							console.log(sh_id);
 
-					let url = "/getShipInfo";
-					let sendData = {
-						"sh_id" : sh_id
-					};
+							let url = "/getShipInfo";
+							let sendData = {
+								"sh_id" : sh_id
+							};
 
-					$.get(url, sendData, function name(rData) {
-						console.log(rData);
-						let shipTable = $("#tableShipInfo");
-						$("#tableShipInfo").empty();
+							$.get(url, sendData, function name(rData) {
+								console.log(rData);
+								let shipTable = $("#tableShipInfo");
+								$("#tableShipInfo").empty();
 
-						let base = "<tr>";
-						base += "<th>선박번호</th>";
-						base += "<td>" + rData.sh_id + "</td>";
-						base += "</tr>";
-						base += "<th>선박이름</th>";
-						base += "<td>" + rData.sh_name + "</td>";
-						base += "</tr>";
-						base += "<th>선박보드</th>";
-						base += "<td>" + rData.sh_board_code + "</td>";
-						base += "</tr>";
-						base += "<th>선주</th>";
-						base += "<td>" + rData.sh_owner + "</td>";
-						base += "</tr>";
-						base += "<th>선주전화번호</th>";
-						base += "<td>" + rData.sh_owner_tel + "</td>";
-						base += "</tr>";
-						base += "<th>선장</th>";
-						base += "<td>" + rData.sh_cap_name + "</td>";
-						base += "</tr>";
-						base += "<th>선장전화번호</th>";
-						base += "<td>" + rData.sh_cap_tel + "</td>";
-						base += "</tr>";
-						base += "<th>선박유형</th>";
-						base += "<td>" + rData.sh_type + "</td>";
-						base += "</tr>";
-						base += "<th>MMSI</th>";
-						base += "<td>" + rData.sh_mmsi + "</td>";
-						base += "</tr>";
-						base += "<th>CALL_SIGN</th>";
-						base += "<td>" + rData.sh_call_sign + "</td>";
-						base += "</tr>";
-						base += "<th>등록일자</th>";
-						base += "<td>" + rData.sh_date + "</td>";
-						base += "</tr>";
+								let base = "<tr>";
+								base += "<th>선박번호</th>";
+								base += "<td>" + rData.sh_id + "</td>";
+								base += "</tr>";
+								base += "<th>선박이름</th>";
+								base += "<td>" + rData.sh_name + "</td>";
+								base += "</tr>";
+								base += "<th>선박보드</th>";
+								base += "<td>" + rData.sh_board_code + "</td>";
+								base += "</tr>";
+								base += "<th>선주</th>";
+								base += "<td>" + rData.sh_owner + "</td>";
+								base += "</tr>";
+								base += "<th>선주전화번호</th>";
+								base += "<td>" + rData.sh_owner_tel + "</td>";
+								base += "</tr>";
+								base += "<th>선장</th>";
+								base += "<td>" + rData.sh_cap_name + "</td>";
+								base += "</tr>";
+								base += "<th>선장전화번호</th>";
+								base += "<td>" + rData.sh_cap_tel + "</td>";
+								base += "</tr>";
+								base += "<th>선박유형</th>";
+								base += "<td>" + rData.sh_type + "</td>";
+								base += "</tr>";
+								base += "<th>MMSI</th>";
+								base += "<td>" + rData.sh_mmsi + "</td>";
+								base += "</tr>";
+								base += "<th>CALL_SIGN</th>";
+								base += "<td>" + rData.sh_call_sign + "</td>";
+								base += "</tr>";
+								base += "<th>등록일자</th>";
 
-						$("#tableShipInfo").append(base);
+								let date = new Date(rData.sh_date);
+								let formattedDate = date.getFullYear() + "-"
+										+ (date.getMonth() + 1) + "-"
+										+ date.getDate();
+								let formattedTime = date.getHours() + ":"
+										+ date.getMinutes() + ":"
+										+ date.getSeconds();
 
-					});
+								base += "<td>" + formattedDate + " "
+										+ formattedTime + "</td>";
+								base += "</tr>";
 
-				});
+								$("#tableShipInfo").append(base);
+
+							});
+
+						});
 
 				$(".dropdown-item").click(function name() {
 					let thistext = $(this).text();
@@ -277,11 +289,13 @@
 			<!-- pagination -->
 			<nav>
 				<ul class="pagination justify-content-center">
-				
+
 					<li class="page-item"><a class="page-link" href="#">이전</a></li>
-					
+
 					<c:forEach begin="1" end="${dto.wholePage }" var="v">
-						<li class="page-item <c:if test="${v == dto.currentPage}">active</c:if> "><a class="page-link" href="/reportPage?currentPage=${v}">${v}</a></li>
+						<li
+							class="page-item <c:if test="${v == dto.currentPage}">active</c:if> "><a
+							class="page-link" href="/reportPage?currentPage=${v}">${v}</a></li>
 					</c:forEach>
 
 					<li class="page-item"><a class="page-link" href="#">이후</a></li>

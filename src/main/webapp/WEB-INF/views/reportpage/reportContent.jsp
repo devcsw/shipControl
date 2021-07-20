@@ -175,6 +175,7 @@
 						<th>사고번호</th>
 						<th>처리내용</th>
 						<th>진행상태</th>
+						<th>수정하기</th>
 					</tr>
 				</thead>
 				<tbody>
@@ -184,6 +185,7 @@
 							<td>${list.acd_id }</td>
 							<td>${list.acd_hnd_content }</td>
 							<td>${list.acd_hnd_take }</td>
+							<td><button type="button" class="btn btn-success">수정하기</button></td>
 						</tr>
 					</c:forEach>
 				</tbody>
@@ -239,8 +241,9 @@
 			<!-- 처리내역 등록 modal 끝 -->
 			<div class="col-md-12">
 				<div class="d-flex justify-content-end">
-					<button type="button" class="btn btn-success">수정하기</button>
-					<a href="/reportPage" class="btn btn-warning">목록으로</a>
+					<a type="button" class="btn btn-success"
+						href="/reportUpdatePage?acd_id=${acdVo.acd_id }">수정하기</a> <a
+						href="/reportPage" class="btn btn-primary">목록으로</a>
 				</div>
 			</div>
 

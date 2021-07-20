@@ -155,5 +155,14 @@ public class ReportController {
 		System.out.println("@ReportController shipVoList :" + list);
 		return list;
 	}
+	
+	@RequestMapping(value= "/reportUpdatePage", method = RequestMethod.GET)
+	public String reportUpdatePage(Model model, String acd_id) throws Exception {
+		AcdVo acdVo = reportService.getAcdById(Integer.parseInt(acd_id));
+		model.addAttribute("acdVo", acdVo);
+		System.out.println("@reportController acdVo : " + acdVo);
+		
+		return "/reportpage/reportUpdatePage";
+	}
 
 }
