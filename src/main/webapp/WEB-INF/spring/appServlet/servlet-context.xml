@@ -29,12 +29,26 @@
 		<!-- 트랜잭션 -->
 	<aop:aspectj-autoproxy></aop:aspectj-autoproxy>
 	
-	<!--  웹소켓 핸들러 -->
+	<!--  웹소켓 핸들러 
 	  <websocket:handlers>
 		<websocket:mapping handler="echoHandler" path="/echo" />
 		<websocket:sockjs />
 	 </websocket:handlers>
     
 	<beans:bean id="echoHandler" class="com.kh.shipcontrol.config.EchoHandler"></beans:bean>
+	-->
+	  <websocket:handlers>
+		<websocket:mapping handler="echoHandler" path="/echo" />
+        <websocket:handshake-interceptors>
+            <beans:bean class="org.springframework.web.socket.server.support.HttpSessionHandshakeInterceptor"/>
+        </websocket:handshake-interceptors>
+        <websocket:sockjs />
+    </websocket:handlers>
+	<beans:bean id="echoHandler" class="com.kh.shipcontrol.config.EchoHandler"></beans:bean>
+	
+    <beans:bean class="org.springframework.web.socket.server.standard.ServletServerContainerFactoryBean">
+        <beans:property name="maxTextMessageBufferSize" value="8192"/>
+        <beans:property name="maxBinaryMessageBufferSize" value="8192"/>
+    </beans:bean>
 	
 </beans:beans>

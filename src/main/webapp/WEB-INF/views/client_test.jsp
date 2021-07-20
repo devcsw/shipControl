@@ -14,10 +14,10 @@
 <body>
 	<h1>소켓통신 테스트 페이지</h1>
 	<h2> 테스트 할려면  선박번호에 등록된 번호를 입력해놓으면 자동으로 찾아서 보여줌</h2>
-	<label for="sh_id">선박번호</label>
-	<input type="text" id="sh_id" />
+	<label for="sh_count">선박수</label>
+	<input type="text" id="sh_count" value="10"/>
 
-	<input type="button" id="ajaxTest" value="데이터저장" />
+	<input type="button" id="btnStart" value="실행" />
 	<br>
 	<!-- 정상 /센서등록되어있는데 데이터 없을시 연결실패/ 센서별 red코드일시에 긴급 /  -->
 	<!--  센서별 코드 1:정상 2:연결실패 3:redcode 4:orangecode 5:yellocode -->
@@ -36,60 +36,42 @@
 //저장용 데이터
 var socketData = "";
 $(document).ready(function() {
-	
-	connect();
-		// $.get, $.post의 원형, JSON.stringify : json 데이터를 문자열로 변환
-	$("#ajaxTest").click(function() {
-
-		console.log("ajax 시작")
-		var url = "/status/insertStatus";
-		
-		console.log(socketData);
-		$.ajax({
-			"url" : url,
-			"headers" : {
-				"Content-Type" : "application/json"
-			},
-			"method" : "post",
-			"dataType" : "text",
-			"data" : JSON.stringify(socketData),
-			"success" : function(receivedData) {
-				console.log(receivedData);
-				// 처리가 잘 되었다면, 댓글 목록 버튼을 클릭시켜서 목록을 새로 얻음
-				if (receivedData == "success") {
-					console.log("받음");
-				}
-			}
-		});	
+	$("#btnStart").click(function() {
+		connect($("#sh_count").val());
 	});
-
 });
 
-function connect(){
-
-	var latitude = (Math.random()  + 35).toFixed(13);
-	var longitude = (Math.random()   + 129).toFixed(13);
-
+function connect(shCount){
+	var arrlength = shCount;
+	var latitude = new Array(arrlength);
+	var longitude = new Array(arrlength);
+	var count = new Array(arrlength);
+	for(var i = 0; i < arrlength; i ++){
+		latitude[i] = (Math.random()  + 35).toFixed(13);
+		longitude[i] = (Math.random()   + 129).toFixed(13);
+		count[i] = 19;
+	}
+	
+	
 	console.log("소켓시작");
 	let ws = new SockJS("http://localhost:80/echo/");
-	//let ws = new WebSocket("ws://localhost:80/echo/");
 	ws.onmessage = onMessage;
 	ws.onclose = onClose;
-	var count = 19;
+	
 	
 	var plus = 0.01;
 	var minus = -0.01; 
 	// 메시지 전송
 	//function sendMessage() {
 	setInterval(function () {
-			if($("#sh_id").val() == ""){
-				console.log("데이터없음");
-			} else{
+		
+		for(var i = 0;i < arrlength; i ++){
+			
 				today = getTimeStamp(new Date());
 				sendData = {
-						"sh_id" : $("#sh_id").val(),
-						"sh_status_latitude" : latitude ,
-						"sh_status_longitude" : longitude ,
+						"sh_id" : i + 1,
+						"sh_status_latitude" : latitude[i] ,
+						"sh_status_longitude" : longitude[i] ,
 						"fire" : Math.floor(Math.random() * 5),
 						"temperature" :Math.floor(Math.random() * 5),
 						"smoke" : Math.floor(Math.random() * 5),
@@ -100,31 +82,29 @@ function connect(){
 					}	
 				ws.send(JSON.stringify(sendData));
 				//데이터 저장
-				count = count + 1;
-				console.log("count 체크" + count);
-				if (count == 20){
-					console.log("count 체크" + count);
+				count[i] = count[i] + 1;
+				if (count[i] == 20){
 					insertData(sendData);
-					count = 0;
+					count[i] = 0;
 				}
 				// 위도 경도 변경
 				var rand = Math.floor(Math.random() * 4);
 				console.log("rand:" + rand);
 				if (rand == 1) {
-				latitude = parseFloat(latitude) + parseFloat(plus);
-				longitude = parseFloat(longitude) + parseFloat(plus);
+				latitude[i] = parseFloat(latitude[i]) + parseFloat(plus);
+				longitude[i] = parseFloat(longitude[i]) + parseFloat(plus);
 				}
 				else if (rand == 2) {
-					latitude = parseFloat(latitude) + parseFloat(plus);
-					longitude = parseFloat(longitude) - parseFloat(plus);
+					latitude[i] = parseFloat(latitude[i]) + parseFloat(plus);
+					longitude[i] = parseFloat(longitude[i]) - parseFloat(plus);
 				}
 				else if (rand == 3) {
-					latitude = parseFloat(latitude) - parseFloat(plus);
-					longitude = parseFloat(longitude) + parseFloat(plus);
+					latitude[i] = parseFloat(latitude[i]) - parseFloat(plus);
+					longitude[i] = parseFloat(longitude[i]) + parseFloat(plus);
 				}
 				else if (rand == 4) {
-					latitude = parseFloat(latitude) - parseFloat(plus);
-					longitude = parseFloat(longitude) - parseFloat(plus);
+					latitude[i] = parseFloat(latitude[i]) - parseFloat(plus);
+					longitude[i] = parseFloat(longitude[i]) - parseFloat(plus);
 				}
 				
 			}
