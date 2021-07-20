@@ -26,4 +26,6 @@ public interface ReportService {
 	public int getAcdIdSeq();
 	
 	public int getReportCount();
+	
+	public void updateReportRun(AcdVo acdVo);
 }

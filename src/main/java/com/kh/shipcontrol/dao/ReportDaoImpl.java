@@ -80,4 +80,10 @@ public class ReportDaoImpl implements ReportDao {
 		return count;
 	}
 
+	@Override
+	public void updateReportRun(AcdVo acdVo) {
+		sqlsession.update(NAMESPACE + "updateReportRun", acdVo);
+		
+	}
+
 }

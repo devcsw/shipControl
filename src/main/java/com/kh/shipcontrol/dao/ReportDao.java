@@ -30,4 +30,6 @@ public interface ReportDao {
 	
 	public int getReportCount();
 	
+	public void updateReportRun(AcdVo acdVo);
+	
 }

@@ -155,14 +155,24 @@ public class ReportController {
 		System.out.println("@ReportController shipVoList :" + list);
 		return list;
 	}
-	
-	@RequestMapping(value= "/reportUpdatePage", method = RequestMethod.GET)
+
+	@RequestMapping(value = "/reportUpdatePage", method = RequestMethod.GET)
 	public String reportUpdatePage(Model model, String acd_id) throws Exception {
 		AcdVo acdVo = reportService.getAcdById(Integer.parseInt(acd_id));
 		model.addAttribute("acdVo", acdVo);
+//		System.out.println("@reportController acdVo : " + acdVo);
+
+		return "/reportpage/reportUpdatePage";
+	}
+
+	@RequestMapping(value = "/updateReportRun", method = RequestMethod.POST)
+	public String updateReportRun(AcdVo acdVo) throws Exception {
 		System.out.println("@reportController acdVo : " + acdVo);
 		
-		return "/reportpage/reportUpdatePage";
+		
+		
+		reportService.updateReportRun(acdVo);
+		return "redirect:/reportUpdatePage?acd_id="+ acdVo.getAcd_id();
 	}
 
 }

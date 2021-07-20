@@ -76,4 +76,10 @@ public class ReportServiceImpl implements ReportService {
 		return count;
 	}
 
+	@Override
+	public void updateReportRun(AcdVo acdVo) {
+		reportDao.updateReportRun(acdVo);
+		
+	}
+
 }
