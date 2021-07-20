@@ -6,6 +6,7 @@ import java.util.Map;
 import com.kh.shipcontrol.vo.AcdCodeVo;
 import com.kh.shipcontrol.vo.AcdHndVo;
 import com.kh.shipcontrol.vo.AcdVo;
+import com.kh.shipcontrol.vo.PaginationDTO;
 
 public interface ReportDao {
 
@@ -13,7 +14,7 @@ public interface ReportDao {
 
 	public List<AcdCodeVo> getAcdCode();
 
-	public List<AcdVo> getWholeAcd();
+	public List<AcdVo> getWholeAcd(PaginationDTO dto);
 
 	public AcdVo getAcdById(int Acd_id);
 
@@ -26,5 +27,7 @@ public interface ReportDao {
 	public void updateAcdTake(AcdHndVo acdHndVo);
 	
 	public int getAcdIdSeq();
+	
+	public int getReportCount();
 	
 }

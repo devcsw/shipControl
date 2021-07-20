@@ -3,114 +3,125 @@
 
 <%@ include file="../include/header.jsp"%>
 <script type="text/javascript">
-	$(document).ready(function name() {
-		$(".modalAcdTake").on("click", function name(e) {
-			let acd = $(this).parent().parent().find("td:first-child").text();
-			// console.log(acd); //확인완료
+	$(document).ready(
+			function name() {
+				$(".modalAcdTake").on(
+						"click",
+						function name(e) {
+							let acd = $(this).parent().parent().find(
+									"td:first-child").text();
+							// console.log(acd); //확인완료
 
-			let url = "/getAcdHnd";
-			let sendData = {
-				"acd_id" : acd
-			};
+							let url = "/getAcdHnd";
+							let sendData = {
+								"acd_id" : acd
+							};
 
-			$.get(url, sendData, function name(rData) {
-				console.log(rData);
-				$("#tableAcdHnd").empty();
+							$.get(url, sendData, function name(rData) {
+								console.log(rData);
+								$("#tableAcdHnd").empty();
 
-				let base = "<tr>";
-				base += "<th>#</th>";
-				base += "<th>처리내용</th>";
-				base += "<th>처리시간</th>";
-				base += "<th>처리상태</th>";
-				base += "</tr>";
+								let base = "<tr>";
+								base += "<th>#</th>";
+								base += "<th>처리내용</th>";
+								base += "<th>처리시간</th>";
+								base += "<th>처리상태</th>";
+								base += "</tr>";
 
-				$("#tableAcdHnd").append(base);
+								$("#tableAcdHnd").append(base);
 
-				for (var v = 0; v < rData.length; v++) {
-					let str = "";
-					str += "<tr>";
-					str += "<td>" + rData[v].acd_hnd_id + "</th>";
-					str += "<td>" + rData[v].acd_hnd_content + "</td>";
-					
-					let date = new Date(rData[v].acd_hnd_date);
-					let formattedDate = date.getFullYear() + "-" + (date.getMonth() + 1) + "-"  + date.getDate();
-					let formattedTime = date.getHours() + ":" + date.getMinutes() + ":" + date.getSeconds();
-					
-					
-					str += "<td>" + formattedDate + " " + formattedTime + "</td>";
-					str += "<td>" + rData[v].acd_hnd_take + "</td>";
-					str += "</tr>";
-					$("#tableAcdHnd").append(str);
-				}
-			});
-		});
+								for (var v = 0; v < rData.length; v++) {
+									let str = "";
+									str += "<tr>";
+									str += "<td>" + rData[v].acd_hnd_id
+											+ "</th>";
+									str += "<td>" + rData[v].acd_hnd_content
+											+ "</td>";
 
-		$(".modalShipInfo").on('click', function name() {
-			let sh_id = $(this).text();
-			console.log(sh_id);
+									let date = new Date(rData[v].acd_hnd_date);
+									let formattedDate = date.getFullYear()
+											+ "-" + (date.getMonth() + 1) + "-"
+											+ date.getDate();
+									let formattedTime = date.getHours() + ":"
+											+ date.getMinutes() + ":"
+											+ date.getSeconds();
 
-			let url = "/getShipInfo";
-			let sendData = {
-				"sh_id" : sh_id
-			};
+									str += "<td>" + formattedDate + " "
+											+ formattedTime + "</td>";
+									str += "<td>" + rData[v].acd_hnd_take
+											+ "</td>";
+									str += "</tr>";
+									$("#tableAcdHnd").append(str);
+								}
+							});
+						});
 
-			$.get(url, sendData, function name(rData) {
-				console.log(rData);
-				let shipTable = $("#tableShipInfo");
-				$("#tableShipInfo").empty();
+				$(".modalShipInfo").on('click', function name() {
+					let sh_id = $(this).text();
+					console.log(sh_id);
 
-				let base = "<tr>";
-				base += "<th>선박번호</th>";
-				base += "<td>" + rData.sh_id + "</td>";
-				base += "</tr>";
-				base += "<th>선박이름</th>";
-				base += "<td>" + rData.sh_name + "</td>";
-				base += "</tr>";
-				base += "<th>선박보드</th>";
-				base += "<td>" + rData.sh_board_code + "</td>";
-				base += "</tr>";
-				base += "<th>선주</th>";
-				base += "<td>" + rData.sh_owner + "</td>";
-				base += "</tr>";
-				base += "<th>선주전화번호</th>";
-				base += "<td>" + rData.sh_owner_tel + "</td>";
-				base += "</tr>";
-				base += "<th>선장</th>";
-				base += "<td>" + rData.sh_cap_name + "</td>";
-				base += "</tr>";
-				base += "<th>선장전화번호</th>";
-				base += "<td>" + rData.sh_cap_tel + "</td>";
-				base += "</tr>";
-				base += "<th>선박유형</th>";
-				base += "<td>" + rData.sh_type + "</td>";
-				base += "</tr>";
-				base += "<th>MMSI</th>";
-				base += "<td>" + rData.sh_mmsi + "</td>";
-				base += "</tr>";
-				base += "<th>CALL_SIGN</th>";
-				base += "<td>" + rData.sh_call_sign + "</td>";
-				base += "</tr>";
-				base += "<th>등록일자</th>";
-				base += "<td>" + rData.sh_date + "</td>";
-				base += "</tr>";
+					let url = "/getShipInfo";
+					let sendData = {
+						"sh_id" : sh_id
+					};
 
-				$("#tableShipInfo").append(base);
+					$.get(url, sendData, function name(rData) {
+						console.log(rData);
+						let shipTable = $("#tableShipInfo");
+						$("#tableShipInfo").empty();
 
-			});
+						let base = "<tr>";
+						base += "<th>선박번호</th>";
+						base += "<td>" + rData.sh_id + "</td>";
+						base += "</tr>";
+						base += "<th>선박이름</th>";
+						base += "<td>" + rData.sh_name + "</td>";
+						base += "</tr>";
+						base += "<th>선박보드</th>";
+						base += "<td>" + rData.sh_board_code + "</td>";
+						base += "</tr>";
+						base += "<th>선주</th>";
+						base += "<td>" + rData.sh_owner + "</td>";
+						base += "</tr>";
+						base += "<th>선주전화번호</th>";
+						base += "<td>" + rData.sh_owner_tel + "</td>";
+						base += "</tr>";
+						base += "<th>선장</th>";
+						base += "<td>" + rData.sh_cap_name + "</td>";
+						base += "</tr>";
+						base += "<th>선장전화번호</th>";
+						base += "<td>" + rData.sh_cap_tel + "</td>";
+						base += "</tr>";
+						base += "<th>선박유형</th>";
+						base += "<td>" + rData.sh_type + "</td>";
+						base += "</tr>";
+						base += "<th>MMSI</th>";
+						base += "<td>" + rData.sh_mmsi + "</td>";
+						base += "</tr>";
+						base += "<th>CALL_SIGN</th>";
+						base += "<td>" + rData.sh_call_sign + "</td>";
+						base += "</tr>";
+						base += "<th>등록일자</th>";
+						base += "<td>" + rData.sh_date + "</td>";
+						base += "</tr>";
 
-		});
+						$("#tableShipInfo").append(base);
 
-		$(".dropdown-item").click(function name() {
-			let thistext = $(this).text();
-			$("#dropdownMenuButton").text(thistext);
-		});
+					});
 
-		$("#searchInput").on("submit", function name(e) {
-			let searchType = $("#dropdownMenuButton").text();
-			$("#searchType").val(searchType);
-		});
+				});
 
-	})
+				$(".dropdown-item").click(function name() {
+					let thistext = $(this).text();
+					$("#dropdownMenuButton").text(thistext);
+				});
+
+				$("#searchInput").on("submit", function name(e) {
+					let searchType = $("#dropdownMenuButton").text();
+					$("#searchType").val(searchType);
+				});
+
+			})
 </script>
 
 <!-- 페이지 설명 -->
@@ -183,7 +194,8 @@
 				<tbody>
 					<c:forEach items="${list}" var="list">
 						<tr>
-							<td><a href="/reportContent?acd_id=${list.acd_id }&acd_hnd_page=1">${list.acd_id }</a></td>
+							<td><a
+								href="/reportContent?acd_id=${list.acd_id }&acd_hnd_page=1">${list.acd_id }</a></td>
 							<td>${list.acd_code_id }</td>
 							<td>(${list.acd_latitude } , ${list.acd_longitude })</td>
 							<td>${list.acd_date }</td>
@@ -265,8 +277,13 @@
 			<!-- pagination -->
 			<nav>
 				<ul class="pagination justify-content-center">
+				
 					<li class="page-item"><a class="page-link" href="#">이전</a></li>
-					<li class="page-item"><a class="page-link" href="#">1</a></li>
+					
+					<c:forEach begin="1" end="${dto.wholePage }" var="v">
+						<li class="page-item <c:if test="${v == dto.currentPage}">active</c:if> "><a class="page-link" href="/reportPage?currentPage=${v}">${v}</a></li>
+					</c:forEach>
+
 					<li class="page-item"><a class="page-link" href="#">이후</a></li>
 				</ul>
 			</nav>

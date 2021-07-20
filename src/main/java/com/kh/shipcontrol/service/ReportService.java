@@ -6,13 +6,14 @@ import java.util.Map;
 import com.kh.shipcontrol.vo.AcdCodeVo;
 import com.kh.shipcontrol.vo.AcdHndVo;
 import com.kh.shipcontrol.vo.AcdVo;
+import com.kh.shipcontrol.vo.PaginationDTO;
 
 public interface ReportService {
 	public void registReport(AcdVo acdVo);
 
 	public List<AcdCodeVo> getAcdCode();
 
-	public List<AcdVo> getWholeAcd();
+	public List<AcdVo> getWholeAcd(PaginationDTO dto);
 
 	public AcdVo getAcdById(int Acd_id);
 
@@ -23,4 +24,6 @@ public interface ReportService {
 	public List<AcdVo> getAcdListBySerachType(Map<String, String> map);
 	
 	public int getAcdIdSeq();
+	
+	public int getReportCount();
 }
