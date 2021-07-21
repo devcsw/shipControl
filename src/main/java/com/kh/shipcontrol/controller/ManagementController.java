@@ -56,9 +56,6 @@ public class ManagementController {
 	
 	@RequestMapping(value = "/insertShip", method = RequestMethod.POST)
 	public String insertShip(ShipVo shipVo, SensorDto sensorDto, RedirectAttributes rttr) throws Exception {
-		
-		
-		
 		shipService.registShip(shipVo, sensorDto);
 		rttr.addFlashAttribute("msg", "insertSuccess");
 		return "redirect:/shipcontrol/management";
@@ -76,7 +73,6 @@ public class ManagementController {
 		model.addAttribute("sh_id",sh_id);
 		return "shipcontrol/updateShipForm";
 	}	
-	
 	
 	//선박 수정 삭제
 	@RequestMapping(value = "/updateShipRun", method = RequestMethod.POST)

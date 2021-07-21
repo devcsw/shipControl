@@ -37,6 +37,7 @@ p {
 			</div>
 		</div>
 		<div class="col-md-3">
+		<!--  
 			<form class="d-flex">
 				
 				<a class="nav-link dropdown-toggle" data-bs-toggle="dropdown"
@@ -59,6 +60,7 @@ p {
 				<input class="form-control me-sm-2" type="text" placeholder="Search" id="txtSearch" value="${keyword}">
 				<button class="btn btn-secondary my-2 my-sm-0" type="button" id="btnSearch">Search</button>
 			</form>
+			-->
 		</div>
 	</div>
 	<br>

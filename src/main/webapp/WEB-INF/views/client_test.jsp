@@ -13,7 +13,7 @@
 </head>
 <body>
 	<h1>소켓통신 테스트 페이지</h1>
-	<h2> 테스트 할려면  선박번호에 등록된 번호를 입력해놓으면 자동으로 찾아서 보여줌</h2>
+	<h2> 선박수 입력하면 자동으로 생성</h2>
 	<label for="sh_count">선박수</label>
 	<input type="text" id="sh_count" value="10"/>
 

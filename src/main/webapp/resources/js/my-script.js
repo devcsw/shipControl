@@ -3,8 +3,7 @@
  */
 
 //소켓 데이터 수신@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
-
-function homesocketonnect() {
+function homeSocketConnect() {
 	let ws = new SockJS("http://localhost:80/echo/");
 	socket = ws;
 	
@@ -14,7 +13,6 @@ function homesocketonnect() {
 	}
 	//메세지 받았을때
 	ws.onmessage = function(event){
-		console.log("Info : onmessage");
 		//클라이언트에서 받는 데이터
 		var result = JSON.parse(event.data);
 		// 각 선박의 index
@@ -25,21 +23,48 @@ function homesocketonnect() {
 		}
 		//마커생성
 		var icon = greenShip;
+		var emergency = "정상";
+		var btnColor = "success";
 		if(result.fire >=4){
 			icon = redShip;
+			emergency = "긴급";
+			btnColor ="danger";
 		} else if(result.fire >=2){
 			icon = orangeShip;
+			emergency = "위험";
+			btnColor ="warning";
 		}
-		var iwContent = '<div style="padding:5px;">Hello World!</div>';
 		markers[index] = getMarker(result, icon);
-
-		console.log("info 이전" );
-		infowindows[index] = getInfowindow(iwContent);
-		console.log("infowindow값" + infowindows[index]);
+		
 		//리스너 추가
 		kakao.maps.event.addListener(markers[index], 'click', function() {
-			console.log("리스너실행됨")
-			infowindows[index].open(map, markers[index]);  
+			var ship="";
+			//이전창 인포창 있으면 삭제
+			for (i = 0; i < infowindows.length; i++) {
+				if (infowindows[i] != undefined){
+					infowindows[i].close();
+				}
+			}
+			//비동기로 데이터 불러와서 생성시 데이터 추가.
+				var url = "/getOneShip";
+				sendData = {
+						"sh_id" : index
+					};
+				$.ajax({
+					"url" : url,
+					"headers" : {
+						"Content-Type" : "application/json"
+					},
+					"method" : "post",
+					"dataType" : "text",
+					"data" : JSON.stringify(sendData),
+					"success" : function(receivedData) {
+						ship = JSON.parse(receivedData);
+						console.log(ship.sh_id);
+						infowindows[index] = getInfowindow(result, emergency, btnColor, ship);
+						infowindows[index].open(map, markers[index]);  
+					}
+				});	
 		});
 	}
 	//끝날때 
@@ -67,9 +92,36 @@ function getMarker(result, icon) {
 }
 
 //인포윈도우 생성 함수
-function getInfowindow(iwContent ){
+function getInfowindow(result, emergency, btnColor , ship){	
+	//인포윈도우 화면 
+	var iwContent = '<div class="card mb-3" style="max-width: 17rem;">' +
+	'  <h4 class="card-header">선박명 : ' + ship.sh_name + '</h4>' +
+	'  <div class="card-body" >' +
+	'    <h5 class="card-title">선박ID:'+ship.sh_id+'</h5>' +
+	'    <h6 class="card-subtitle text-muted">호출부호 : '+ship.sh_call_sign+'</h6>' +
+	'  </div>' +
+	//이미지 추가
+	//'  <svg xmlns="http://www.w3.org/2000/svg" class="d-block user-select-none" width="100%" height="200" aria-label="Placeholder: Image cap" focusable="false" role="img" preserveAspectRatio="xMidYMid slice" viewBox="0 0 318 180" style="font-size:1.125rem;text-anchor:middle">' +
+	//'    <rect width="100%" height="100%" fill="#868e96"></rect>' +
+	//'    <text x="50%" y="50%" fill="#dee2e6" dy=".3em">Image cap</text>' +
+	//'  </svg>' +
+	'  <div class="card-body">' +
+	'    <p class="card-text">위도 : ' + result.sh_status_latitude + '</p>' +
+    '    <p class="card-text">경도 : ' + result.sh_status_latitude + '</p>' +
+	'  </div>' +
+	'  <ul class="list-group list-group-flush">' +
+	'    <li class="list-group-item">선장명  : '+ ship.sh_cap_name +'</li>' +
+	'    <li class="list-group-item">선장번호  : '+ ship.sh_cap_tel +'</li>' +
+	'    <li class="list-group-item">선박타입  : '+ ship.sh_type +'</li>' +
+	'    <li class="list-group-item">상태 : <button class="btn btn-'+btnColor+' btn-sm">'+ emergency +'</button></li>' +
+	'  </ul>' +
+	'  <div class="card-body">' +
+	'    <a href="/manuallyRegistReport?sh_id='+result.sh_id+'" class="card-link">사고등록</a>' +
+	'  </div>' +
+	'</div>' ;
 	var infowindow = new kakao.maps.InfoWindow({
 	    content : iwContent,
+	    disableAutoPan: false, //패닝 자동으로 화면이동
 	    removable : true
 	});
 	return infowindow;
