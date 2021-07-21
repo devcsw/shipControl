@@ -62,7 +62,9 @@
 
 	<nav class="navbar navbar-expand-lg navbar-dark bg-primary">
 		<div class="container-fluid">
-			<a class="navbar-brand" href="/">선박관제시스템</a>
+			<a class="navbar-brand" href="/"> 
+			<img name="ig" src="/resources/img/green_ship.png"  width="40" height="40" border="3"/>
+			선박관제시스템</a>
 			<button class="navbar-toggler" type="button"
 				data-bs-toggle="collapse" data-bs-target="#navbarColor01"
 				aria-controls="navbarColor01" aria-expanded="false"

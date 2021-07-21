@@ -107,7 +107,7 @@ function getInfowindow(result, emergency, btnColor , ship){
 	//'  </svg>' +
 	'  <div class="card-body">' +
 	'    <p class="card-text">위도 : ' + result.sh_status_latitude + '</p>' +
-    '    <p class="card-text">경도 : ' + result.sh_status_latitude + '</p>' +
+    '    <p class="card-text">경도 : ' + result.sh_status_longitude + '</p>' +
 	'  </div>' +
 	'  <ul class="list-group list-group-flush">' +
 	'    <li class="list-group-item">선장명  : '+ ship.sh_cap_name +'</li>' +
@@ -116,7 +116,8 @@ function getInfowindow(result, emergency, btnColor , ship){
 	'    <li class="list-group-item">상태 : <button class="btn btn-'+btnColor+' btn-sm">'+ emergency +'</button></li>' +
 	'  </ul>' +
 	'  <div class="card-body">' +
-	'    <a href="/manuallyRegistReport?sh_id='+result.sh_id+'" class="card-link">사고등록</a>' +
+	'    <a href="/manuallyRegistReport?sh_id='+result.sh_id+'&sh_status_latitude='+result.sh_status_latitude+'&sh_status_longitude='+result.sh_status_longitude+'" '+
+	'  class="card-link">사고등록</a>' +
 	'  </div>' +
 	'</div>' ;
 	var infowindow = new kakao.maps.InfoWindow({
