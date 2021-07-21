@@ -66,7 +66,7 @@ function connect(shCount){
 	setInterval(function () {
 		
 		for(var i = 0;i < arrlength; i ++){
-			
+			console.log("선박배열번호 : " + i);
 				today = getTimeStamp(new Date());
 				sendData = {
 						"sh_id" : i + 1,
@@ -89,7 +89,6 @@ function connect(shCount){
 				}
 				// 위도 경도 변경
 				var rand = Math.floor(Math.random() * 4);
-				console.log("rand:" + rand);
 				if (rand == 1) {
 				latitude[i] = parseFloat(latitude[i]) + parseFloat(plus);
 				longitude[i] = parseFloat(longitude[i]) + parseFloat(plus);
@@ -128,7 +127,7 @@ function connect(shCount){
 		console.log(event);
 		connect();
 	}
-	
+	//비동기 데이터 저장
 	function insertData(sendData) {
 		console.log("ajax 자동 시작")
 		var url = "/status/insertStatus";
@@ -144,7 +143,6 @@ function connect(shCount){
 			"data" : JSON.stringify(sendData),
 			"success" : function(receivedData) {
 				console.log(receivedData);
-				// 처리가 잘 되었다면, 댓글 목록 버튼을 클릭시켜서 목록을 새로 얻음
 				if (receivedData == "success") {
 					console.log("받음");
 				}
