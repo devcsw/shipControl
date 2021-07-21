@@ -4,16 +4,14 @@
 <script type="text/javascript"
 	src="//dapi.kakao.com/v2/maps/sdk.js?appkey=0f71a92fecd7b42434cde225a0893ff1"></script>
 <script type="text/javascript">
+	$(function name() {
+		$("#buttonStartUpdate").click(function name() {
+			$('input').removeAttr('readonly');
+			let acdId = $('#formReport > .form-group > input').first();
+			acdId.attr('readonly', true);
 
-$(function name() {
-	$("#buttonStartUpdate").click(function name() {
-		$('input').removeAttr('readonly');
-		let acdId = $('#formReport > .form-group > input').first();
-		acdId.attr('readonly', true);
-		
+		});
 	});
-});
-
 </script>
 
 <div class="container-fluid">
@@ -78,7 +76,8 @@ $(function name() {
 		<div class="col-md-6">
 			<div class="row">
 				<div class="col-md-12">
-					<form role="form" action="/updateReportRun" method="post" id="formReport">
+					<form role="form" action="/updateReportRun" method="post"
+						id="formReport">
 						<div class="form-group">
 							<label for="acd_id"> 사고번호 </label> <input type="text"
 								class="form-control" id="acd_id" name="acd_id"
@@ -114,8 +113,9 @@ $(function name() {
 								class="form-control" id="sh_id" name="sh_id"
 								value="${acdVo.sh_id }" readonly="readonly" />
 						</div>
-						<button type="button" class="btn btn-warning" id="buttonStartUpdate">수정시작</button>
-						<a class="btn btn-danger">사고삭제</a>
+						<button type="button" class="btn btn-warning"
+							id="buttonStartUpdate">수정시작</button>
+						<a class="btn btn-danger" href="/deleteReport?acd_id=${acdVo.acd_id}">사고삭제</a>
 						<button type="submit" class="btn btn-success">수정완료</button>
 						<a class="btn btn-primary" href="/reportPage">목록으로</a>
 					</form>

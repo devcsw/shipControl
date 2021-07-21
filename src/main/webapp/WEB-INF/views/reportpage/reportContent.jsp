@@ -39,6 +39,8 @@
 				console.log(rData);
 				
 				$("#acd_hnd_id").val(rData.acd_hnd_id);
+				$("#acd_hnd_content").val(rData.acd_hnd_content);
+				$("#acd_hnd_take").val(rData.acd_hnd_take);
 				
 			})
 			
@@ -111,7 +113,9 @@
 				let yLocation = 129.36937385789298;
 
 				$(function name() {
-
+					
+					// x, y location -> text에서 추출하지 말고 처리시간 기준으로 ship_status_tb 에서 +- 2분? 정도에서 위도, 경도 값 받아올것
+					// $("#acd_latitude").text(), $("#acd_longitude").text() 또한 값 수정할 것
 					xLocation = $("#acd_latitude").text();
 					yLocation = $("#acd_longitude").text();
 
@@ -223,33 +227,38 @@
 				<div class="modal-dialog" role="document">
 					<div class="modal-content">
 						<div class="modal-header">
-							<h5 class="modal-title" id="myModalLabel">Modal title</h5>
+							<h5 class="modal-title" id="myModalLabel">처리내역 수정 페이지</h5>
 							<button type="button" class="close" data-dismiss="modal">
 								<span aria-hidden="true">×</span>
 							</button>
 						</div>
 						<div class="modal-body">
-							<form role="form" action="/updateAcdHndById" method="post" id="acdHndUpdateForm">
-							<input type="hidden" id="acd_id" name="acd_id" value="${acdVo.acd_id}">
+							<form role="form" action="/updateAcdHndById" method="post"
+								id="acdHndUpdateForm">
+								<input type="hidden" id="acd_id" name="acd_id"
+									value="${acdVo.acd_id}">
 								<div class="form-group">
-									<label for="acd_hnd_id"> # </label> <input
-										type="text" class="form-control" id="acd_hnd_id" name="acd_hnd_id" readonly="readonly"/>
+									<label for="acd_hnd_id"> # </label> <input type="text"
+										class="form-control" id="acd_hnd_id" name="acd_hnd_id"
+										readonly="readonly" />
 								</div>
-								
+
 								<div class="form-group">
-									<label for="acd_hnd_content"> 신고 내용 </label> 
-									<textarea class="form-control" rows="5" cols="10" id="acd_hnd_content" name="acd_hnd_content"></textarea>
+									<label for="acd_hnd_content"> 신고 내용 </label>
+									<textarea class="form-control" rows="5" cols="10"
+										id="acd_hnd_content" name="acd_hnd_content"></textarea>
 								</div>
-								
+
 								<div class="form-group">
-									<label for="acd_hnd_take"> 진행 상태 </label> <input
-										type="text" class="form-control" id="acd_hnd_take" name="acd_hnd_take" />
+									<label for="acd_hnd_take"> 진행 상태 </label> <input type="text"
+										class="form-control" id="acd_hnd_take" name="acd_hnd_take" />
 								</div>
 							</form>
 						</div>
 						<div class="modal-footer">
 
-							<button type="button" class="btn btn-primary" id="buttonUpdateAcdHnd">처리내역 수정하기</button>
+							<button type="button" class="btn btn-primary"
+								id="buttonUpdateAcdHnd">처리내역 수정하기</button>
 							<button type="button" class="btn btn-secondary"
 								data-dismiss="modal">취소</button>
 						</div>

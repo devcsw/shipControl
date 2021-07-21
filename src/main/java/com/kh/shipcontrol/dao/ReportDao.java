@@ -36,4 +36,6 @@ public interface ReportDao {
 	
 	public void updateAcdHndById(AcdHndVo acdHndVo);
 	
+	public void deleteReport(String acd_id);
+	
 }

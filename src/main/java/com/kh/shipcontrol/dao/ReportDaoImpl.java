@@ -98,4 +98,10 @@ public class ReportDaoImpl implements ReportDao {
 		
 	}
 
+	@Override
+	public void deleteReport(String acd_id) {
+		sqlsession.delete(NAMESPACE + "deleteReport", acd_id);
+		
+	}
+
 }

@@ -32,4 +32,6 @@ public interface ReportService {
 	public AcdHndVo getAcdVoById(String acd_hnd_id);
 	
 	public void updateAcdHndById(AcdHndVo acdHndVo);
+	
+	public void deleteReport(String acd_id);
 }

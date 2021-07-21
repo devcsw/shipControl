@@ -94,4 +94,10 @@ public class ReportServiceImpl implements ReportService {
 		
 	}
 
+	@Override
+	public void deleteReport(String acd_id) {
+		reportDao.deleteReport(acd_id);
+		
+	}
+
 }

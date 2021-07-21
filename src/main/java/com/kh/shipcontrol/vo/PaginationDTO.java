@@ -7,15 +7,26 @@ public class PaginationDTO {
 	int endLine;
 	int wholePage;
 	int perPage = 10;
+	int startPage;
+	int endPage;
 
 	public PaginationDTO() {
 
 	}
 
-	public PaginationDTO(int currentPage) {
+	public PaginationDTO(int currentPage, int wholePage) {
 		this.currentPage = currentPage;
-		this.startLine = currentPage * 10 - 9;
-		this.endLine = currentPage * 10;
+		this.startLine = currentPage * perPage - 9;
+		this.endLine = currentPage * perPage;
+		this.wholePage = wholePage;
+
+		this.startPage = currentPage / perPage + 1;
+
+		if (currentPage * perPage > wholePage) {
+			this.endPage = wholePage;
+		} else {
+			this.endPage = currentPage * perPage;
+		}
 
 	}
 
@@ -59,10 +70,27 @@ public class PaginationDTO {
 		this.perPage = perPage;
 	}
 
+	public int getStartPage() {
+		return startPage;
+	}
+
+	public void setStartPage(int startPage) {
+		this.startPage = startPage;
+	}
+
+	public int getEndPage() {
+		return endPage;
+	}
+
+	public void setEndPage(int endPage) {
+		this.endPage = endPage;
+	}
+
 	@Override
 	public String toString() {
 		return "PaginationDTO [currentPage=" + currentPage + ", startLine=" + startLine + ", endLine=" + endLine
-				+ ", wholePage=" + wholePage + ", perPage=" + perPage + "]";
+				+ ", wholePage=" + wholePage + ", perPage=" + perPage + ", startPage=" + startPage + ", endPage="
+				+ endPage + "]";
 	}
 
 }

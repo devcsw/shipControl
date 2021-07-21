@@ -39,12 +39,11 @@ public class ReportController {
 		}
 
 		int count = reportService.getReportCount();
-		PaginationDTO dto = new PaginationDTO(Integer.parseInt(currentPage));
 		int wholePage = (count / 10) + 1;
-		dto.setWholePage(wholePage);
+		PaginationDTO dto = new PaginationDTO(Integer.parseInt(currentPage), wholePage);
 
 		System.out.println("@ReportController dto:" + dto);
-		System.out.println("@ReportController currentPage:" + currentPage);
+//		System.out.println("@ReportController currentPage:" + currentPage);
 
 		List<AcdVo> list = reportService.getWholeAcd(dto);
 
@@ -152,7 +151,7 @@ public class ReportController {
 	public List<ShipVo> getShipCodeAndName() throws Exception {
 
 		List<ShipVo> list = shipService.getShipList();
-		System.out.println("@ReportController shipVoList :" + list);
+//		System.out.println("@ReportController shipVoList :" + list);
 		return list;
 	}
 
@@ -167,7 +166,7 @@ public class ReportController {
 
 	@RequestMapping(value = "/updateReportRun", method = RequestMethod.POST)
 	public String updateReportRun(AcdVo acdVo) throws Exception {
-		System.out.println("@reportController acdVo : " + acdVo);
+//		System.out.println("@reportController acdVo : " + acdVo);
 
 		reportService.updateReportRun(acdVo);
 		return "redirect:/reportUpdatePage?acd_id=" + acdVo.getAcd_id();
@@ -187,6 +186,14 @@ public class ReportController {
 		reportService.updateAcdHndById(acdHndVo);
 		
 		return "redirect:/reportContent?acd_id=" + acd_id + "&acd_hnd_page=1";
+	}
+	
+	@RequestMapping(value="/deleteReport", method=RequestMethod.GET)
+	public String deleteReport(String acd_id) throws Exception {
+		System.out.println(acd_id);
+		reportService.deleteReport(acd_id);
+		
+		return "redirect:/reportPage";
 	}
 
 }
