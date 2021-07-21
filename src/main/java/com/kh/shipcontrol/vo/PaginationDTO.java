@@ -20,12 +20,12 @@ public class PaginationDTO {
 		this.endLine = currentPage * perPage;
 		this.wholePage = wholePage;
 
-		this.startPage = currentPage / perPage + 1;
+		this.startPage = ((currentPage - 1) / 10) * 10 + 1;
 
-		if (currentPage * perPage > wholePage) {
+		if (((currentPage - 1) / 10) * 10 + 10 >= wholePage) {
 			this.endPage = wholePage;
 		} else {
-			this.endPage = currentPage * perPage;
+			this.endPage = ((currentPage - 1) / 10) * 10 + 10;
 		}
 
 	}

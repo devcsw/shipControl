@@ -289,15 +289,24 @@
 			<!-- pagination -->
 			<nav>
 				<ul class="pagination justify-content-center">
-					<li class="page-item"><a class="page-link" href="#">이전</a></li>
 
-					<c:forEach begin="${dto.startPage }" end="${dto.endPage }" var="v">
+
+
+					<c:if test="${dto.startPage != 1 }">
+						<li class="page-item"><a class="page-link"
+							href="/reportPage?currentPage=${dto.startPage - 10 }">이전</a></li>
+					</c:if>
+
+					<c:forEach begin="${dto.startPage}" end="${dto.endPage}" var="v">
 						<li
 							class="page-item <c:if test="${v == dto.currentPage}">active</c:if> "><a
 							class="page-link" href="/reportPage?currentPage=${v}">${v}</a></li>
 					</c:forEach>
 
-					<li class="page-item"><a class="page-link" href="#">이후</a></li>
+					<c:if test="${dto.startPage/10 != dto.wholePage/10 }">
+						<li class="page-item"><a class="page-link"
+							href="/reportPage?currentPage=${dto.startPage + 10 }">이후</a></li>
+					</c:if>
 				</ul>
 			</nav>
 			<!-- pagination 끝 -->
