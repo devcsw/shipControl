@@ -29,7 +29,7 @@ function homeSocketConnect() {
 		console.log("checkString :" +checkString);
 		if(checkString =="exit"){
 			icon = redShip;
-			emergency = "긴급";
+			emergency = "구역이탈";
 			btnColor ="danger";
 		}	else if(result.fire >=4){
 			icon = redShip;

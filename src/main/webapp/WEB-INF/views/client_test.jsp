@@ -62,7 +62,6 @@ function connect(shCount){
 	var plus = 0.01;
 	var minus = -0.01; 
 	// 메시지 전송
-	//function sendMessage() {
 	setInterval(function () {
 		
 		for(var i = 0;i < arrlength; i ++){
@@ -80,6 +79,7 @@ function connect(shCount){
 						"gyroscope" : Math.floor(Math.random() * 5),
 						"date" :  today
 					}	
+				//소켓 데이터 전송
 				ws.send(JSON.stringify(sendData));
 				//데이터 저장
 				count[i] = count[i] + 1;
@@ -88,7 +88,7 @@ function connect(shCount){
 					count[i] = 0;
 				}
 				// 위도 경도 변경
-				var rand = Math.floor(Math.random() * 4);
+				var rand = Math.floor(Math.random() * 4) + 1;
 				if (rand == 1) {
 				latitude[i] = parseFloat(latitude[i]) + parseFloat(plus);
 				longitude[i] = parseFloat(longitude[i]) + parseFloat(plus);
@@ -107,8 +107,7 @@ function connect(shCount){
 				}
 				
 			}
-		}, 3000);
-	//}
+		}, 1000);
 	
 	
 	// 서버로부터 메시지를 받았을 때 -- 본인 페이지에 적용
