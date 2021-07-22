@@ -183,7 +183,15 @@
 					</tr>
 				</tbody>
 			</table>
+
+			<div class="d-flex justify-content-end">
+				<a type="button" class="btn btn-success"
+					href="/reportUpdatePage?acd_id=${acdVo.acd_id }">수정하기</a> <a
+					href="/reportPage" class="btn btn-primary">목록으로</a>
+			</div>
 		</div>
+
+
 
 		<!-- 상세내역 테이블 끝 -->
 	</div>
@@ -194,7 +202,12 @@
 <div class="container-fluid">
 	<div class="row">
 		<div class="col-md-12">
-			<h3>사고 처리내역</h3>
+			<div>
+				<h3>사고 처리내역</h3>
+				<a id="modal-903118" href="#modal-container-903118" role="button"
+					class="btn btn-primary" data-toggle="modal">처리내역 등록하기</a>
+			</div>
+
 			<table class="table">
 				<thead>
 					<tr>
@@ -272,8 +285,7 @@
 
 			<!-- 처리내역 등록 modal -->
 
-			<a id="modal-903118" href="#modal-container-903118" role="button"
-				class="btn btn-primary" data-toggle="modal">처리내역 등록하기</a>
+
 
 			<div class="modal fade" id="modal-container-903118" role="dialog"
 				aria-labelledby="myModalLabel" aria-hidden="true">
@@ -318,13 +330,7 @@
 			</div>
 
 			<!-- 처리내역 등록 modal 끝 -->
-			<div class="col-md-12">
-				<div class="d-flex justify-content-end">
-					<a type="button" class="btn btn-success"
-						href="/reportUpdatePage?acd_id=${acdVo.acd_id }">수정하기</a> <a
-						href="/reportPage" class="btn btn-primary">목록으로</a>
-				</div>
-			</div>
+
 
 
 		</div>

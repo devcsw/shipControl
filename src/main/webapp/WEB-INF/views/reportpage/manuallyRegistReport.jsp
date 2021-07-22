@@ -5,9 +5,36 @@
 	src="//dapi.kakao.com/v2/maps/sdk.js?appkey=0f71a92fecd7b42434cde225a0893ff1"></script>
 <script type="text/javascript">
 	$(function name() {
+
+		var inputArr = [];
+
+		let acd_code_id = $("#acd_code_id");
+		let acd_latitude = $("#acd_latitude");
+		let acd_longitude = $("#acd_longitude");
+		let acd_day = $("#acd_day");
+		let acd_hour = $("#acd_hour");
+		let sh_id = $("#sh_id");
+		let acd_take = $("#acd_take");
+
+		inputArr.push(acd_code_id);
+		inputArr.push(acd_latitude);
+		inputArr.push(acd_longitude);
+		inputArr.push(acd_day);
+		inputArr.push(acd_hour);
+		inputArr.push(sh_id);
+		inputArr.push(acd_take);
+
+		for (var v = 0; v < inputArr.length; v++) {
+			inputArr[v].click(function name() {
+				$(this).val("");
+			})
+		}
+
 		$("#buttonAcdRegister").click(function name() {
 			$("#acdReportForm").submit();
 		});
+
+		// 코드 확인 modal창 테이블 데이터 setting
 
 		$("#buttonConfirmAcdCode").one('click', function() {
 
@@ -23,7 +50,6 @@
 					str += "</tr>";
 					$("#acdCodeTable").append(str);
 				}
-
 			});
 		});
 
@@ -31,7 +57,6 @@
 			let url = "/getShipCodeAndName";
 
 			$.get(url, function name(rData) {
-				console.log(rData);
 
 				for (var v = 0; v < rData.length; v++) {
 					let str = "";
@@ -47,14 +72,25 @@
 
 		});
 
-		$(document).on('click', "tr", function name() {
+		//사고 코드 modal 클릭 시 input value 설정
+
+		$("#acdCodeTable").on('click', "tr", function name() {
 			let acdCode = $(this).find("th").text();
-			console.log(acdCode);
 
 			$("#acd_code_id").val(acdCode);
 			$("#buttonDismissModal").trigger('click');
 
 		});
+
+		$("#shipCodeTable").on('click', "tr", function name() {
+			let shipCode = $(this).find("th").text();
+
+			$("#sh_id").val(shipCode);
+			$("#buttonModalDismiss").trigger('click');
+
+		})
+
+		// 현재 시간으로 세팅하기 버튼
 
 		$("#buttonSetTime").click(function name() {
 
@@ -71,6 +107,10 @@
 			let time = date.getHours();
 			let minutes = date.getMinutes();
 
+			if (time < 10) {
+				time = "0" + time;
+			}
+
 			if (minutes < 10) {
 				minutes = "0" + minutes;
 			}
@@ -82,7 +122,6 @@
 			}
 
 			let timeFormat = time + ":" + minutes + ":" + seconds;
-			console.log(timeFormat);
 
 			$('#acd_day').val(dayFormat);
 			$('#acd_hour').val(timeFormat);
@@ -213,9 +252,6 @@
 																			<th>사고 코드</th>
 																			<td>사고 내용</td>
 																		</tr>
-
-
-
 																	</tbody>
 																</table>
 															</div>
@@ -234,17 +270,19 @@
 
 								</div>
 								<input type="text" class="form-control" id="acd_code_id"
-									name="acd_code_id" />
+									name="acd_code_id" required />
 							</div>
 
 							<div class="form-group">
 								<label for="acd_latitude"> 사고 위도 </label> <input type="text"
-									class="form-control" id="acd_latitude" name="acd_latitude" />
+									class="form-control" id="acd_latitude" name="acd_latitude"
+									required />
 							</div>
 
 							<div class="form-group">
 								<label for="acd_longitude"> 사고 경도 </label> <input type="text"
-									class="form-control" id="acd_longitude" name="acd_longitude" />
+									class="form-control" id="acd_longitude" name="acd_longitude"
+									required />
 							</div>
 
 							<div class="form-group">
@@ -252,8 +290,8 @@
 								<button type="button" class="btn btn-success" id="buttonSetTime">현재시간으로
 									설정하기</button>
 								<input type="date" class="form-control " id="acd_day"
-									name="acd_day" /> <input type="time" class="form-control "
-									id="acd_hour" name="acd_hour" />
+									name="acd_day" required /> <input type="time"
+									class="form-control " id="acd_hour" name="acd_hour" required />
 							</div>
 
 							<div class="form-group">
@@ -286,9 +324,6 @@
 																		<th>선박 코드</th>
 																		<td>선박 이름</td>
 																	</tr>
-
-
-
 																</tbody>
 															</table>
 														</div>
@@ -298,7 +333,7 @@
 											</div>
 											<div class="modal-footer">
 												<button type="button" class="btn btn-primary"
-													data-dismiss="modal">확인</button>
+													data-dismiss="modal" id="buttonModalDismiss">확인</button>
 											</div>
 										</div>
 									</div>
@@ -306,12 +341,13 @@
 									<!-- modal ship table ends -->
 
 								</div>
-								<input type="text" class="form-control" id="sh_id" name="sh_id" />
+								<input type="text" class="form-control" id="sh_id" name="sh_id"
+									required />
 							</div>
 
 							<div class="form-group">
 								<label for="acd_take "> 진행상태 </label> <input type="text"
-									class="form-control" id="acd_take" name="acd_take" />
+									class="form-control" id="acd_take" name="acd_take" required />
 							</div>
 						</form>
 					</div>
@@ -330,6 +366,8 @@
 	<div class="row">
 		<div class="col-md-12">
 			<div class="d-flex justify-content-end">
+				<button type="button" class="btn btn-success"
+					id="buttonValidateData">입력확인</button>
 				<button type="button" class="btn btn-primary" id="buttonAcdRegister">등록하기</button>
 			</div>
 		</div>

@@ -42,7 +42,7 @@ public class ReportController {
 		int wholePage = (count / 10) + 1;
 		PaginationDTO dto = new PaginationDTO(Integer.parseInt(currentPage), wholePage);
 
-		System.out.println("@ReportController dto:" + dto);
+//		System.out.println("@ReportController dto:" + dto);
 //		System.out.println("@ReportController currentPage:" + currentPage);
 
 		List<AcdVo> list = reportService.getWholeAcd(dto);
@@ -130,7 +130,6 @@ public class ReportController {
 		map.put("searchWord", searchWord);
 
 		List<AcdVo> list = reportService.getAcdListBySerachType(map);
-//		System.out.println("@ReportController list :" + list);
 		model.addAttribute("list", list);
 		model.addAttribute("map", map);
 

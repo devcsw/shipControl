@@ -290,8 +290,6 @@
 			<nav>
 				<ul class="pagination justify-content-center">
 
-
-
 					<c:if test="${dto.startPage != 1 }">
 						<li class="page-item"><a class="page-link"
 							href="/reportPage?currentPage=${dto.startPage - 10 }">이전</a></li>
