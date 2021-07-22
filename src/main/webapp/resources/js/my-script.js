@@ -25,7 +25,13 @@ function homeSocketConnect() {
 		var icon = greenShip;
 		var emergency = "정상";
 		var btnColor = "success";
-		if(result.fire >=4){
+		var checkString = checkContorlSector(controlSector, result.sh_status_latitude, result.sh_status_longitude);
+		console.log("checkString :" +checkString);
+		if(checkString =="exit"){
+			icon = redShip;
+			emergency = "긴급";
+			btnColor ="danger";
+		}	else if(result.fire >=4){
 			icon = redShip;
 			emergency = "긴급";
 			btnColor ="danger";
@@ -33,8 +39,10 @@ function homeSocketConnect() {
 			icon = orangeShip;
 			emergency = "위험";
 			btnColor ="warning";
-		}
+		} 
+	
 		markers[index] = getMarker(result, icon);
+	
 		
 		//리스너 추가
 		kakao.maps.event.addListener(markers[index], 'click', function() {
@@ -75,9 +83,30 @@ function homeSocketConnect() {
 	//에러가 생겼을때
 	ws.onerror = function(err) {console.log('Error : ', err);}
 }
-//소켓통신끝@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+//소켓통신끝@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 
-//지도 api 함수
+//지도 api 함수@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+
+//관제구역 체크 함수
+function checkContorlSector(controlSector, latitude, longitude){
+	result = JSON.parse(controlSector);
+	console.log("controlSector:" + result);
+	console.log(result.ha);
+	
+	var checkString = "in";
+	if(result.ha > longitude ){
+		checkString = "exit";
+	} else if (result.qa > latitude){
+		checkString = "exit";
+	}  else if (result.oa < longitude){
+		checkString = "exit";
+	} else if(result.pa  < latitude){
+		checkString = "exit";
+		
+	}
+	return checkString;
+	
+};
 
 //마커생성 함수
 function getMarker(result, icon) {
@@ -90,7 +119,27 @@ function getMarker(result, icon) {
 	}); 
 	return marker;
 }
+//관제구역 설정 함수
+function displayArea() {
+	console.log("displayArea 실행됨")
+    // 다각형을 생성합니다 
+    var rectangle = new kakao.maps.Rectangle({
+        map: map, // 다각형을 표시할 지도 객체
+        bounds : new kakao.maps.LatLngBounds(
+                new kakao.maps.LatLng(34.94186304448416, 129.22870495222034),
+                new kakao.maps.LatLng(35.867082303211646, 131.0675365774276)
+            ),
+        strokeWeight: 2,
+        strokeColor: '#ff0000',
+        strokeOpacity: 1,
+        fillColor: '#000000',
+        fillOpacity: 0 
+    });
+    rectangle.setMap(map); //지도에 올린다
 
+    var sector = rectangle.getBounds();
+    return sector;
+};
 //인포윈도우 생성 함수
 function getInfowindow(result, emergency, btnColor , ship){	
 	//인포윈도우 화면 
@@ -165,14 +214,101 @@ function getInfo() {
     message += '북동쪽 좌표는 ' + neLatLng.getLat() + ', ' + neLatLng.getLng() + ' 입니다';
     console.log(message);
     // 개발자도구를 통해 직접 message 내용을 확인해 보세요.
-    // ex) console.log(message);
 }
 
+//drawing library
+function getDrawingOption(strokeColor, fillColor, fillOpacity, hintStrokeStyle) {
+	// 도형 스타일을 변수로 설정합니다
+	var strokeColor = '#ff0000',
+		fillColor = '#ff1231',
+		fillOpacity = 0.1,
+		hintStrokeStyle = 'dash';
+	var options = { // Drawing Manager를 생성할 때 사용할 옵션입니다
+		    map: map, // Drawing Manager로 그리기 요소를 그릴 map 객체입니다
+		    drawingMode: [
+		    	
+		        kakao.maps.Drawing.OverlayType.MARKER,
+		        kakao.maps.Drawing.OverlayType.ARROW,
+		        kakao.maps.Drawing.OverlayType.POLYLINE,
+		        kakao.maps.Drawing.OverlayType.RECTANGLE,
+		        kakao.maps.Drawing.OverlayType.POLYGON,
+		        kakao.maps.Drawing.OverlayType.CIRCLE,
+		        kakao.maps.Drawing.OverlayType.ELLIPSE
+		    ],
+		    // 사용자에게 제공할 그리기 가이드 툴팁입니다
+		    // 사용자에게 도형을 그릴때, 드래그할때, 수정할때 가이드 툴팁을 표시하도록 설정합니다
+		    guideTooltip: ['draw', 'drag', 'edit'], 
+		    
+		    markerOptions: {
+		        draggable: true,
+		        removable: true
+		    },
+		    arrowOptions: {
+		        draggable: true,
+		        removable: true,
+		        strokeColor: strokeColor,
+		        hintStrokeStyle: hintStrokeStyle
+		    },
+		    polylineOptions: {
+		        draggable: true,
+		        removable: true,
+		        strokeColor: strokeColor,
+		        hintStrokeStyle: hintStrokeStyle
+		    },
+		    rectangleOptions: {
+		        draggable: true,
+		        removable: true,
+		        strokeColor: strokeColor,
+		        fillColor: fillColor,
+		        fillOpacity: fillOpacity
+		    },
+		    
+		    polygonOptions: {
+		        draggable: true,
+		        removable: true,
+		        strokeColor: strokeColor,
+		        fillColor: fillColor,
+		        fillOpacity: fillOpacity
+		    },
+		    
+		    ellipseOptions: {
+		        draggable: true,
+		        removable: true,
+		        strokeColor: strokeColor,
+		        fillColor: fillColor,
+		        fillOpacity: fillOpacity
+		    },
+		    circleOptions: {
+		        draggable: true,
+		        removable: true,
+		        strokeColor: strokeColor,
+		        fillColor: fillColor,
+		        fillOpacity: fillOpacity
+		    }
+		};
 
+	return options;
+}
+//관제구역 설정
+function displayArea() {
+    // 다각형을 생성합니다 
+    var rectangle = new kakao.maps.Rectangle({
+        map: map, // 다각형을 표시할 지도 객체
+        bounds : new kakao.maps.LatLngBounds(
+                new kakao.maps.LatLng(34.94186304448416, 129.22870495222034),
+                new kakao.maps.LatLng(35.867082303211646, 131.0675365774276)
+            ),
+        strokeWeight: 2,
+        strokeColor: '#ff0000',
+        strokeOpacity: 1,
+        fillColor: '#000000',
+        fillOpacity: 0 
+    });
+    rectangle.setMap(map); //지도에 올린다
+    return rectangle;
+};
 
-
-
-//잡다한 함수들..
+//잡다한 함수들..@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 
 function make2digits(num) {
 	if (num < 10) {
