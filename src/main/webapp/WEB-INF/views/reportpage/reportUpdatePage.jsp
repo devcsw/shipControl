@@ -3,6 +3,7 @@
 <%@ include file="../include/header.jsp"%>
 <script type="text/javascript"
 	src="//dapi.kakao.com/v2/maps/sdk.js?appkey=0f71a92fecd7b42434cde225a0893ff1"></script>
+<script src="${path}/resources/js/validation-script.js"></script>
 <script type="text/javascript">
 	$(function name() {
 		$("#buttonStartUpdate").click(function name() {
@@ -11,6 +12,16 @@
 			acdId.attr('readonly', true);
 
 		});
+		
+		let acdDate = "${acdVo.acd_date}";
+		
+		let date = acdDate.substring(0,10);
+		let hour = acdDate.substring(11);
+		
+		$("#acd_day").val(date);
+		$("#acd_hour").val(hour)
+		
+		
 	});
 </script>
 
@@ -76,6 +87,7 @@
 		<div class="col-md-6">
 			<div class="row">
 				<div class="col-md-12">
+				
 					<form role="form" action="/updateReportRun" method="post"
 						id="formReport">
 						<div class="form-group">
@@ -103,10 +115,12 @@
 						</div>
 
 						<div class="form-group">
-							<label for="acd_date"> 사고발생시간 </label> <input type="text"
-								class="form-control" id="acd_date" name="acd_date"
-								value="${acdVo.acd_date }" readonly="readonly" />
-						</div>
+								<label for="acd_timestamp "> 사고 발생시간 </label>
+								
+								<input type="date" class="form-control " id="acd_day"
+									name="acd_day" required readonly="readonly" /> <input type="time"
+									class="form-control " id="acd_hour" name="acd_hour" required readonly="readonly" />
+							</div>
 
 						<div class="form-group">
 							<label for="sh_id"> 선박번호 </label> <input type="text"
@@ -115,9 +129,39 @@
 						</div>
 						<button type="button" class="btn btn-warning"
 							id="buttonStartUpdate">수정시작</button>
-						<a class="btn btn-danger" href="/deleteReport?acd_id=${acdVo.acd_id}">사고삭제</a>
+
+						<a id="modal-250066" href="#modal-container-250066" role="button"
+							class="btn btn-danger" data-toggle="modal">사고 삭제</a>
+
+						<div class="modal fade" id="modal-container-250066" role="dialog"
+							aria-labelledby="myModalLabel" aria-hidden="true">
+							<div class="modal-dialog" role="document">
+								<div class="modal-content">
+									<div class="modal-header">
+										<h5 class="modal-title" id="myModalLabel">사고 삭제</h5>
+										<button type="button" class="close" data-dismiss="modal">
+											<span aria-hidden="true">×</span>
+										</button>
+									</div>
+									<div class="modal-body">
+										정말 삭제하시겠습니까? <br> 삭제한 데이터는 복구할 수 없습니다
+									</div>
+									<div class="modal-footer">
+
+										<a type="button" class="btn btn-danger"
+											href="/deleteReport?acd_id=${acdVo.acd_id}">삭제하기</a>
+										<button type="button" class="btn btn-primary"
+											data-dismiss="modal">취소</button>
+									</div>
+								</div>
+
+							</div>
+
+						</div>
+
 						<button type="submit" class="btn btn-success">수정완료</button>
-						<a class="btn btn-primary" href="/reportPage">목록으로</a>
+						<a class="btn btn-primary"
+							href="reportContent?acd_id=${acdVo.acd_id }&acd_hnd_page=1">취소</a>
 					</form>
 				</div>
 			</div>
