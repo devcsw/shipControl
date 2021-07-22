@@ -50,6 +50,7 @@
 	src="https://cdnjs.cloudflare.com/ajax/libs/sockjs-client/1.1.5/sockjs.min.js"></script>-->
 <script src="https://cdn.jsdelivr.net/npm/sockjs-client@1/dist/sockjs.min.js"></script>	
 <script src="/resources/js/my-script.js"></script>
+<script src="/resources/js/validationScript.js"></script>
 
 <script type="text/javascript">
 	$(function name() {
