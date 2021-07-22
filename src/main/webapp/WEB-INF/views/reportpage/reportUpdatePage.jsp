@@ -12,16 +12,15 @@
 			acdId.attr('readonly', true);
 
 		});
-		
+
 		let acdDate = "${acdVo.acd_date}";
-		
-		let date = acdDate.substring(0,10);
+
+		let date = acdDate.substring(0, 10);
 		let hour = acdDate.substring(11);
-		
+
 		$("#acd_day").val(date);
 		$("#acd_hour").val(hour)
-		
-		
+
 	});
 </script>
 
@@ -52,12 +51,14 @@
 				var options = { //지도를 생성할 때 필요한 기본 옵션
 					center : new kakao.maps.LatLng(35.44294727060267,
 							129.36937385789298), //지도의 중심좌표.
-					level : 7
+					level : 11
 				//지도의 레벨(확대, 축소 정도)
 				};
 
 				var map = new kakao.maps.Map(container, options); //지도 생성 및 객체 리턴
 
+				map.setMapTypeId(kakao.maps.MapTypeId.SKYVIEW);
+				
 				let xLocation = 35.44294727060267;
 				let yLocation = 129.36937385789298;
 
@@ -87,7 +88,7 @@
 		<div class="col-md-6">
 			<div class="row">
 				<div class="col-md-12">
-				
+
 					<form role="form" action="/updateReportRun" method="post"
 						id="formReport">
 						<div class="form-group">
@@ -115,12 +116,11 @@
 						</div>
 
 						<div class="form-group">
-								<label for="acd_timestamp "> 사고 발생시간 </label>
-								
-								<input type="date" class="form-control " id="acd_day"
-									name="acd_day" required readonly="readonly" /> <input type="time"
-									class="form-control " id="acd_hour" name="acd_hour" required readonly="readonly" />
-							</div>
+							<label for="acd_timestamp "> 사고 발생시간 </label> <input type="date"
+								class="form-control " id="acd_day" name="acd_day" required
+								readonly="readonly" /> <input type="time" class="form-control "
+								id="acd_hour" name="acd_hour" required readonly="readonly" />
+						</div>
 
 						<div class="form-group">
 							<label for="sh_id"> 선박번호 </label> <input type="text"

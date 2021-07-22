@@ -135,9 +135,6 @@
 	<div class="row">
 		<div class="col-md-12">
 			<h3>조난 등록 페이지 입니다</h3>
-			<dl>
-				<dt>조난 데이터가 자동으로 넘어오지 않아 수동으로 입력하는 페이지 입니다</dt>
-			</dl>
 		</div>
 	</div>
 </div>
@@ -157,31 +154,32 @@
 
 		<script>
 			var container = document.getElementById('map'); //지도를 담을 영역의 DOM 레퍼런스
+			let xLocation = ${shipStatusVo.sh_status_latitude};
+			let yLocation = ${shipStatusVo.sh_status_longitude};
+			
 			var options = { //지도를 생성할 때 필요한 기본 옵션
-				center : new kakao.maps.LatLng(35.44294727060267,
-						129.36937385789298), //지도의 중심좌표.
-				level : 7
+				center : new kakao.maps.LatLng(35.7522119867634,
+						129.7760734657909), //지도의 중심좌표.
+				level : 11
 			//지도의 레벨(확대, 축소 정도)
 			};
 
 			var map = new kakao.maps.Map(container, options); //지도 생성 및 객체 리턴
+			map.setMapTypeId(kakao.maps.MapTypeId.SKYVIEW);
 
-			let xLocation = 35.44294727060267;
-			let yLocation = 129.36937385789298;
+			
+
+			console.log(xLocation);
+			console.log(yLocation);
+
+			let marker = new kakao.maps.Marker({
+				map : map,
+			});
+			
+			marker.setMap(map);
+			marker.setPosition(new kakao.maps.LatLng(35.7522119867634, 129.7760734657909));
 
 			$(function name() {
-
-				xLocation = $("#acd_latitude").text();
-				yLocation = $("#acd_longitude").text();
-
-				let marker = new kakao.maps.Marker({
-					// 지도 중심좌표에 마커를 생성합니다 
-					position : map.getCenter()
-				});
-
-				marker.setMap(map);
-
-				marker.setPosition(new kakao.maps.LatLng(xLocation, yLocation));
 
 				kakao.maps.event.addListener(map, 'click',
 						function(mouseEvent) {
@@ -201,8 +199,10 @@
 							$(function name() {
 								$("#acd_latitude").val(latlng.getLat());
 								$("#acd_longitude").val(latlng.getLng());
+
 							});
 						});
+
 			});
 		</script>
 		<!-- 지도데이터 div 끝 -->
@@ -276,13 +276,13 @@
 							<div class="form-group">
 								<label for="acd_latitude"> 사고 위도 </label> <input type="text"
 									class="form-control" id="acd_latitude" name="acd_latitude"
-									required />
+									value="${shipStatusVo.sh_status_latitude }" required />
 							</div>
 
 							<div class="form-group">
 								<label for="acd_longitude"> 사고 경도 </label> <input type="text"
 									class="form-control" id="acd_longitude" name="acd_longitude"
-									required />
+									value="${shipStatusVo.sh_status_longitude }" required />
 							</div>
 
 							<div class="form-group">
@@ -342,7 +342,7 @@
 
 								</div>
 								<input type="text" class="form-control" id="sh_id" name="sh_id"
-									required />
+									value="${shipStatusVo.sh_id }" required />
 							</div>
 
 							<div class="form-group">

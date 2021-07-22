@@ -20,6 +20,7 @@ import com.kh.shipcontrol.vo.AcdCodeVo;
 import com.kh.shipcontrol.vo.AcdHndVo;
 import com.kh.shipcontrol.vo.AcdVo;
 import com.kh.shipcontrol.vo.PaginationDTO;
+import com.kh.shipcontrol.vo.ShipStatusVo;
 import com.kh.shipcontrol.vo.ShipVo;
 
 @Controller
@@ -67,8 +68,20 @@ public class ReportController {
 		return "/reportpage/reportContent";
 	}
 
-	@RequestMapping(value = "/manuallyRegistReport")
-	public String manuallyRegistReport() throws Exception {
+	@RequestMapping(value = "/manuallyRegistReport", method = RequestMethod.GET)
+	public String manuallyRegistReport(@RequestParam(value = "sh_id", required = false, defaultValue="0") int sh_id,
+			@RequestParam(value = "sh_status_latitude", required = false, defaultValue="35.7522119867634") String sh_status_latitude,
+			@RequestParam(value = "sh_status_longitude", required = false, defaultValue="129.7760734657909") String sh_status_longitude, Model model) throws Exception {
+
+		System.out.println(sh_id);
+		System.out.println(sh_status_latitude);
+		System.out.println(sh_status_longitude);
+
+		ShipStatusVo shipStatusVo = new ShipStatusVo();
+		shipStatusVo.setSh_id(sh_id);
+		shipStatusVo.setSh_status_latitude(sh_status_latitude);
+		shipStatusVo.setSh_status_longitude(sh_status_longitude);
+		model.addAttribute("shipStatusVo", shipStatusVo);
 
 		return "/reportpage/manuallyRegistReport";
 	}
@@ -183,15 +196,15 @@ public class ReportController {
 	@RequestMapping(value = "/updateAcdHndById", method = RequestMethod.POST)
 	public String updateAcdHndById(AcdHndVo acdHndVo, String acd_id) throws Exception {
 		reportService.updateAcdHndById(acdHndVo);
-		
+
 		return "redirect:/reportContent?acd_id=" + acd_id + "&acd_hnd_page=1";
 	}
-	
-	@RequestMapping(value="/deleteReport", method=RequestMethod.GET)
+
+	@RequestMapping(value = "/deleteReport", method = RequestMethod.GET)
 	public String deleteReport(String acd_id) throws Exception {
 		System.out.println(acd_id);
 		reportService.deleteReport(acd_id);
-		
+
 		return "redirect:/reportPage";
 	}
 

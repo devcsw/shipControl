@@ -103,12 +103,14 @@
 				var options = { //지도를 생성할 때 필요한 기본 옵션
 					center : new kakao.maps.LatLng(35.44294727060267,
 							129.36937385789298), //지도의 중심좌표.
-					level : 7
+					level : 11
 				//지도의 레벨(확대, 축소 정도)
 				};
 
 				var map = new kakao.maps.Map(container, options); //지도 생성 및 객체 리턴
 
+				map.setMapTypeId(kakao.maps.MapTypeId.SKYVIEW);
+				
 				let xLocation = 35.44294727060267;
 				let yLocation = 129.36937385789298;
 
