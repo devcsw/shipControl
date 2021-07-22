@@ -119,27 +119,7 @@ function getMarker(result, icon) {
 	}); 
 	return marker;
 }
-//관제구역 설정 함수
-function displayArea() {
-	console.log("displayArea 실행됨")
-    // 다각형을 생성합니다 
-    var rectangle = new kakao.maps.Rectangle({
-        map: map, // 다각형을 표시할 지도 객체
-        bounds : new kakao.maps.LatLngBounds(
-                new kakao.maps.LatLng(34.94186304448416, 129.22870495222034),
-                new kakao.maps.LatLng(35.867082303211646, 131.0675365774276)
-            ),
-        strokeWeight: 2,
-        strokeColor: '#ff0000',
-        strokeOpacity: 1,
-        fillColor: '#000000',
-        fillOpacity: 0 
-    });
-    rectangle.setMap(map); //지도에 올린다
 
-    var sector = rectangle.getBounds();
-    return sector;
-};
 //인포윈도우 생성 함수
 function getInfowindow(result, emergency, btnColor , ship){	
 	//인포윈도우 화면 

@@ -34,10 +34,23 @@ $(document).ready(function() {
     overlays = []; // 지도에 그려진 도형을 담을 배열
     
 	//관제구역 설정 
-	//return 값 {"ha":129.22870495222276,"qa":34.941863044484165,"oa":131.06753657753313,"pa":35.86708230321422}
-    var controlSector = JSON.stringify(displayArea());
-    console.log("controlSector:" + controlSector);
-   
+	
+    var rectangle = new kakao.maps.Rectangle({
+        map: map, // 다각형을 표시할 지도 객체
+        bounds : new kakao.maps.LatLngBounds(
+                new kakao.maps.LatLng(34.94186304448416, 129.22870495222034),
+                new kakao.maps.LatLng(35.867082303211646, 131.0675365774276)
+            ),
+        strokeWeight: 2,
+        strokeColor: '#ff0000',
+        strokeOpacity: 1,
+        fillColor: '#000000',
+        fillOpacity: 0 
+    });
+    rectangle.setMap(map); //지도에 올린다
+    var controlSector = JSON.stringify(rectangle.getBounds());
+ 
+    
     //console.log("parse:" + parse);
 	// 일반 지도와 스카이뷰로 지도 타입을 전환할 수 있는 지도타입 컨트롤을 생성합니다
 	var mapTypeControl = new kakao.maps.MapTypeControl();
