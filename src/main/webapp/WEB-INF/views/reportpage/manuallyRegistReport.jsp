@@ -3,6 +3,7 @@
 <%@ include file="../include/header.jsp"%>
 <script type="text/javascript"
 	src="//dapi.kakao.com/v2/maps/sdk.js?appkey=0f71a92fecd7b42434cde225a0893ff1"></script>
+
 <script type="text/javascript">
 	$(function name() {
 
@@ -127,6 +128,23 @@
 			$('#acd_hour').val(timeFormat);
 		});
 
+		$("#buttonValidateData").click(function name() {
+
+			let acdCodeValidationResult = false;
+			let shipIdValidationResult = false;
+
+			let acdCodeUrl = "/getAcdCode";
+			getData(acdCodeUrl).then(function name(receivedData) {
+				acdCodeValidationResult = validateAcdIdForm(receivedData);
+			});
+
+			let shipCodeUrl = "/getShipCodeAndName";
+			getData(shipCodeUrl).then(function name(rData) {
+				shipIdValidationResult = validateShipIdForm(rData);
+			});
+
+		});
+
 	});
 </script>
 
@@ -156,7 +174,7 @@
 			var container = document.getElementById('map'); //지도를 담을 영역의 DOM 레퍼런스
 			let xLocation = ${shipStatusVo.sh_status_latitude};
 			let yLocation = ${shipStatusVo.sh_status_longitude};
-			
+
 			var options = { //지도를 생성할 때 필요한 기본 옵션
 				center : new kakao.maps.LatLng(35.7522119867634,
 						129.7760734657909), //지도의 중심좌표.
@@ -167,19 +185,36 @@
 			var map = new kakao.maps.Map(container, options); //지도 생성 및 객체 리턴
 			map.setMapTypeId(kakao.maps.MapTypeId.SKYVIEW);
 
-			
-
 			console.log(xLocation);
 			console.log(yLocation);
 
 			let marker = new kakao.maps.Marker({
 				map : map,
 			});
-			
+
 			marker.setMap(map);
-			marker.setPosition(new kakao.maps.LatLng(35.7522119867634, 129.7760734657909));
+			marker.setPosition(new kakao.maps.LatLng(xLocation, yLocation));
 
 			$(function name() {
+
+				$("#acd_latitude").change(
+						function name() {
+							let changedXlocation = $("#acd_latitude").val();
+							let changedYlocation = $("#acd_longitude").val();
+
+							marker.setPosition(new kakao.maps.LatLng(
+									changedXlocation, changedYlocation));
+						});
+
+				$("#acd_longitude").change(
+						function name() {
+							let changedXlocation = $("#acd_latitude").val();
+							let changedYlocation = $("#acd_longitude").val();
+
+							marker.setPosition(new kakao.maps.LatLng(
+									changedXlocation, changedYlocation));
+
+						});
 
 				kakao.maps.event.addListener(map, 'click',
 						function(mouseEvent) {
@@ -276,13 +311,15 @@
 							<div class="form-group">
 								<label for="acd_latitude"> 사고 위도 </label> <input type="text"
 									class="form-control" id="acd_latitude" name="acd_latitude"
-									value="${shipStatusVo.sh_status_latitude }" required />
+									value="${shipStatusVo.sh_status_latitude }" required
+									oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');" />
 							</div>
 
 							<div class="form-group">
 								<label for="acd_longitude"> 사고 경도 </label> <input type="text"
 									class="form-control" id="acd_longitude" name="acd_longitude"
-									value="${shipStatusVo.sh_status_longitude }" required />
+									value="${shipStatusVo.sh_status_longitude }" required
+									oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');" />
 							</div>
 
 							<div class="form-group">

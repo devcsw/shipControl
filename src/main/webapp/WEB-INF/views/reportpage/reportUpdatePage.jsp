@@ -3,7 +3,6 @@
 <%@ include file="../include/header.jsp"%>
 <script type="text/javascript"
 	src="//dapi.kakao.com/v2/maps/sdk.js?appkey=0f71a92fecd7b42434cde225a0893ff1"></script>
-<script src="${path}/resources/js/validation-script.js"></script>
 <script type="text/javascript">
 	$(function name() {
 		$("#buttonStartUpdate").click(function name() {
@@ -68,7 +67,6 @@
 					yLocation = $("#acd_longitude").val();
 
 					let marker = new kakao.maps.Marker({
-						// 지도 중심좌표에 마커를 생성합니다 
 						position : map.getCenter()
 					});
 
@@ -76,6 +74,24 @@
 
 					marker.setPosition(new kakao.maps.LatLng(xLocation,
 							yLocation));
+					
+					$("#acd_latitude").change(function name() {
+						let changedXlocation = $("#acd_latitude").val();
+						let changedYlocation = $("#acd_longitude").val();
+						
+						marker.setPosition(new kakao.maps.LatLng(changedXlocation,
+								changedYlocation));
+					});
+
+					$("#acd_longitude").change(function name() {
+						let changedXlocation = $("#acd_latitude").val();
+						let changedYlocation = $("#acd_longitude").val();
+						
+						marker.setPosition(new kakao.maps.LatLng(changedXlocation,
+								changedYlocation));
+
+					});
+					
 
 					kakao.maps.event.addListener(marker, 'click', function() {
 
@@ -119,7 +135,7 @@
 							<label for="acd_timestamp "> 사고 발생시간 </label> <input type="date"
 								class="form-control " id="acd_day" name="acd_day" required
 								readonly="readonly" /> <input type="time" class="form-control "
-								id="acd_hour" name="acd_hour" required readonly="readonly" />
+								id="acd_hour" name="acd_hour" required readonly="readonly" step="1" />
 						</div>
 
 						<div class="form-group">
