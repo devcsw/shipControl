@@ -128,21 +128,70 @@
 			$('#acd_hour').val(timeFormat);
 		});
 
-		$("#buttonValidateData").click(function name() {
-
+		$("#buttonValidateData").on('click', function name() {
+			
+			let validationResults = [];
 			let acdCodeValidationResult = false;
 			let shipIdValidationResult = false;
 
 			let acdCodeUrl = "/getAcdCode";
 			getData(acdCodeUrl).then(function name(receivedData) {
 				acdCodeValidationResult = validateAcdIdForm(receivedData);
+				console.log(acdCodeValidationResult);
+				validationResults.push(acdCodeValidationResult);
+				
 			});
 
 			let shipCodeUrl = "/getShipCodeAndName";
 			getData(shipCodeUrl).then(function name(rData) {
 				shipIdValidationResult = validateShipIdForm(rData);
+				console.log(shipIdValidationResult);
+				validationResults.push(shipIdValidationResult);
 			});
-
+			
+			function validateTimeForm() {
+				let result = false;
+				
+				let inputDayTime = $("#acd_day").val();
+				let inputDayHour = $("#acd_hour").val();
+				
+				if (inputDayTime != "" && inputDayHour != "") {
+					result = true;
+					return result;
+				}
+				return result;
+			}
+			
+			let TimeValidationResult = validateTimeForm();
+			
+			function validateLocationForm() {
+				let result = false;
+				
+				let inputLatitude = $("#acd_latitude").val();
+				let inputLongitude = $("#acd_longitude").val();
+				
+				if (inputLatitude != "" && inputLongitude!= "") {
+					result = true;
+					return result;
+				}
+				return result;
+			}
+			
+			let LocationValidationResult = validateLocationForm();
+			validationResults.push(TimeValidationResult);
+			validationResults.push(LocationValidationResult);
+			
+			setTimeout(function name() {
+				console.log(validationResults);
+				if (validationResults.includes(false)) {
+					alert("양식을 다시 확인해주세요");
+				} else {
+					$("#buttonAcdRegister").attr('disabled', false);
+				}
+				
+			}, 100);
+			
+			
 		});
 
 	});
@@ -405,7 +454,7 @@
 			<div class="d-flex justify-content-end">
 				<button type="button" class="btn btn-success"
 					id="buttonValidateData">입력확인</button>
-				<button type="button" class="btn btn-primary" id="buttonAcdRegister">등록하기</button>
+				<button type="button" class="btn btn-primary" id="buttonAcdRegister" disabled="disabled">등록하기</button>
 			</div>
 		</div>
 	</div>

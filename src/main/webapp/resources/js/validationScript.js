@@ -21,16 +21,16 @@ function validateAcdIdForm(receivedData) {
 		arrAcdCode.push(value.acd_code_id);
 	});
 	let result = arrAcdCode.includes(parseInt($("#acd_code_id").val()));
-	//console.log("포함여부" + result);
+	// console.log("포함여부" + result);
 
 	if (result == false) {
 		$("#acd_code_id").val("사고 코드를 확인해 주세요");
 		let getResult = false;
-		//console.log("getResult : " + getResult);
+		// console.log("getResult : " + getResult);
 		return getResult;
 	} else if (result == true) {
 		let getResult = true;
-		//console.log("getResult : " + getResult);
+		// console.log("getResult : " + getResult);
 		return getResult;
 	}
 }
@@ -43,16 +43,18 @@ function validateShipIdForm(receivedData) {
 		arrShId.push(value.sh_id);
 	});
 	let result = arrShId.includes(parseInt($("#sh_id").val()));
-	//console.log("포함여부" + result);
+	// console.log("포함여부" + result);
 
 	if (result == false) {
 		$("#sh_id").val("선박 코드를 확인해 주세요");
 		let getResult = false;
-		//console.log("getResult : " + getResult);
+		// console.log("getResult : " + getResult);
 		return getResult;
 	} else if (result == true) {
 		let getResult = true;
-		//console.log("getResult : " + getResult);
+		// console.log("getResult : " + getResult);
 		return getResult;
 	}
 }
+
+

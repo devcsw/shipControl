@@ -5,11 +5,18 @@
 	src="//dapi.kakao.com/v2/maps/sdk.js?appkey=0f71a92fecd7b42434cde225a0893ff1"></script>
 <script type="text/javascript">
 	$(function name() {
+		$("#modal-250066").hide();
+		$("#buttonConfirmFormData").hide();
+		$("#buttonSubmitForm").hide();
+		
+		
 		$("#buttonStartUpdate").click(function name() {
 			$('input').removeAttr('readonly');
 			let acdId = $('#formReport > .form-group > input').first();
 			acdId.attr('readonly', true);
-
+			
+			$("#modal-250066").show();
+			$("#buttonConfirmFormData").show();
 		});
 
 		let acdDate = "${acdVo.acd_date}";
@@ -19,6 +26,72 @@
 
 		$("#acd_day").val(date);
 		$("#acd_hour").val(hour)
+		
+		
+		$("#buttonConfirmFormData").on('click', function name() {
+			let validationResults = [];
+			let acdCodeValidationResult = false;
+			let shipIdValidationResult = false;
+
+			let acdCodeUrl = "/getAcdCode";
+			getData(acdCodeUrl).then(function name(receivedData) {
+				acdCodeValidationResult = validateAcdIdForm(receivedData);
+				console.log(acdCodeValidationResult);
+				validationResults.push(acdCodeValidationResult);
+				
+			});
+
+			let shipCodeUrl = "/getShipCodeAndName";
+			getData(shipCodeUrl).then(function name(rData) {
+				shipIdValidationResult = validateShipIdForm(rData);
+				console.log(shipIdValidationResult);
+				validationResults.push(shipIdValidationResult);
+			});
+			
+			function validateTimeForm() {
+				let result = false;
+				
+				let inputDayTime = $("#acd_day").val();
+				let inputDayHour = $("#acd_hour").val();
+				
+				if (inputDayTime != "" && inputDayHour != "") {
+					result = true;
+					return result;
+				}
+				return result;
+			}
+			
+			let TimeValidationResult = validateTimeForm();
+			
+			function validateLocationForm() {
+				let result = false;
+				
+				let inputLatitude = $("#acd_latitude").val();
+				let inputLongitude = $("#acd_longitude").val();
+				
+				if (inputLatitude != "" && inputLongitude!= "") {
+					result = true;
+					return result;
+				}
+				return result;
+			}
+			
+			let LocationValidationResult = validateLocationForm();
+			validationResults.push(TimeValidationResult);
+			validationResults.push(LocationValidationResult);
+			
+			setTimeout(function name() {
+				console.log(validationResults);
+				if (validationResults.includes(false)) {
+					alert("양식을 다시 확인해주세요");
+				} else {
+					$("#buttonSubmitForm").show();
+					alert('수정 완료 버튼을 눌러주세요');
+					$('input').attr('readonly', true);
+				}
+				
+			}, 100);
+		});
 
 	});
 </script>
@@ -106,7 +179,7 @@
 				<div class="col-md-12">
 
 					<form role="form" action="/updateReportRun" method="post"
-						id="formReport">
+						id="formReport" onsubmit="return false">
 						<div class="form-group">
 							<label for="acd_id"> 사고번호 </label> <input type="text"
 								class="form-control" id="acd_id" name="acd_id"
@@ -147,7 +220,7 @@
 							id="buttonStartUpdate">수정시작</button>
 
 						<a id="modal-250066" href="#modal-container-250066" role="button"
-							class="btn btn-danger" data-toggle="modal">사고 삭제</a>
+							class="btn btn-danger" data-toggle="modal" >사고 삭제</a>
 
 						<div class="modal fade" id="modal-container-250066" role="dialog"
 							aria-labelledby="myModalLabel" aria-hidden="true">
@@ -174,8 +247,8 @@
 							</div>
 
 						</div>
-
-						<button type="submit" class="btn btn-success">수정완료</button>
+						<button type="button" class="btn btn-success" id="buttonConfirmFormData">확인하기</button>
+						<button type="submit" class="btn btn-success" id="buttonSubmitForm">수정완료</button>
 						<a class="btn btn-primary"
 							href="reportContent?acd_id=${acdVo.acd_id }&acd_hnd_page=1">취소</a>
 					</form>
