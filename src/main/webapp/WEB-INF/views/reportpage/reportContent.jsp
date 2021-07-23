@@ -76,7 +76,7 @@
 			<!-- 지도데이터 div -->
 			<div class="row">
 				<div class="d-flex justify-content-center">
-					<div id="map" style="width: 500px; height: 500px;"></div>
+					<div id="map" style="width: 800px; height: 500px;"></div>
 				</div>
 			</div>
 
@@ -131,20 +131,30 @@
 					marker.setPosition(new kakao.maps.LatLng(xLocation,
 							yLocation));
 					
-					let iwContent = 
-					'<div>처리상황:${acdHndList[acd_hnd_page-1].acd_hnd_take}<br>처리시간:${acdHndList[acd_hnd_page-1].acd_hnd_date}<br>처리내용:${acdHndList[acd_hnd_page-1].acd_hnd_content}<br></div>',iwRemoveable = true;
+					let iwPosition = new kakao.maps.LatLng(xLocation,yLocation);
+					let iwContent = '<div class="card mb-3 p-3" style="width:400px">';
+					iwContent += '<h5 class="card-header">';
+					iwContent += '처리상황';
+					iwContent += '</h5>';
+					iwContent += '<div class="card-body">';
+					iwContent += '<p class="card-text">';
+					iwContent += '<div>';
+					iwContent += '위도 : <br>';
+					iwContent += '경도 : <br>';
+					iwContent += '처리시간 : ${acdHndList[acd_hnd_page-1].acd_hnd_date}<br>';
+					iwContent += '처리내용 : ${acdHndList[acd_hnd_page-1].acd_hnd_content}<br>';
+					iwContent += '진행상태 : ${acdHndList[acd_hnd_page-1].acd_hnd_take}<br>';
+					iwContent += '</div>';
+					iwContent += '</p>';
+					iwContent += '</div>';
+					iwContent += '</div>';
 					
 					let infoWindow = new kakao.maps.InfoWindow({
 						content : iwContent,
-						removable : iwRemoveable
+						position : iwPosition,
 					});
 					
 					infoWindow.open(map, marker);
-					
-					kakao.maps.event.addListener(marker, 'click', function () {
-						
-					});
-
 				});
 				
 			</script>
