@@ -122,6 +122,10 @@
 				seconds = "0" + seconds;
 			}
 
+			if (seconds == 0) {
+				seconds = "00";
+			}
+
 			let timeFormat = time + ":" + minutes + ":" + seconds;
 
 			$('#acd_day').val(dayFormat);
@@ -129,7 +133,7 @@
 		});
 
 		$("#buttonValidateData").on('click', function name() {
-			
+
 			let validationResults = [];
 			let acdCodeValidationResult = false;
 			let shipIdValidationResult = false;
@@ -139,7 +143,7 @@
 				acdCodeValidationResult = validateAcdIdForm(receivedData);
 				console.log(acdCodeValidationResult);
 				validationResults.push(acdCodeValidationResult);
-				
+
 			});
 
 			let shipCodeUrl = "/getShipCodeAndName";
@@ -148,39 +152,39 @@
 				console.log(shipIdValidationResult);
 				validationResults.push(shipIdValidationResult);
 			});
-			
+
 			function validateTimeForm() {
 				let result = false;
-				
+
 				let inputDayTime = $("#acd_day").val();
 				let inputDayHour = $("#acd_hour").val();
-				
+
 				if (inputDayTime != "" && inputDayHour != "") {
 					result = true;
 					return result;
 				}
 				return result;
 			}
-			
+
 			let TimeValidationResult = validateTimeForm();
-			
+
 			function validateLocationForm() {
 				let result = false;
-				
+
 				let inputLatitude = $("#acd_latitude").val();
 				let inputLongitude = $("#acd_longitude").val();
-				
-				if (inputLatitude != "" && inputLongitude!= "") {
+
+				if (inputLatitude != "" && inputLongitude != "") {
 					result = true;
 					return result;
 				}
 				return result;
 			}
-			
+
 			let LocationValidationResult = validateLocationForm();
 			validationResults.push(TimeValidationResult);
 			validationResults.push(LocationValidationResult);
-			
+
 			setTimeout(function name() {
 				console.log(validationResults);
 				if (validationResults.includes(false)) {
@@ -188,10 +192,9 @@
 				} else {
 					$("#buttonAcdRegister").attr('disabled', false);
 				}
-				
+
 			}, 100);
-			
-			
+
 		});
 
 	});
@@ -377,7 +380,7 @@
 									설정하기</button>
 								<input type="date" class="form-control " id="acd_day"
 									name="acd_day" required /> <input type="time"
-									class="form-control " id="acd_hour" name="acd_hour" required />
+									class="form-control " id="acd_hour" name="acd_hour" required step="1" />
 							</div>
 
 							<div class="form-group">
@@ -454,7 +457,8 @@
 			<div class="d-flex justify-content-end">
 				<button type="button" class="btn btn-success"
 					id="buttonValidateData">입력확인</button>
-				<button type="button" class="btn btn-primary" id="buttonAcdRegister" disabled="disabled">등록하기</button>
+				<button type="button" class="btn btn-primary" id="buttonAcdRegister"
+					disabled="disabled">등록하기</button>
 			</div>
 		</div>
 	</div>

@@ -90,8 +90,9 @@ public class ReportController {
 	public String registReportRun(AcdVo acdVo, String acd_day, String acd_hour) throws Exception {
 		// 위도, 경도에 대한 처리 필요
 		String format = acd_day + " " + acd_hour;
-//		System.out.println(format);
+		System.out.println(format);
 		Timestamp timestamp = Timestamp.valueOf(format);
+		System.out.println(timestamp);
 		acdVo.setAcd_date(timestamp);
 //		System.out.println("@ReportController acdVo : " + acdVo);
 
