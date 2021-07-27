@@ -139,8 +139,8 @@
 					iwContent += '<div class="card-body">';
 					iwContent += '<p class="card-text">';
 					iwContent += '<div>';
-					iwContent += '위도 : <br>';
-					iwContent += '경도 : <br>';
+					iwContent += '위도 : ${list[0].sh_status_latitude}<br>';
+					iwContent += '경도 : ${list[0].sh_status_longitude}<br>';
 					iwContent += '처리시간 : ${acdHndList[acd_hnd_page-1].acd_hnd_date}<br>';
 					iwContent += '처리내용 : ${acdHndList[acd_hnd_page-1].acd_hnd_content}<br>';
 					iwContent += '진행상태 : ${acdHndList[acd_hnd_page-1].acd_hnd_take}<br>';
@@ -161,9 +161,12 @@
 			<!-- 지도데이터 div 끝 -->
 		</div>
 		<!-- 상세내역 테이블 -->
+		
 		<div class="col-md-6">
+		
+		 
 			<table class="table">
-
+				
 				<tbody>
 					<tr>
 						<th>사고번호</th>

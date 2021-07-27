@@ -41,7 +41,7 @@
 		insert into acd_hnd_tb (acd_hnd_id, acd_id,
 		acd_hnd_content, acd_hnd_date,
 		acd_hnd_take)
-		values(seq_acd_hnd.nextval, #{acd_id}, #{acd_hnd_content}, sysdate+1,
+		values(seq_acd_hnd.nextval, #{acd_id}, #{acd_hnd_content}, sysdate,
 		#{acd_hnd_take} )
 	</insert>
 
@@ -53,13 +53,21 @@
 
 	<select id="getAcdListBySerachType" resultType="AcdVo">
 
-		select * from
-		acd_tb
+		select * from(select rownum as rn, a.* from(select * from acd_tb
 		<choose>
-			<when test='searchType == "사고 번호" '>where acd_id = #{searchWord}</when>
-			<when test='searchType == "사고 코드" '>where acd_code_id = #{searchWord}</when>
+			<when test='searchType == "사고 번호" '> where acd_id = #{searchWord} </when>
+			<when test='searchType == "사고 코드" '> where acd_code_id = #{searchWord} </when>
 		</choose>
-
+		order by acd_date desc
+		)a where rownum <![CDATA[<=]]> 10)where rn <![CDATA[>=]]> 1
+	</select>
+	
+	<select id="getAcdCountBySearchType" resultType="int">
+	select count(*) from acd_tb 
+		<choose>
+			<when test='searchType == "사고 번호" '> where acd_id = #{searchWord} </when>
+			<when test='searchType == "사고 코드" '> where acd_code_id = #{searchWord} </when>
+		</choose>
 	</select>
 
 	<update id="updateAcdTake">
@@ -85,24 +93,34 @@
 		acd_latitude =
 		#{acd_latitude},
 		acd_longitude = #{acd_longitude},
-		<!-- acd_date 추후 수정 -->
-		sh_id = #{sh_id}
+		sh_id =
+		#{sh_id}
 		where acd_id = #{acd_id}
 	</update>
 
 	<select id="getAcdVoById" resultType="AcdHndVo">
-		select * from acd_hnd_tb where acd_hnd_id = #{acd_hnd_id}
+		select * from acd_hnd_tb
+		where acd_hnd_id = #{acd_hnd_id}
 	</select>
 
 	<update id="updateAcdHndById">
 		update acd_hnd_tb set
-		acd_hnd_content = #{acd_hnd_content},
+		acd_hnd_content =
+		#{acd_hnd_content},
 		acd_hnd_take = #{acd_hnd_take}
-		where acd_hnd_id = #{acd_hnd_id}
+		where acd_hnd_id =
+		#{acd_hnd_id}
 	</update>
 
 	<delete id="deleteReport">
 		delete acd_tb where acd_id = #{acd_id}
 	</delete>
+	
+	<select id="getShipLatLng" resultType="ShipStatusVo">
+	select * from ship_status_tb where sh_status_date between to_date
+		(#{subbedFirstDate},'yyyy-mm-dd HH24:mi:ss') and to_date
+		(#{subbedLastDate},'yyyy-mm-dd HH24:mi:ss') and 
+		sh_id = 2 
+	</select>
 
 </mapper>

@@ -7,6 +7,7 @@ import com.kh.shipcontrol.vo.AcdCodeVo;
 import com.kh.shipcontrol.vo.AcdHndVo;
 import com.kh.shipcontrol.vo.AcdVo;
 import com.kh.shipcontrol.vo.PaginationDTO;
+import com.kh.shipcontrol.vo.ShipStatusVo;
 
 public interface ReportDao {
 
@@ -22,7 +23,7 @@ public interface ReportDao {
 
 	public List<AcdHndVo> getAcdHnd(String acd_id);
 
-	public List<AcdVo> getAcdListBySerachType(Map<String, String> map);
+	public List<AcdVo> getAcdListBySerachType(Map<String, Object> map);
 	
 	public void updateAcdTake(AcdHndVo acdHndVo);
 	
@@ -37,5 +38,9 @@ public interface ReportDao {
 	public void updateAcdHndById(AcdHndVo acdHndVo);
 	
 	public void deleteReport(String acd_id);
+	
+	public int getAcdCountBySearchType(Map<String, Object> map);
+	
+	public List<ShipStatusVo> getShipLatLng(Map<String, String> map);
 	
 }

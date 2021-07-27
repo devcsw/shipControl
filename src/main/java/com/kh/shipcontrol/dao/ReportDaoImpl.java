@@ -12,6 +12,7 @@ import com.kh.shipcontrol.vo.AcdCodeVo;
 import com.kh.shipcontrol.vo.AcdHndVo;
 import com.kh.shipcontrol.vo.AcdVo;
 import com.kh.shipcontrol.vo.PaginationDTO;
+import com.kh.shipcontrol.vo.ShipStatusVo;
 
 @Repository
 public class ReportDaoImpl implements ReportDao {
@@ -57,7 +58,7 @@ public class ReportDaoImpl implements ReportDao {
 	}
 
 	@Override
-	public List<AcdVo> getAcdListBySerachType(Map<String, String> map) {
+	public List<AcdVo> getAcdListBySerachType(Map<String, Object> map) {
 		List<AcdVo> acdVo = sqlsession.selectList(NAMESPACE + "getAcdListBySerachType", map);
 		return acdVo;
 	}
@@ -102,6 +103,18 @@ public class ReportDaoImpl implements ReportDao {
 	public void deleteReport(String acd_id) {
 		sqlsession.delete(NAMESPACE + "deleteReport", acd_id);
 		
+	}
+
+	@Override
+	public int getAcdCountBySearchType(Map<String, Object> map) {
+		int count = sqlsession.selectOne(NAMESPACE + "getAcdCountBySearchType", map);
+		return count;
+	}
+
+	@Override
+	public List<ShipStatusVo> getShipLatLng(Map<String, String> map) {
+		List<ShipStatusVo> list = sqlsession.selectList(NAMESPACE + "getShipLatLng",map);
+		return list;
 	}
 
 }
