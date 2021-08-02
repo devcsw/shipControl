@@ -1,12 +1,12 @@
 # 선박 관제 시스템
 
-github: https://github.com/devcsw/shipControl
-사용언어: CSS3, HTML, JavaScript, java
-사용툴: bootstrap, oracle, slack, spring, tomcat, 카카오지도API
-업무포지션: 팀프로젝트
-주요기술: spring websocket을 통한 실시간 선박 관제 시스템 개발
-투입기간: 2021/07/01 → 2021/07/23
-팀원: 김노현, 최성우
+github: https://github.com/devcsw/shipControl  
+사용언어: CSS3, HTML, JavaScript, java  
+사용툴: bootstrap, oracle, slack, spring, tomcat, 카카오지도API  
+업무포지션: 팀프로젝트  
+주요기술: spring websocket을 통한 실시간 선박 관제 시스템 개발  
+투입기간: 2021/07/01 → 2021/07/23  
+팀원: 김노현, 최성우  
 
 [프로젝트 타임라인 ](https://www.notion.so/e4336def1075482cbf6dd5027dd0bcbb)
 
@@ -15,7 +15,7 @@ github: https://github.com/devcsw/shipControl
 ## 프로젝트 개요
 
 - 실시간 선박 센서 데이터를 통한 상태 감시 및  예지보전 
- - 조난, 사고 등 초기 대응을 위한 관제 
+- 조난, 사고 등 초기 대응을 위한 관제 
 
 ## 초기 설계
 
@@ -28,21 +28,21 @@ github: https://github.com/devcsw/shipControl
 
 ### 선박 관리 페이지 FlowChart
 
-![%E1%84%89%E1%85%A5%E1%86%AB%E1%84%87%E1%85%A1%E1%86%A8%20%E1%84%80%E1%85%AA%E1%86%AB%E1%84%8C%E1%85%A6%20%E1%84%89%E1%85%B5%E1%84%89%E1%85%B3%E1%84%90%E1%85%A6%E1%86%B7%208ee20e9e87d24b39940bd2eca13e1d1d/Untitled%201.png](%E1%84%89%E1%85%A5%E1%86%AB%E1%84%87%E1%85%A1%E1%86%A8%20%E1%84%80%E1%85%AA%E1%86%AB%E1%84%8C%E1%85%A6%20%E1%84%89%E1%85%B5%E1%84%89%E1%85%B3%E1%84%90%E1%85%A6%E1%86%B7%208ee20e9e87d24b39940bd2eca13e1d1d/Untitled%201.png)
+![2 sManage_flow](https://user-images.githubusercontent.com/33865991/127798653-ddac69ef-e07e-4dc4-8ce6-331f88acd982.png)
 
 - 통신 방식을 AJAX로 할지 Socket으로 할지 정하는 과정에서 기존에 알고 있던 AJAX방식으로 설계함 현재는 Socket을 통해 지속적으로 데이터 송수신 중
 
 ### 선박 관제 현황 StoryBoard
 
-![%E1%84%89%E1%85%A5%E1%86%AB%E1%84%87%E1%85%A1%E1%86%A8%20%E1%84%80%E1%85%AA%E1%86%AB%E1%84%8C%E1%85%A6%20%E1%84%89%E1%85%B5%E1%84%89%E1%85%B3%E1%84%90%E1%85%A6%E1%86%B7%208ee20e9e87d24b39940bd2eca13e1d1d/Untitled%202.png](%E1%84%89%E1%85%A5%E1%86%AB%E1%84%87%E1%85%A1%E1%86%A8%20%E1%84%80%E1%85%AA%E1%86%AB%E1%84%8C%E1%85%A6%20%E1%84%89%E1%85%B5%E1%84%89%E1%85%B3%E1%84%90%E1%85%A6%E1%86%B7%208ee20e9e87d24b39940bd2eca13e1d1d/Untitled%202.png)
+![3 main_story](https://user-images.githubusercontent.com/33865991/127798658-5fde4043-8cec-461e-9e3d-db8383a6650a.png)
 
 ### 선박관리 StoryBoard
 
-![%E1%84%89%E1%85%A5%E1%86%AB%E1%84%87%E1%85%A1%E1%86%A8%20%E1%84%80%E1%85%AA%E1%86%AB%E1%84%8C%E1%85%A6%20%E1%84%89%E1%85%B5%E1%84%89%E1%85%B3%E1%84%90%E1%85%A6%E1%86%B7%208ee20e9e87d24b39940bd2eca13e1d1d/Untitled%203.png](%E1%84%89%E1%85%A5%E1%86%AB%E1%84%87%E1%85%A1%E1%86%A8%20%E1%84%80%E1%85%AA%E1%86%AB%E1%84%8C%E1%85%A6%20%E1%84%89%E1%85%B5%E1%84%89%E1%85%B3%E1%84%90%E1%85%A6%E1%86%B7%208ee20e9e87d24b39940bd2eca13e1d1d/Untitled%203.png)
+![4 manage_story](https://user-images.githubusercontent.com/33865991/127798662-c21f2df1-1cba-4223-83df-429922dc8856.png)
 
 ### 관리내역 초기 StoryBoard
 
-![%E1%84%89%E1%85%A5%E1%86%AB%E1%84%87%E1%85%A1%E1%86%A8%20%E1%84%80%E1%85%AA%E1%86%AB%E1%84%8C%E1%85%A6%20%E1%84%89%E1%85%B5%E1%84%89%E1%85%B3%E1%84%90%E1%85%A6%E1%86%B7%208ee20e9e87d24b39940bd2eca13e1d1d/Untitled%204.png](%E1%84%89%E1%85%A5%E1%86%AB%E1%84%87%E1%85%A1%E1%86%A8%20%E1%84%80%E1%85%AA%E1%86%AB%E1%84%8C%E1%85%A6%20%E1%84%89%E1%85%B5%E1%84%89%E1%85%B3%E1%84%90%E1%85%A6%E1%86%B7%208ee20e9e87d24b39940bd2eca13e1d1d/Untitled%204.png)
+![5 ship_flow](https://user-images.githubusercontent.com/33865991/127798663-62be7bd8-4cec-4f67-87d1-286c5a422028.png)
 
 ## 🚢 프로젝트 내용
 
@@ -50,7 +50,7 @@ github: https://github.com/devcsw/shipControl
 
 ---
 
-![%E1%84%89%E1%85%A5%E1%86%AB%E1%84%87%E1%85%A1%E1%86%A8%20%E1%84%80%E1%85%AA%E1%86%AB%E1%84%8C%E1%85%A6%20%E1%84%89%E1%85%B5%E1%84%89%E1%85%B3%E1%84%90%E1%85%A6%E1%86%B7%208ee20e9e87d24b39940bd2eca13e1d1d/RIUDFV9.png](%E1%84%89%E1%85%A5%E1%86%AB%E1%84%87%E1%85%A1%E1%86%A8%20%E1%84%80%E1%85%AA%E1%86%AB%E1%84%8C%E1%85%A6%20%E1%84%89%E1%85%B5%E1%84%89%E1%85%B3%E1%84%90%E1%85%A6%E1%86%B7%208ee20e9e87d24b39940bd2eca13e1d1d/RIUDFV9.png)
+![6 RIUDFV9](https://user-images.githubusercontent.com/33865991/127798669-08c1f292-15bf-43c3-91cd-8e19b03de18a.png)
 
 ### 선박 관제 페이지
 
@@ -58,13 +58,13 @@ github: https://github.com/devcsw/shipControl
 
 ---
 
-![%E1%84%89%E1%85%A5%E1%86%AB%E1%84%87%E1%85%A1%E1%86%A8%20%E1%84%80%E1%85%AA%E1%86%AB%E1%84%8C%E1%85%A6%20%E1%84%89%E1%85%B5%E1%84%89%E1%85%B3%E1%84%90%E1%85%A6%E1%86%B7%208ee20e9e87d24b39940bd2eca13e1d1d/Animation.gif](%E1%84%89%E1%85%A5%E1%86%AB%E1%84%87%E1%85%A1%E1%86%A8%20%E1%84%80%E1%85%AA%E1%86%AB%E1%84%8C%E1%85%A6%20%E1%84%89%E1%85%B5%E1%84%89%E1%85%B3%E1%84%90%E1%85%A6%E1%86%B7%208ee20e9e87d24b39940bd2eca13e1d1d/Animation.gif)
+![7 Animation](https://user-images.githubusercontent.com/33865991/127798679-347b5ef0-3a78-4a6d-b1c5-99046508390b.gif)
 
 - 선박 데이터를 소켓통신을 통해 화면에 출력
 - 선박 데이터에 따라 상태변경
 - 카카오 지도 api drawing library를 통한 구역 설정 기능(미구현)
 
-![%E1%84%89%E1%85%A5%E1%86%AB%E1%84%87%E1%85%A1%E1%86%A8%20%E1%84%80%E1%85%AA%E1%86%AB%E1%84%8C%E1%85%A6%20%E1%84%89%E1%85%B5%E1%84%89%E1%85%B3%E1%84%90%E1%85%A6%E1%86%B7%208ee20e9e87d24b39940bd2eca13e1d1d/infowindow.gif](%E1%84%89%E1%85%A5%E1%86%AB%E1%84%87%E1%85%A1%E1%86%A8%20%E1%84%80%E1%85%AA%E1%86%AB%E1%84%8C%E1%85%A6%20%E1%84%89%E1%85%B5%E1%84%89%E1%85%B3%E1%84%90%E1%85%A6%E1%86%B7%208ee20e9e87d24b39940bd2eca13e1d1d/infowindow.gif)
+![8 infowindow](https://user-images.githubusercontent.com/33865991/127798681-424c98d0-6048-4565-a78f-514c97db5f1e.gif)
 
 - 선박 클릭 시 현황 표시
 - 선박의 상태 확인 후 조난 내역 등록
@@ -75,7 +75,7 @@ github: https://github.com/devcsw/shipControl
 
 ---
 
-![%E1%84%89%E1%85%A5%E1%86%AB%E1%84%87%E1%85%A1%E1%86%A8%20%E1%84%80%E1%85%AA%E1%86%AB%E1%84%8C%E1%85%A6%20%E1%84%89%E1%85%B5%E1%84%89%E1%85%B3%E1%84%90%E1%85%A6%E1%86%B7%208ee20e9e87d24b39940bd2eca13e1d1d/control.gif](%E1%84%89%E1%85%A5%E1%86%AB%E1%84%87%E1%85%A1%E1%86%A8%20%E1%84%80%E1%85%AA%E1%86%AB%E1%84%8C%E1%85%A6%20%E1%84%89%E1%85%B5%E1%84%89%E1%85%B3%E1%84%90%E1%85%A6%E1%86%B7%208ee20e9e87d24b39940bd2eca13e1d1d/control.gif)
+![9 control](https://user-images.githubusercontent.com/33865991/127798682-3327f2ab-3f0b-4f81-802f-458080776be0.gif)
 
 ---
 
@@ -88,15 +88,15 @@ github: https://github.com/devcsw/shipControl
 
 - 선박 등록 모달창
 
-    ![%E1%84%89%E1%85%A5%E1%86%AB%E1%84%87%E1%85%A1%E1%86%A8%20%E1%84%80%E1%85%AA%E1%86%AB%E1%84%8C%E1%85%A6%20%E1%84%89%E1%85%B5%E1%84%89%E1%85%B3%E1%84%90%E1%85%A6%E1%86%B7%208ee20e9e87d24b39940bd2eca13e1d1d/Untitled%205.png](%E1%84%89%E1%85%A5%E1%86%AB%E1%84%87%E1%85%A1%E1%86%A8%20%E1%84%80%E1%85%AA%E1%86%AB%E1%84%8C%E1%85%A6%20%E1%84%89%E1%85%B5%E1%84%89%E1%85%B3%E1%84%90%E1%85%A6%E1%86%B7%208ee20e9e87d24b39940bd2eca13e1d1d/Untitled%205.png)
+![10 regist](https://user-images.githubusercontent.com/33865991/127798684-f2fbc01e-e107-47ee-89d4-5cd1675e421d.png)
 
 - 선박 수정 페이지
 
-    ![%E1%84%89%E1%85%A5%E1%86%AB%E1%84%87%E1%85%A1%E1%86%A8%20%E1%84%80%E1%85%AA%E1%86%AB%E1%84%8C%E1%85%A6%20%E1%84%89%E1%85%B5%E1%84%89%E1%85%B3%E1%84%90%E1%85%A6%E1%86%B7%208ee20e9e87d24b39940bd2eca13e1d1d/Untitled%206.png](%E1%84%89%E1%85%A5%E1%86%AB%E1%84%87%E1%85%A1%E1%86%A8%20%E1%84%80%E1%85%AA%E1%86%AB%E1%84%8C%E1%85%A6%20%E1%84%89%E1%85%B5%E1%84%89%E1%85%B3%E1%84%90%E1%85%A6%E1%86%B7%208ee20e9e87d24b39940bd2eca13e1d1d/Untitled%206.png)
+![11 update](https://user-images.githubusercontent.com/33865991/127798685-ad4db7c7-d820-435b-bdef-bc7346768031.png)
 
 - 과거 저장된 데이터 출력 페이지
 
-    ![%E1%84%89%E1%85%A5%E1%86%AB%E1%84%87%E1%85%A1%E1%86%A8%20%E1%84%80%E1%85%AA%E1%86%AB%E1%84%8C%E1%85%A6%20%E1%84%89%E1%85%B5%E1%84%89%E1%85%B3%E1%84%90%E1%85%A6%E1%86%B7%208ee20e9e87d24b39940bd2eca13e1d1d/Untitled%207.png](%E1%84%89%E1%85%A5%E1%86%AB%E1%84%87%E1%85%A1%E1%86%A8%20%E1%84%80%E1%85%AA%E1%86%AB%E1%84%8C%E1%85%A6%20%E1%84%89%E1%85%B5%E1%84%89%E1%85%B3%E1%84%90%E1%85%A6%E1%86%B7%208ee20e9e87d24b39940bd2eca13e1d1d/Untitled%207.png)
+![12 data](https://user-images.githubusercontent.com/33865991/127798676-d2dc4919-5253-4c51-bb36-9c9486b891e0.png)
 
 [주요 내역](https://www.notion.so/8448ee0d71c548249d47a81299fc588f)
 
