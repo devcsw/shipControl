@@ -22,8 +22,7 @@ github: https://github.com/devcsw/shipControl
 ---
 
 ### 선박 관제 페이지 FlowChart
-
-![%E1%84%89%E1%85%A5%E1%86%AB%E1%84%87%E1%85%A1%E1%86%A8%20%E1%84%80%E1%85%AA%E1%86%AB%E1%84%8C%E1%85%A6%20%E1%84%89%E1%85%B5%E1%84%89%E1%85%B3%E1%84%90%E1%85%A6%E1%86%B7%208ee20e9e87d24b39940bd2eca13e1d1d/Untitled.png](%E1%84%89%E1%85%A5%E1%86%AB%E1%84%87%E1%85%A1%E1%86%A8%20%E1%84%80%E1%85%AA%E1%86%AB%E1%84%8C%E1%85%A6%20%E1%84%89%E1%85%B5%E1%84%89%E1%85%B3%E1%84%90%E1%85%A6%E1%86%B7%208ee20e9e87d24b39940bd2eca13e1d1d/Untitled.png)
+![1 sControl_flow](https://user-images.githubusercontent.com/33865991/127798563-81cb2de5-8e44-4d92-955d-04d77190ce1c.png)
 
 - 초기 설계에서는 사고 데이터를 전송 받아 데이터를 전송 하는 방식으로 설계를 진행했었는데 해양 사고 자체로는 5천 건 정도로 적은 횟수를 가지고 있어 계속해서 로우 데이터를 보내는 방식으로 수정 .
 
