@@ -301,7 +301,7 @@
 							class="page-link" href="/reportPage?currentPage=${v}">${v}</a></li>
 					</c:forEach>
 
-					<c:if test="${dto.startPage/10 != dto.wholePage/10 }">
+					<c:if test="${ dto.startPage/10 +(1-(dto.startPage/10%1))%1 != dto.wholePage/10 +(1-(dto.wholePage/10%1))%1  }">
 						<li class="page-item"><a class="page-link"
 							href="/reportPage?currentPage=${dto.startPage + 10 }">이후</a></li>
 					</c:if>
